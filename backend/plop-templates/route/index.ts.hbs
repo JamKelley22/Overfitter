@@ -113,8 +113,13 @@ router.put(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
     let response: Response<I{{typeName}} | undefined>;
     try {
         const id = parseIdFromParams(req.params);
-        const item = new {{typeName}}(cleanObject(req.body));
-        response = await updateById("{{tableName}}", id, item, {{typeName}});
+        const item = cleanObject(req.body);
+        response = await updateById(
+            "{{tableName}}",
+            id,
+            item as Partial<{{typeName}}>,
+            {{typeName}}
+        );
     } catch (e) {
         response = new Response(
             false,

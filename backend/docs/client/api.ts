@@ -135,13 +135,13 @@ export interface Bottom {
      * @type {ItemCondition}
      * @memberof Bottom
      */
-    'item_condition'?: ItemCondition;
+    'itemCondition'?: ItemCondition;
     /**
      * 
      * @type {ItemStatus}
      * @memberof Bottom
      */
-    'item_status'?: ItemStatus;
+    'itemStatus'?: ItemStatus;
     /**
      * 
      * @type {number}
@@ -365,13 +365,13 @@ export interface ClothingItem {
      * @type {ItemCondition}
      * @memberof ClothingItem
      */
-    'item_condition'?: ItemCondition;
+    'itemCondition'?: ItemCondition;
     /**
      * 
      * @type {ItemStatus}
      * @memberof ClothingItem
      */
-    'item_status'?: ItemStatus;
+    'itemStatus'?: ItemStatus;
     /**
      * 
      * @type {number}
@@ -456,13 +456,13 @@ export interface ClothingItemAllOf {
      * @type {ItemCondition}
      * @memberof ClothingItemAllOf
      */
-    'item_condition'?: ItemCondition;
+    'itemCondition'?: ItemCondition;
     /**
      * 
      * @type {ItemStatus}
      * @memberof ClothingItemAllOf
      */
-    'item_status'?: ItemStatus;
+    'itemStatus'?: ItemStatus;
     /**
      * 
      * @type {number}
@@ -670,13 +670,13 @@ export interface Feet {
      * @type {ItemCondition}
      * @memberof Feet
      */
-    'item_condition'?: ItemCondition;
+    'itemCondition'?: ItemCondition;
     /**
      * 
      * @type {ItemStatus}
      * @memberof Feet
      */
-    'item_status'?: ItemStatus;
+    'itemStatus'?: ItemStatus;
     /**
      * 
      * @type {number}
@@ -849,13 +849,13 @@ export interface Head {
      * @type {ItemCondition}
      * @memberof Head
      */
-    'item_condition'?: ItemCondition;
+    'itemCondition'?: ItemCondition;
     /**
      * 
      * @type {ItemStatus}
      * @memberof Head
      */
-    'item_status'?: ItemStatus;
+    'itemStatus'?: ItemStatus;
     /**
      * 
      * @type {number}
@@ -1245,13 +1245,13 @@ export interface Top {
      * @type {ItemCondition}
      * @memberof Top
      */
-    'item_condition'?: ItemCondition;
+    'itemCondition'?: ItemCondition;
     /**
      * 
      * @type {ItemStatus}
      * @memberof Top
      */
-    'item_status'?: ItemStatus;
+    'itemStatus'?: ItemStatus;
     /**
      * 
      * @type {number}
@@ -1427,10 +1427,10 @@ export type TopType = typeof TopType[keyof typeof TopType];
 export interface WithId {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof WithId
      */
-    'id'?: string;
+    'id'?: number;
 }
 /**
  * 
@@ -1509,13 +1509,13 @@ export interface Wrist {
      * @type {ItemCondition}
      * @memberof Wrist
      */
-    'item_condition'?: ItemCondition;
+    'itemCondition'?: ItemCondition;
     /**
      * 
      * @type {ItemStatus}
      * @memberof Wrist
      */
-    'item_status'?: ItemStatus;
+    'itemStatus'?: ItemStatus;
     /**
      * 
      * @type {number}

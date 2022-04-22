@@ -59,7 +59,7 @@ const entityDefaults = {
 };
 
 export class Entity implements IEntity {
-    id?: string;
+    id?: number;
     uriImage?: string;
     name?: string;
     description?: string;
@@ -145,8 +145,8 @@ export class ClothingItem extends Entity implements IClothingItem {
             clothingItemDefaults.timestampPurchasedISO;
 
         this.itemCondition =
-            data.item_condition ?? clothingItemDefaults.itemCondition;
-        this.itemStatus = data.item_status ?? clothingItemDefaults.itemStatus;
+            data.itemCondition ?? clothingItemDefaults.itemCondition;
+        this.itemStatus = data.itemStatus ?? clothingItemDefaults.itemStatus;
         this.numberOfWears =
             data.numberOfWears ?? clothingItemDefaults.numberOfWears;
         this.wearsBeforeDirty =

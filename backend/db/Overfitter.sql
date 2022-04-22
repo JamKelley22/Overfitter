@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2022-04-22T09:24:37.732Z
+-- Generated at: 2022-04-22T18:42:45.722Z
 
 CREATE TYPE "outfit_type" AS ENUM (
   'FORMAL',
@@ -114,8 +114,8 @@ CREATE TABLE "tops" (
   "timestampLastModifiedISO" timestamp,
   "timestampPurchasedISO" timestamp,
   "rating" int,
-  "condition" item_condition,
-  "status" item_status,
+  "itemCondition" item_condition,
+  "itemStatus" item_status,
   "numberOfWears" int,
   "wearsBeforeDirty" int,
   "wearsLeftBeforeDirty" int,
@@ -146,8 +146,8 @@ CREATE TABLE "bottoms" (
   "timestampLastModifiedISO" timestamp,
   "timestampPurchasedISO" timestamp,
   "rating" int,
-  "condition" item_condition,
-  "status" item_status,
+  "itemCondition" item_condition,
+  "itemStatus" item_status,
   "numberOfWears" int,
   "wearsBeforeDirty" int,
   "wearsLeftBeforeDirty" int,
@@ -175,8 +175,8 @@ CREATE TABLE "feet" (
   "timestampLastModifiedISO" timestamp,
   "timestampPurchasedISO" timestamp,
   "rating" int,
-  "condition" item_condition,
-  "status" item_status,
+  "itemCondition" item_condition,
+  "itemStatus" item_status,
   "numberOfWears" int,
   "wearsBeforeDirty" int,
   "wearsLeftBeforeDirty" int,
@@ -201,8 +201,8 @@ CREATE TABLE "wrist" (
   "timestampLastModifiedISO" timestamp,
   "timestampPurchasedISO" timestamp,
   "rating" int,
-  "condition" item_condition,
-  "status" item_status,
+  "itemCondition" item_condition,
+  "itemStatus" item_status,
   "numberOfWears" int,
   "wearsBeforeDirty" int,
   "wearsLeftBeforeDirty" int,
@@ -227,8 +227,8 @@ CREATE TABLE "head" (
   "timestampLastModifiedISO" timestamp,
   "timestampPurchasedISO" timestamp,
   "rating" int,
-  "condition" item_condition,
-  "status" item_status,
+  "itemCondition" item_condition,
+  "itemStatus" item_status,
   "numberOfWears" int,
   "wearsBeforeDirty" int,
   "wearsLeftBeforeDirty" int,

@@ -11,7 +11,7 @@ import {
 import {
     idParamValidator,
     ensureValidInput,
-    authenticateToken
+    authenticateToken,
 } from "../middleware";
 import { Response, StatusCode } from "../../types";
 import { cleanObject, parseIdFromParams } from "../../util";
@@ -113,8 +113,13 @@ router.put(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
     let response: Response<IHead | undefined>;
     try {
         const id = parseIdFromParams(req.params);
-        const item = new Head(cleanObject(req.body));
-        response = await updateById("heads", id, item, Head);
+        const item = cleanObject(req.body);
+        response = await updateById(
+            "heads",
+            id,
+            item as Partial<Head>,
+            Head
+        );
     } catch (e) {
         response = new Response(
             false,

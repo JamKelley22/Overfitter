@@ -1,9 +1,10 @@
 import { QueryResult } from "pg";
+import { WithId } from "../docs/client";
 
 import { pgClient } from "./config";
 import { Response, StatusCode } from "./types";
 
-export async function runQuery(sqlQuery: string): Promise<QueryResult<any>> {
+export async function runQuery<T>(sqlQuery: string): Promise<QueryResult<T>> {
     return new Promise((resolve, reject) => {
         pgClient.query(sqlQuery, (err, result) => {
             if (err) {
@@ -21,7 +22,7 @@ export async function getAll<T>(
 ): Promise<Response<T[] | undefined>> {
     const sqlQuery = `SELECT * FROM ${tableName}`;
 
-    const queryResults = await runQuery(sqlQuery);
+    const queryResults = await runQuery<T[]>(sqlQuery);
 
     const result = queryResults.rows.map((result: any) => new dataType(result));
     return new Response<T[]>(true, result);
@@ -29,7 +30,7 @@ export async function getAll<T>(
 
 export async function getById<T>(
     tableName: string,
-    id: string | undefined,
+    id: number | undefined,
     dataType: new (data: any) => T
 ): Promise<Response<T | undefined>> {
     if (!id) {
@@ -43,7 +44,7 @@ export async function getById<T>(
 
     const sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${id}`;
 
-    const queryResults = await runQuery(sqlQuery);
+    const queryResults = await runQuery<T>(sqlQuery);
 
     if (queryResults.rowCount === 0) {
         return new Response(
@@ -64,16 +65,14 @@ export async function create<T>(
 ): Promise<Response<T | undefined>> {
     const bodyNoId = Object.entries(body).filter((v) => v[0] !== "id");
     let sqlQuery = `INSERT INTO ${tableName}(${bodyNoId
-        .map((pair) => pair[0])
+        .map((pair) => `"${pair[0]}"`)
         .join(",")}) VALUES (${bodyNoId
         .map((pair) =>
             typeof pair[1] === "number" ? pair[1] : `\'${pair[1]}\'`
         )
         .join(",")}) RETURNING id`;
 
-    console.log(sqlQuery);
-
-    let queryResults = await runQuery(sqlQuery);
+    let queryResults = await runQuery<T>(sqlQuery);
 
     if (queryResults.rowCount === 0) {
         return new Response(
@@ -84,7 +83,9 @@ export async function create<T>(
         );
     }
 
-    sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${queryResults.rows[0].id}`;
+    sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${
+        (queryResults.rows[0] as T & WithId).id
+    }`;
     queryResults = await runQuery(sqlQuery);
     if (queryResults.rowCount === 0) {
         return new Response(
@@ -94,6 +95,7 @@ export async function create<T>(
             `Create Failed`
         );
     }
+
     return new Response(
         true,
         new dataType(queryResults.rows[0]),
@@ -121,7 +123,7 @@ export async function deleteAll<T>(
 
 export async function deleteById<T>(
     tableName: string,
-    id: string | undefined,
+    id: number | undefined,
     dataType: new (data: any) => T
 ): Promise<Response<T | undefined>> {
     if (!id) {
@@ -157,7 +159,7 @@ export async function deleteById<T>(
 
 export async function updateById<T>(
     tableName: string,
-    id: string | undefined,
+    id: number | undefined,
     body: Partial<T>,
     dataType: new (data: any) => T
 ): Promise<Response<T | undefined>> {
@@ -172,7 +174,7 @@ export async function updateById<T>(
 
     const bodyNoId = Object.entries(body).filter((v) => v[0] !== "id");
     let sqlQuery = `UPDATE ${tableName} SET ${bodyNoId
-        .map((pair) => `${pair[0]} = '${pair[1]}'`)
+        .map((pair) => `"${pair[0]}" = '${pair[1]}'`)
         .join(", ")} WHERE id = ${id}`;
 
     let queryResults = await runQuery(sqlQuery);

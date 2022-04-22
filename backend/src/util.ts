@@ -27,7 +27,7 @@ export function cleanObject<T>(data: Record<string, unknown>): T {
 
 export function parseIdFromParams(
     params: { [key: string]: string } | string[]
-): string | undefined {
+): number | undefined {
     const { id } = (params as unknown) as WithId;
     return id;
 }

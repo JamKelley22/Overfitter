@@ -113,8 +113,13 @@ router.put(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
     let response: Response<IBottom | undefined>;
     try {
         const id = parseIdFromParams(req.params);
-        const item = new Bottom(cleanObject(req.body));
-        response = await updateById("bottoms", id, item, Bottom);
+        const item = cleanObject(req.body);
+        response = await updateById(
+            "bottoms",
+            id,
+            item as Partial<Bottom>,
+            Bottom
+        );
     } catch (e) {
         response = new Response(
             false,

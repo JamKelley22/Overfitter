@@ -11,8 +11,8 @@ Table tops {
   timestampLastModifiedISO timestamp 
   timestampPurchasedISO timestamp 
   rating int
-  condition item_condition
-  status item_status
+  itemCondition item_condition
+  itemStatus item_status
   numberOfWears int
   wearsBeforeDirty int
   wearsLeftBeforeDirty int
@@ -45,8 +45,8 @@ Table bottoms {
   timestampLastModifiedISO timestamp 
   timestampPurchasedISO timestamp 
   rating int
-  condition item_condition
-  status item_status
+  itemCondition item_condition
+  itemStatus item_status
   numberOfWears int
   wearsBeforeDirty int
   wearsLeftBeforeDirty int
@@ -76,8 +76,8 @@ Table feet {
   timestampLastModifiedISO timestamp 
   timestampPurchasedISO timestamp 
   rating int
-  condition item_condition
-  status item_status
+  itemCondition item_condition
+  itemStatus item_status
   numberOfWears int
   wearsBeforeDirty int
   wearsLeftBeforeDirty int
@@ -104,8 +104,8 @@ Table wrist {
   timestampLastModifiedISO timestamp 
   timestampPurchasedISO timestamp 
   rating int
-  condition item_condition
-  status item_status
+  itemCondition item_condition
+  itemStatus item_status
   numberOfWears int
   wearsBeforeDirty int
   wearsLeftBeforeDirty int
@@ -132,8 +132,8 @@ Table head {
   timestampLastModifiedISO timestamp 
   timestampPurchasedISO timestamp 
   rating int
-  condition item_condition
-  status item_status
+  itemCondition item_condition
+  itemStatus item_status
   numberOfWears int
   wearsBeforeDirty int
   wearsLeftBeforeDirty int
