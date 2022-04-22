@@ -1,0 +1,132 @@
+import express from "express";
+
+import {
+    getAll,
+    getById,
+    create,
+    deleteAll,
+    deleteById,
+    updateById
+} from "../../engine";
+import {
+    idParamValidator,
+    ensureValidInput,
+    authenticateToken,
+} from "../middleware";
+import { Response, StatusCode } from "../../types";
+import { cleanObject, parseIdFromParams } from "../../util";
+
+import { I{{typeName}}, {{typeName}} } from "./types";
+
+const router = express.Router();
+router.use(authenticateToken);
+
+router.get(``, async (req, res) => {
+    let response: Response<I{{typeName}}[] | undefined>;
+    try {
+        response = await getAll("{{tableName}}", {{typeName}});
+    } catch (e) {
+        response = new Response(
+            false,
+            undefined,
+            StatusCode.SERVER_ERROR,
+            "Error when getting all {{lowerCase typeName}} items",
+            e
+        );
+    }
+    res.statusCode = response.statusCode;
+    res.json(response.toObject());
+});
+
+router.get(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
+    let response: Response<I{{typeName}} | undefined>;
+    try {
+        const id = parseIdFromParams(req.params);
+        response = await getById("{{tableName}}", id, {{typeName}});
+    } catch (e) {
+        response = new Response(
+            false,
+            undefined,
+            StatusCode.SERVER_ERROR,
+            "Error when getting {{lowerCase typeName}} item",
+            e
+        );
+    }
+    res.statusCode = response.statusCode;
+    res.json(response.toObject());
+});
+
+router.post(``, async (req, res) => {
+    let response: Response<I{{typeName}} | undefined>;
+    try {
+        const item = new {{typeName}}(cleanObject(req.body));
+        response = await create("{{tableName}}", item, {{typeName}});
+    } catch (e) {
+        response = new Response(
+            false,
+            undefined,
+            StatusCode.SERVER_ERROR,
+            "Error when creating {{lowerCase typeName}} item",
+            e
+        );
+    }
+    res.statusCode = response.statusCode;
+    res.json(response.toObject());
+});
+
+router.delete(``, async (req, res) => {
+    let response: Response<I{{typeName}}[] | undefined>;
+    try {
+        response = await deleteAll("{{tableName}}", {{typeName}});
+    } catch (e) {
+        response = new Response(
+            false,
+            undefined,
+            StatusCode.SERVER_ERROR,
+            "Error when deleting all {{lowerCase typeName}} items",
+            e
+        );
+    }
+    res.statusCode = response.statusCode;
+    res.json(response.toObject());
+});
+
+router.delete(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
+    let response: Response<I{{typeName}} | undefined>;
+    try {
+        const id = parseIdFromParams(req.params);
+        response = await deleteById("{{tableName}}", id, {{typeName}});
+    } catch (e) {
+        response = new Response(
+            false,
+            undefined,
+            StatusCode.SERVER_ERROR,
+            "Error when deleting {{lowerCase typeName}} item",
+            e
+        );
+    }
+    res.statusCode = response.statusCode;
+    res.json(response.toObject());
+});
+
+router.put(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
+    let response: Response<I{{typeName}} | undefined>;
+    try {
+        const id = parseIdFromParams(req.params);
+        const item = new {{typeName}}(cleanObject(req.body));
+        response = await updateById("{{tableName}}", id, item, {{typeName}});
+    } catch (e) {
+        response = new Response(
+            false,
+            undefined,
+            StatusCode.SERVER_ERROR,
+            "Error when updating {{lowerCase typeName}} item",
+            e
+        );
+    }
+    res.statusCode = response.statusCode;
+    res.json(response.toObject());
+});
+
+const baseEndpoint = "/{{endpoint}}";
+export { router, baseEndpoint };

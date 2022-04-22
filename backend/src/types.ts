@@ -1,114 +1,182 @@
-import { ErrorCode } from "./constants";
-import { MysqlError } from "mysql";
-import moment from "moment";
+import {
+    ItemStatus,
+    SizeUsLetter,
+    ItemCondition,
+    Entity as IEntity,
+    WithId as IWithId,
+    ClothingItem as IClothingItem
+} from "../docs/client/api";
+import { parseDateTime } from "./util";
 
-export class Error {
-  error: boolean;
-  mySQLError: MysqlError | undefined;
-  code: ErrorCode | undefined;
-  message: string | undefined;
-
-  constructor(data: any) {
-    this.error = data.error;
-    this.mySQLError = data.mySQLError;
-    this.code = data.code;
-    this.message = data.message;
-  }
+export enum StatusCode {
+    OK = 200,
+    CREATED = 201,
+    NO_CONTENT = 204,
+    BAD_REQUEST = 400,
+    UNAUTHORIZED = 401,
+    NOT_FOUND = 404,
+    SERVER_ERROR = 500
 }
 
-export interface IConvertMoment {
-  getObjectWithTransformedMoments: (
-    momentKeys: string[]
-  ) => Record<string, unknown>;
+export class Response<T> {
+    success: boolean;
+    data?: T;
+    error: any;
+    errorMessage: string;
+    statusCode: StatusCode;
+    detail?: any;
+
+    constructor(
+        success: boolean,
+        data?: T,
+        statusCode: StatusCode = StatusCode.OK,
+        errorMessage: string = "",
+        error: any = undefined,
+        detail: any = ""
+    ) {
+        this.success = success;
+        this.data = data;
+        this.statusCode = statusCode;
+        this.error = error;
+        this.errorMessage = errorMessage;
+        this.detail = detail;
+    }
+
+    toObject = () => {
+        const { statusCode, ...y } = this;
+        return y;
+    };
 }
 
-export class Entity implements IConvertMoment {
-  id: number;
-  uri_image: string;
-  name: string;
-  description: string;
-  datetime_added: moment.Moment | undefined;
-  datetime_last_modified: moment.Moment | undefined;
-  rating: number;
+const entityDefaults = {
+    id: undefined,
+    uriImage: undefined,
+    name: undefined,
+    description: undefined,
+    timestampAddedISO: undefined,
+    timestampLastModifiedISO: undefined,
+    rating: undefined
+};
 
-  constructor(data: any) {
-    this.id = data.id;
-    this.uri_image = data.uri_image;
-    this.name = data.name;
-    this.description = data.description;
-    this.datetime_added = data.datetime_added
-      ? moment(data.datetime_added)
-      : undefined;
-    this.datetime_last_modified = data.datetime_last_modified
-      ? moment(data.datetime_last_modified)
-      : undefined;
-    this.rating = data.rating;
-  }
+export class Entity implements IEntity {
+    id?: string;
+    uriImage?: string;
+    name?: string;
+    description?: string;
+    timestampAddedISO?: string;
+    timestampLastModifiedISO?: string;
+    rating?: number;
 
-  getObjectWithTransformedMoments(momentKeys?: string[]): Record<string, any> {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const _this: any = this;
+    constructor(data: IEntity & IWithId) {
+        this.id = data.id ?? entityDefaults.id;
+        this.uriImage = data.uriImage ?? entityDefaults.uriImage;
+        this.name = data.name ?? entityDefaults.name;
+        this.description = data.description ?? entityDefaults.description;
+        this.timestampAddedISO =
+            data.timestampAddedISO ?? entityDefaults.timestampAddedISO;
+        this.timestampLastModifiedISO =
+            data.timestampLastModifiedISO ??
+            entityDefaults.timestampLastModifiedISO;
+        this.rating = data.rating ?? entityDefaults.rating;
+    }
 
-    const entityMomentKeys = ["datetime_added", "datetime_last_modified"];
-    const allMomentKeys = [...entityMomentKeys, ...(momentKeys || [])];
-
-    return Object.keys(this).reduce((obj, key) => {
-      return {
-        ...obj,
-        [key]:
-          allMomentKeys.includes(key) && _this[key]
-            ? moment(_this[key]).format()
-            : _this[key],
-      };
-    }, {});
-  }
+    toString(extra?: string) {
+        return `{
+            id: ${this.id},
+            uriImage: ${this.uriImage},
+            name: ${this.name},
+            description: ${this.description},
+            timestampAddedISO: ${parseDateTime(
+                this.timestampAddedISO
+            )?.toLocaleString()},
+            timestampLastModifiedISO: ${parseDateTime(
+                this.timestampLastModifiedISO
+            )?.toLocaleString()},
+            rating: ${this.rating},
+            ${extra}
+}`;
+    }
 }
 
-export class ClothingItem extends Entity {
-  code: string;
-  size: string;
-  brand: string;
-  datetime_purchased: moment.Moment | undefined;
-  item_condition: number;
-  status: Status;
-  number_of_wears: number;
-  wears_before_dirty: number;
-  wears_left_before_dirty: number;
-  primary_color: string;
-  secondary_color: string;
-  accent_color: string;
-  pattern: string;
+const clothingItemDefaults = {
+    code: undefined,
+    sizeUSLetter: SizeUsLetter.Unknown,
+    sizeUSNumber: -1,
+    brand: undefined,
+    timestampPurchasedISO: undefined,
+    itemCondition: ItemCondition.Unknown,
+    itemStatus: ItemStatus.Unknown,
+    numberOfWears: undefined,
+    wearsBeforeDirty: undefined,
+    wearsLeftBeforeDirty: undefined,
+    primaryColor: undefined,
+    secondaryColor: undefined,
+    accentColor: undefined,
+    pattern: undefined
+};
 
-  constructor(data: any) {
-    super(data);
-    this.code = data.code;
-    this.size = data.size;
-    this.brand = data.brand;
+export class ClothingItem extends Entity implements IClothingItem {
+    code?: string;
+    sizeUSLetter: SizeUsLetter;
+    sizeUSNumber?: number;
+    brand?: string;
+    timestampPurchasedISO?: string;
+    itemCondition: ItemCondition;
+    itemStatus: ItemStatus;
+    numberOfWears?: number;
+    wearsBeforeDirty?: number;
+    wearsLeftBeforeDirty?: number;
+    primaryColor?: string;
+    secondaryColor?: string;
+    accentColor?: string;
+    pattern?: string;
 
-    this.datetime_purchased = data.datetime_purchased
-      ? moment(data.datetime_purchased)
-      : undefined;
+    constructor(data: IClothingItem) {
+        super(data);
+        this.code = data.code ?? clothingItemDefaults.code;
+        this.sizeUSLetter =
+            data.sizeUSLetter ?? clothingItemDefaults.sizeUSLetter;
+        this.sizeUSNumber =
+            data.sizeUSNumber ?? clothingItemDefaults.sizeUSNumber;
+        this.brand = data.brand ?? clothingItemDefaults.brand;
 
-    this.item_condition = data.item_condition;
-    this.status = data.status;
-    this.number_of_wears = data.number_of_wears;
-    this.wears_before_dirty = data.wears_before_dirty;
-    this.wears_left_before_dirty = data.wears_left_before_dirty;
-    this.primary_color = data.primary_color;
-    this.secondary_color = data.secondary_color;
-    this.accent_color = data.accent_color;
-    this.pattern = data.patten;
-  }
+        this.timestampPurchasedISO =
+            data.timestampPurchasedISO ??
+            clothingItemDefaults.timestampPurchasedISO;
 
-  getObjectWithTransformedMoments(momentKeys?: string[]): Record<string, any> {
-    const clothingItemMomentKeys = ["datetime_purchased"];
-    return super.getObjectWithTransformedMoments(clothingItemMomentKeys);
-  }
-}
+        this.itemCondition =
+            data.item_condition ?? clothingItemDefaults.itemCondition;
+        this.itemStatus = data.item_status ?? clothingItemDefaults.itemStatus;
+        this.numberOfWears =
+            data.numberOfWears ?? clothingItemDefaults.numberOfWears;
+        this.wearsBeforeDirty =
+            data.wearsBeforeDirty ?? clothingItemDefaults.wearsBeforeDirty;
+        this.wearsLeftBeforeDirty =
+            data.wearsLeftBeforeDirty ??
+            clothingItemDefaults.wearsLeftBeforeDirty;
+        this.primaryColor =
+            data.primaryColor ?? clothingItemDefaults.primaryColor;
+        this.secondaryColor =
+            data.secondaryColor ?? clothingItemDefaults.secondaryColor;
+        this.accentColor = data.accentColor ?? clothingItemDefaults.accentColor;
+        this.pattern = data.pattern ?? clothingItemDefaults.pattern;
+    }
 
-export enum Status {
-  Clean = "clean",
-  Dirty = "dirty",
-  Worn = "worn",
-  Ok = "ok",
+    toString(extra?: string) {
+        return super.toString(`code: ${this.code},
+            sizeUSLetter: ${this.sizeUSLetter},
+            sizeUSNumber: ${this.sizeUSNumber},
+            brand: ${this.brand},
+            datetimePurchased: ${this.timestampPurchasedISO?.toLocaleString()},
+            itemCondition: ${this.itemCondition},
+            itemStatus: ${this.itemStatus},
+            numberOfWears: ${this.numberOfWears},
+            wearsBeforeDirty: ${this.wearsBeforeDirty},
+            wearsLeftBeforeDirty: ${this.wearsLeftBeforeDirty},
+            primaryColor: ${this.primaryColor},
+            secondaryColor: ${this.secondaryColor},
+            accentColor: ${this.accentColor},
+            pattern: ${this.pattern},
+            ${extra}`);
+    }
 }

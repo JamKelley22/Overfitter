@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+    postgres-db:
+        build: db
+        container_name: postgres
+        restart: always
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=overfitter
+        healthcheck:
+            test: ["CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root"]
+            timeout: 45s
+            interval: 10s
+            retries: 10
+        ports:
+            - "5432:5432"
+        volumes:
+            - db/data/postgres:/var/lib/postgresql/data
+    backend:
+        build: .
+        restart: always
+        environment:
+            - CONNECTION_STRING=postgres://postgres:postgres@postgres-db:5432/overfitter
+        ports:
+            - "4000:4000"
+        depends_on:
+            - postgres-db
+volumes:
+    db:
+        driver: local

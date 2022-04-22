@@ -1,199 +1,193 @@
-import { connection } from "./config";
-import { ErrorCode } from "./constants";
-import { Error } from "./types";
+import { QueryResult } from "pg";
 
-export async function runQuery(sqlQuery: string, values?: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    connection.query(sqlQuery, values, (err, result, fields) => {
-      if (err) {
-        reject(
-          new Error({
-            error: true,
-            mySQLError: err,
-            message: err.message,
-          })
-        );
-        return;
-      }
-      resolve(result);
+import { pgClient } from "./config";
+import { Response, StatusCode } from "./types";
+
+export async function runQuery(sqlQuery: string): Promise<QueryResult<any>> {
+    return new Promise((resolve, reject) => {
+        pgClient.query(sqlQuery, (err, result) => {
+            if (err) {
+                reject(err.message);
+                return;
+            }
+            resolve(result);
+        });
     });
-  });
 }
 
 export async function getAll<T>(
-  tableName: string,
-  dataType: new (data: any) => T
-): Promise<T> {
-  const sqlQuery = `SELECT * FROM ${tableName}`;
+    tableName: string,
+    dataType: new (data: any) => T
+): Promise<Response<T[] | undefined>> {
+    const sqlQuery = `SELECT * FROM ${tableName}`;
 
-  let queryResults;
-  try {
-    queryResults = await runQuery(sqlQuery);
-    const ret = await queryResults.map((result: any) => new dataType(result));
-    return Promise.resolve(ret);
-  } catch (e) {
-    return Promise.reject(e);
-  }
+    const queryResults = await runQuery(sqlQuery);
+
+    const result = queryResults.rows.map((result: any) => new dataType(result));
+    return new Response<T[]>(true, result);
 }
 
 export async function getById<T>(
-  tableName: string,
-  id: number,
-  dataType: new (data: any) => T
-): Promise<T> {
-  const sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${connection.escape(
-    id
-  )}`;
-
-  let queryResults;
-  try {
-    queryResults = await runQuery(sqlQuery);
-
-    if (queryResults.length === 0) {
-      return Promise.reject(
-        new Error({
-          error: true,
-          code: ErrorCode.NOT_FOUND,
-          message: `No item with id ${connection.escape(id)} in ${tableName}`,
-        })
-      );
+    tableName: string,
+    id: string | undefined,
+    dataType: new (data: any) => T
+): Promise<Response<T | undefined>> {
+    if (!id) {
+        return new Response(
+            false,
+            undefined,
+            StatusCode.BAD_REQUEST,
+            `Request must include Id`
+        );
     }
 
-    return Promise.resolve(new dataType(queryResults[0]));
-  } catch (e) {
-    return Promise.reject(e);
-  }
+    const sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${id}`;
+
+    const queryResults = await runQuery(sqlQuery);
+
+    if (queryResults.rowCount === 0) {
+        return new Response(
+            false,
+            undefined,
+            StatusCode.NOT_FOUND,
+            `No item with id ${id} in ${tableName}`
+        );
+    }
+
+    return new Response(true, new dataType(queryResults.rows[0]));
 }
 
 export async function create<T>(
-  tableName: string,
-  body: any, //Todo: update this (and update) to T
-  dataType: new (data: any) => T
-): Promise<T> {
-  const bodyNoId: any = Object.keys(body)
-    .filter((key) => key !== "id" && body[key])
-    .reduce((obj, key) => {
-      return {
-        ...obj,
-        [key]: body[key],
-      };
-    }, {});
+    tableName: string,
+    body: Omit<T, "id">,
+    dataType: new (data: any) => T
+): Promise<Response<T | undefined>> {
+    const bodyNoId = Object.entries(body).filter((v) => v[0] !== "id");
+    let sqlQuery = `INSERT INTO ${tableName}(${bodyNoId
+        .map((pair) => pair[0])
+        .join(",")}) VALUES (${bodyNoId
+        .map((pair) =>
+            typeof pair[1] === "number" ? pair[1] : `\'${pair[1]}\'`
+        )
+        .join(",")}) RETURNING id`;
 
-  let sqlQuery = `INSERT INTO ${tableName} SET ?`;
-  let queryResults;
-  try {
-    queryResults = await runQuery(sqlQuery, bodyNoId);
+    console.log(sqlQuery);
 
-    sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${connection.escape(
-      queryResults.insertId
-    )}`;
-    queryResults = await runQuery(sqlQuery);
-    if (queryResults.length === 0) {
-      return Promise.reject(
-        new Error({
-          error: true,
-          code: ErrorCode.NOT_FOUND,
-          message: `Create Failed`,
-        })
-      );
+    let queryResults = await runQuery(sqlQuery);
+
+    if (queryResults.rowCount === 0) {
+        return new Response(
+            false,
+            undefined,
+            StatusCode.NOT_FOUND,
+            `Create Failed`
+        );
     }
-    return Promise.resolve(new dataType(queryResults[0]));
-  } catch (e) {
-    return Promise.reject(e);
-  }
+
+    sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${queryResults.rows[0].id}`;
+    queryResults = await runQuery(sqlQuery);
+    if (queryResults.rowCount === 0) {
+        return new Response(
+            false,
+            undefined,
+            StatusCode.NOT_FOUND,
+            `Create Failed`
+        );
+    }
+    return new Response(
+        true,
+        new dataType(queryResults.rows[0]),
+        StatusCode.CREATED
+    );
 }
 
 export async function deleteAll<T>(
-  tableName: string,
-  dataType: new (data: any) => T
-): Promise<T> {
-  let sqlQuery = `SELECT * FROM ${tableName}`;
+    tableName: string,
+    dataType: new (data: any) => T
+): Promise<Response<T[] | undefined>> {
+    let sqlQuery = `SELECT * FROM ${tableName}`;
 
-  let queryResults;
-  try {
-    queryResults = await runQuery(sqlQuery);
+    let queryResults = await runQuery(sqlQuery);
 
-    const all = queryResults.map((result: any) => new dataType(result));
+    const all = queryResults.rows.map((result: any) => new dataType(result));
 
     sqlQuery = `DELETE FROM ${tableName}`;
     queryResults = await runQuery(sqlQuery);
 
-    return Promise.resolve(all);
-  } catch (e) {
-    return Promise.reject(e);
-  }
+    // Todo: Check that delete was successful
+
+    return new Response(true, all);
 }
 
 export async function deleteById<T>(
-  tableName: string,
-  id: number,
-  dataType: new (data: any) => T
-): Promise<T> {
-  let sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${connection.escape(
-    id
-  )}`;
-
-  let queryResults;
-  try {
-    queryResults = await runQuery(sqlQuery);
-
-    if (queryResults.length === 0) {
-      return Promise.reject(
-        new Error({
-          error: true,
-          code: ErrorCode.NOT_FOUND,
-          message: `No item with id ${connection.escape(id)} in ${tableName}`,
-        })
-      );
+    tableName: string,
+    id: string | undefined,
+    dataType: new (data: any) => T
+): Promise<Response<T | undefined>> {
+    if (!id) {
+        return new Response(
+            false,
+            undefined,
+            StatusCode.BAD_REQUEST,
+            `Request must include Id`
+        );
     }
 
-    const match = new dataType(queryResults[0]);
+    let sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${id}`;
 
-    sqlQuery = `DELETE FROM ${tableName} WHERE id = ${connection.escape(id)}`;
+    let queryResults = await runQuery(sqlQuery);
+
+    if (queryResults.rowCount === 0) {
+        return new Response(
+            false,
+            undefined,
+            StatusCode.NOT_FOUND,
+            `No item with id ${id} in ${tableName}`
+        );
+    }
+
+    const match = new dataType(queryResults.rows[0]);
+
+    sqlQuery = `DELETE FROM ${tableName} WHERE id = ${id}`;
     queryResults = await runQuery(sqlQuery);
-    return Promise.resolve(match);
-  } catch (e) {
-    return Promise.reject(e);
-  }
+    // Todo: Check that delete was successful
+
+    return new Response(true, match);
 }
 
 export async function updateById<T>(
-  tableName: string,
-  id: number,
-  body: any,
-  dataType: new (data: any) => T
-): Promise<T> {
-  const cleanId = connection.escape(id);
-  const bodyNoId: any = Object.keys(body)
-    .filter((key) => key !== "id" && body[key])
-    .reduce((obj, key) => {
-      return {
-        ...obj,
-        [key]: body[key],
-      };
-    }, {});
-
-  let sqlQuery = `UPDATE ${tableName} SET ? WHERE id = ${cleanId}`;
-
-  let queryResults;
-  try {
-    queryResults = await runQuery(sqlQuery, bodyNoId);
-
-    sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${cleanId}`;
-    queryResults = await runQuery(sqlQuery);
-
-    if (queryResults.length === 0) {
-      return Promise.reject(
-        new Error({
-          error: true,
-          code: ErrorCode.NOT_FOUND,
-          message: `Update Failed: No item with id ${cleanId} in ${tableName}`,
-        })
-      );
+    tableName: string,
+    id: string | undefined,
+    body: Partial<T>,
+    dataType: new (data: any) => T
+): Promise<Response<T | undefined>> {
+    if (!id) {
+        return new Response(
+            false,
+            undefined,
+            StatusCode.BAD_REQUEST,
+            `Request must include Id`
+        );
     }
 
-    return Promise.resolve(new dataType(queryResults[0]));
-  } catch (e) {
-    return Promise.reject(e);
-  }
+    const bodyNoId = Object.entries(body).filter((v) => v[0] !== "id");
+    let sqlQuery = `UPDATE ${tableName} SET ${bodyNoId
+        .map((pair) => `${pair[0]} = '${pair[1]}'`)
+        .join(", ")} WHERE id = ${id}`;
+
+    let queryResults = await runQuery(sqlQuery);
+
+    sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${id}`;
+    queryResults = await runQuery(sqlQuery);
+
+    if (queryResults.rowCount === 0) {
+        return new Response(
+            false,
+            undefined,
+            StatusCode.NOT_FOUND,
+            `Update Failed: No item with id ${id} in ${tableName}`
+        );
+    }
+
+    return new Response(true, new dataType(queryResults.rows[0]));
 }
