@@ -10,7 +10,7 @@ export class {{typeName}} extends ClothingItem implements I{{typeName}} {
         this.type = data.type ?? {{typeName}}Type.Unknown;
     }
 
-    toString() {
+    toString(): string {
         return super.toString(`type: ${this.type}`);
     }
 }

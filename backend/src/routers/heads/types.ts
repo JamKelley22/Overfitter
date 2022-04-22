@@ -10,7 +10,7 @@ export class Head extends ClothingItem implements IHead {
         this.type = data.type ?? HeadType.Unknown;
     }
 
-    toString() {
+    toString(): string {
         return super.toString(`type: ${this.type}`);
     }
 }

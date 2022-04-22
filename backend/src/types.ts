@@ -21,18 +21,18 @@ export enum StatusCode {
 export class Response<T> {
     success: boolean;
     data?: T;
-    error: any;
+    error: unknown;
     errorMessage: string;
     statusCode: StatusCode;
-    detail?: any;
+    detail?: unknown;
 
     constructor(
         success: boolean,
         data?: T,
-        statusCode: StatusCode = StatusCode.OK,
-        errorMessage: string = "",
-        error: any = undefined,
-        detail: any = ""
+        statusCode = StatusCode.OK,
+        errorMessage = "",
+        error = undefined,
+        detail = ""
     ) {
         this.success = success;
         this.data = data;
@@ -42,8 +42,8 @@ export class Response<T> {
         this.detail = detail;
     }
 
-    toObject = () => {
-        const { statusCode, ...y } = this;
+    toObject = (): Omit<this, "statusCode"> => {
+        const { statusCode, ...y } = this; // eslint-disable-line
         return y;
     };
 }
@@ -80,7 +80,7 @@ export class Entity implements IEntity {
         this.rating = data.rating ?? entityDefaults.rating;
     }
 
-    toString(extra?: string) {
+    toString(extra?: string): string {
         return `{
             id: ${this.id},
             uriImage: ${this.uriImage},
@@ -162,7 +162,7 @@ export class ClothingItem extends Entity implements IClothingItem {
         this.pattern = data.pattern ?? clothingItemDefaults.pattern;
     }
 
-    toString(extra?: string) {
+    toString(extra?: string): string {
         return super.toString(`code: ${this.code},
             sizeUSLetter: ${this.sizeUSLetter},
             sizeUSNumber: ${this.sizeUSNumber},

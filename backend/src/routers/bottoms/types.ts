@@ -10,7 +10,7 @@ export class Bottom extends ClothingItem implements IBottom {
         this.type = data.type ?? BottomType.Unknown;
     }
 
-    toString() {
+    toString(): string {
         return super.toString(`type: ${this.type}`);
     }
 }

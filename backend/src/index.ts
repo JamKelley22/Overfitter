@@ -42,7 +42,7 @@ if (app.get("env") === "development") {
     });
 }
 
-pgClient.connect(function (err: any) {
+pgClient.connect(function (err: unknown) {
     if (err) throw err;
-    console.log("Connected!");
+    console.log("Connected!"); // eslint-disable-line
 });

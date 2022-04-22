@@ -18,20 +18,20 @@ export async function runQuery<T>(sqlQuery: string): Promise<QueryResult<T>> {
 
 export async function getAll<T>(
     tableName: string,
-    dataType: new (data: any) => T
+    dataType: new (data: T) => T
 ): Promise<Response<T[] | undefined>> {
     const sqlQuery = `SELECT * FROM ${tableName}`;
 
-    const queryResults = await runQuery<T[]>(sqlQuery);
+    const queryResults = await runQuery<T>(sqlQuery);
 
-    const result = queryResults.rows.map((result: any) => new dataType(result));
+    const result = queryResults.rows.map((result: T) => new dataType(result));
     return new Response<T[]>(true, result);
 }
 
 export async function getById<T>(
     tableName: string,
     id: number | undefined,
-    dataType: new (data: any) => T
+    dataType: new (data: T) => T
 ): Promise<Response<T | undefined>> {
     if (!id) {
         return new Response(
@@ -61,15 +61,13 @@ export async function getById<T>(
 export async function create<T>(
     tableName: string,
     body: Omit<T, "id">,
-    dataType: new (data: any) => T
+    dataType: new (data: T) => T
 ): Promise<Response<T | undefined>> {
     const bodyNoId = Object.entries(body).filter((v) => v[0] !== "id");
     let sqlQuery = `INSERT INTO ${tableName}(${bodyNoId
         .map((pair) => `"${pair[0]}"`)
         .join(",")}) VALUES (${bodyNoId
-        .map((pair) =>
-            typeof pair[1] === "number" ? pair[1] : `\'${pair[1]}\'`
-        )
+        .map((pair) => (typeof pair[1] === "number" ? pair[1] : `'${pair[1]}'`))
         .join(",")}) RETURNING id`;
 
     let queryResults = await runQuery<T>(sqlQuery);
@@ -105,16 +103,16 @@ export async function create<T>(
 
 export async function deleteAll<T>(
     tableName: string,
-    dataType: new (data: any) => T
+    dataType: new (data: T) => T
 ): Promise<Response<T[] | undefined>> {
     let sqlQuery = `SELECT * FROM ${tableName}`;
 
-    let queryResults = await runQuery(sqlQuery);
+    let queryResults = await runQuery<T>(sqlQuery);
 
-    const all = queryResults.rows.map((result: any) => new dataType(result));
+    const all = queryResults.rows.map((result: T) => new dataType(result));
 
     sqlQuery = `DELETE FROM ${tableName}`;
-    queryResults = await runQuery(sqlQuery);
+    queryResults = await runQuery<T>(sqlQuery);
 
     // Todo: Check that delete was successful
 
@@ -124,7 +122,7 @@ export async function deleteAll<T>(
 export async function deleteById<T>(
     tableName: string,
     id: number | undefined,
-    dataType: new (data: any) => T
+    dataType: new (data: T) => T
 ): Promise<Response<T | undefined>> {
     if (!id) {
         return new Response(
@@ -137,7 +135,7 @@ export async function deleteById<T>(
 
     let sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${id}`;
 
-    let queryResults = await runQuery(sqlQuery);
+    let queryResults = await runQuery<T>(sqlQuery);
 
     if (queryResults.rowCount === 0) {
         return new Response(
@@ -161,7 +159,7 @@ export async function updateById<T>(
     tableName: string,
     id: number | undefined,
     body: Partial<T>,
-    dataType: new (data: any) => T
+    dataType: new (data: T) => T
 ): Promise<Response<T | undefined>> {
     if (!id) {
         return new Response(
@@ -177,10 +175,10 @@ export async function updateById<T>(
         .map((pair) => `"${pair[0]}" = '${pair[1]}'`)
         .join(", ")} WHERE id = ${id}`;
 
-    let queryResults = await runQuery(sqlQuery);
+    let queryResults = await runQuery<T>(sqlQuery);
 
     sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${id}`;
-    queryResults = await runQuery(sqlQuery);
+    queryResults = await runQuery<T>(sqlQuery);
 
     if (queryResults.rowCount === 0) {
         return new Response(

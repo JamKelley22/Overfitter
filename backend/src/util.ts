@@ -22,7 +22,7 @@ export const parseDateTime = (dt?: DateTime | string): DateTime | undefined => {
 };
 
 export function cleanObject<T>(data: Record<string, unknown>): T {
-    return objectMap(data, (value) => escape(value)) as T;
+    return objectMap(data, (value: string) => escape(value)) as T;
 }
 
 export function parseIdFromParams(
@@ -35,13 +35,13 @@ export function parseIdFromParams(
 // https://stackoverflow.com/questions/14810506/map-function-for-objects-instead-of-arrays
 const objectMap = (
     object: Record<string, unknown>,
-    mapFn: (data: any) => void
+    mapFn: (data: string) => void
 ) => {
     return Object.keys(object).reduce(function (
         result: Record<string, unknown>,
         key
     ) {
-        result[key] = mapFn(object[key]);
+        result[key] = mapFn(object[key] as string);
         return result;
     },
     {});

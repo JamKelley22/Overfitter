@@ -10,7 +10,7 @@ export class Feet extends ClothingItem implements IFeet {
         this.type = data.type ?? FeetType.Unknown;
     }
 
-    toString() {
+    toString(): string {
         return super.toString(`type: ${this.type}`);
     }
 }

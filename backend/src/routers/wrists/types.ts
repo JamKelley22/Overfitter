@@ -10,7 +10,7 @@ export class Wrist extends ClothingItem implements IWrist {
         this.type = data.type ?? WristType.Unknown;
     }
 
-    toString() {
+    toString(): string {
         return super.toString(`type: ${this.type}`);
     }
 }

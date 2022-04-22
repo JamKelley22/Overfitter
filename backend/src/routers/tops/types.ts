@@ -10,7 +10,7 @@ export class Top extends ClothingItem implements ITop {
         this.type = data.type ?? TopType.Unknown;
     }
 
-    toString() {
+    toString(): string {
         return super.toString(`type: ${this.type}`);
     }
 }

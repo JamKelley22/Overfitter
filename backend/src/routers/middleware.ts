@@ -1,37 +1,40 @@
 import jwt from "jsonwebtoken";
-import { NextFunction, Response as ExpressResponse } from "express";
-import { body, param, query, validationResult } from "express-validator";
+import {
+    NextFunction,
+    Request as ExpressRequest,
+    Response as ExpressResponse
+} from "express";
+import { param, validationResult } from "express-validator";
 
 import { TOKEN_SECRET } from "../variables";
 import { Response, StatusCode } from "../types";
 
 export const authenticateToken = (
-    req: any,
+    req: ExpressRequest,
     res: ExpressResponse,
     next: NextFunction
-) => {
+): ExpressResponse | undefined => {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
 
     if (!token) return res.sendStatus(401);
 
-    jwt.verify(token, TOKEN_SECRET as string, (err: any, user: any) => {
+    jwt.verify(token, TOKEN_SECRET as string, (err) => {
         if (err) {
             return res.sendStatus(403);
         }
-        req.user = user;
         next();
     });
 };
 
-export const ensureQueryContains = async (
-    req: any,
+export const ensureQueryContains = (
+    req: ExpressRequest,
     res: ExpressResponse,
     next: NextFunction,
     queryParams: string[]
-) => {
+): Response<null> | undefined => {
     const query = req.query;
-    let missingQueryParams: string[] = [];
+    const missingQueryParams: string[] = [];
     queryParams.forEach((queryParam) => {
         const queryParamExists = typeof query[queryParam] === "string";
         if (!queryParamExists) {
@@ -53,16 +56,16 @@ export const ensureQueryContains = async (
     next();
 };
 
-export const ensureQueryContainsConstructor = (queryParams: string[]) => {
-    return (req: any, res: ExpressResponse, next: NextFunction) =>
-        ensureQueryContains(req, res, next, queryParams);
-};
+// export const ensureQueryContainsConstructor = (queryParams: string[]) => {
+//     return (req: ExpressRequest, res: ExpressResponse, next: NextFunction) =>
+//         ensureQueryContains(req, res, next, queryParams);
+// };
 
 export const ensureValidInput = (
-    req: any,
+    req: ExpressRequest,
     res: ExpressResponse,
     next: NextFunction
-) => {
+): ExpressResponse | undefined => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
