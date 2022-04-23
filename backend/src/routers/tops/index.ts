@@ -1,18 +1,10 @@
 import express from "express";
 
 import {
-    getAll,
-    getById,
-    create,
-    deleteAll,
-    deleteById,
-    updateById
-} from "../../engine";
-import {
     idParamValidator,
     ensureValidInput,
-    authenticateToken
-} from "../middleware";
+    authenticateToken,
+} from "../../middleware";
 import { Response, StatusCode } from "../../types";
 import { cleanObject, parseIdFromParams } from "../../util";
 
@@ -24,7 +16,8 @@ router.use(authenticateToken);
 router.get(``, async (req, res) => {
     let response: Response<ITop[] | undefined>;
     try {
-        response = await getAll("tops", Top);
+        if (!req.db) throw new Error("No database to query");
+        response = await req.db.getAll("tops", Top);
     } catch (e) {
         response = new Response(
             false,
@@ -41,8 +34,9 @@ router.get(``, async (req, res) => {
 router.get(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
     let response: Response<ITop | undefined>;
     try {
+        if (!req.db) throw new Error("No database to query");
         const id = parseIdFromParams(req.params);
-        response = await getById("tops", id, Top);
+        response = await req.db.getById("tops", id, Top);
     } catch (e) {
         response = new Response(
             false,
@@ -59,8 +53,9 @@ router.get(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
 router.post(``, async (req, res) => {
     let response: Response<ITop | undefined>;
     try {
+        if (!req.db) throw new Error("No database to query");
         const item = new Top(cleanObject(req.body));
-        response = await create("tops", item, Top);
+        response = await req.db.create("tops", item, Top);
     } catch (e) {
         response = new Response(
             false,
@@ -77,7 +72,8 @@ router.post(``, async (req, res) => {
 router.delete(``, async (req, res) => {
     let response: Response<ITop[] | undefined>;
     try {
-        response = await deleteAll("tops", Top);
+        if (!req.db) throw new Error("No database to query");
+        response = await req.db.deleteAll("tops", Top);
     } catch (e) {
         response = new Response(
             false,
@@ -94,8 +90,9 @@ router.delete(``, async (req, res) => {
 router.delete(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
     let response: Response<ITop | undefined>;
     try {
+        if (!req.db) throw new Error("No database to query");
         const id = parseIdFromParams(req.params);
-        response = await deleteById("tops", id, Top);
+        response = await req.db.deleteById("tops", id, Top);
     } catch (e) {
         response = new Response(
             false,
@@ -112,9 +109,15 @@ router.delete(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
 router.put(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
     let response: Response<ITop | undefined>;
     try {
+        if (!req.db) throw new Error("No database to query");
         const id = parseIdFromParams(req.params);
         const item = cleanObject(req.body);
-        response = await updateById("tops", id, item as Partial<Top>, Top);
+        response = await req.db.updateById(
+            "tops",
+            id,
+            item as Partial<Top>,
+            Top
+        );
     } catch (e) {
         response = new Response(
             false,

@@ -9,13 +9,12 @@
         "docker-build": "docker build . -t overfitter:latest",
         "start": "npm run build && node build/index.js",
         "plop": "plop",
-        "create-routes": "plop -- --typeName Bottom --tableName bottoms --endpoint bottoms && plop -- --typeName Feet --tableName feet --endpoint feet && plop -- --typeName Head --tableName heads --endpoint heads && plop -- --typeName Outfit --tableName outfits --endpoint outfits && plop -- --typeName Top --tableName tops --endpoint tops && plop -- --typeName Wrist --tableName wrists --endpoint wrists",
-        "dbml-sql": "dbml2sql db/Overfitter.dbml -o db/Overfitter.sql --postgres",
-        "generate-models": "rimraf docs/client && openapi-generator-cli generate -g typescript-axios -i docs/OverfitterAPI.json -o docs/client",
+        "plop-test": "rimraf ./src/routers/bottoms && plop -- --typeName Bottom --tableName bottoms --endpoint bottoms",
+        "create-routes": "plop -- --typeName Accessory --tableName accessories --endpoint accessories && plop -- --typeName Bottom --tableName bottoms --endpoint bottoms && plop -- --typeName Feet --tableName feet --endpoint feet && plop -- --typeName Head --tableName heads --endpoint heads && plop -- --typeName Outfit --tableName outfits --endpoint outfits && plop -- --typeName Top --tableName tops --endpoint tops && plop -- --typeName Wrist --tableName wrists --endpoint wrists",
+        "create-sql-from-dbml": "dbml2sql docs/db/Overfitter.dbml -o docs/db/Overfitter.sql --postgres",
+        "generate-types-from-openapi-json": "rimraf docs/openapi/client && openapi-generator-cli generate -g typescript-axios -i docs/openapi/OverfitterAPI.json -o docs/openapi/client",
         "lint": "eslint . --ext .ts",
-        "lint-and-fix": "eslint . --ext .ts --fix",
-        "prettier-format": "prettier --config .prettierrc ./src/**/*.ts --write",
-        "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}"
+        "lint-and-fix": "eslint . --ext .ts --fix"
     },
     "author": "Jameel Kelley",
     "license": "ISC",

@@ -35,6 +35,132 @@
                 }
             }
         },
+        "/accessories": {
+            "get": {
+                "summary": "Get All Accessory Items",
+                "operationId": "getAllAccessoryItems",
+                "tags": ["Accessories"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Accessory Item",
+                "operationId": "createAccessoryItem",
+                "tags": ["Accessories"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/AccessoryBody"
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete All Accessory Items",
+                "operationId": "deleteAllAccessoryItems",
+                "tags": ["Accessories"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            }
+        },
+        "/accessories/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of the Accessory Item",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get Accessory Item by Id",
+                "operationId": "getAccessoryByIdItem",
+                "tags": ["Accessories"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Accessory Item by Id",
+                "operationId": "deleteAccessoryItemById",
+                "tags": ["Accessories"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Accessory Item by Id",
+                "operationId": "updateAccessoryItemById",
+                "tags": ["Bottoms"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/AccessoryBody"
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            }
+        },
         "/bottoms": {
             "get": {
                 "summary": "Get All Bottom Items",
@@ -764,6 +890,70 @@
     },
     "components": {
         "responses": {
+            "AccessoryResponse": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/components/schemas/WithId"
+                                                },
+                                                {
+                                                    "$ref": "#/components/schemas/Accessory"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "AccessoryResponseList": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/WithId"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/WithId"
+                                                    },
+                                                    {
+                                                        "$ref": "#/components/schemas/Accessory"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
             "BottomResponse": {
                 "description": "Ok",
                 "content": {
@@ -1257,11 +1447,13 @@
                     "description": {
                         "type": "string"
                     },
-                    "timestampAddedISO": {
-                        "type": "string"
+                    "timestampAddedRFC": {
+                        "type": "string",
+                        "format": "date-time"
                     },
-                    "timestampLastModifiedISO": {
-                        "type": "string"
+                    "timestampLastModifiedRFC": {
+                        "type": "string",
+                        "format": "date-time"
                     },
                     "rating": {
                         "type": "integer",
@@ -1292,8 +1484,9 @@
                             "brand": {
                                 "type": "string"
                             },
-                            "timestampPurchasedISO": {
-                                "type": "string"
+                            "timestampPurchasedRFC": {
+                                "type": "string",
+                                "format": "date-time"
                             },
                             "itemCondition": {
                                 "$ref": "#/components/schemas/item_condition"
@@ -1327,6 +1520,25 @@
                             },
                             "pattern": {
                                 "type": "string"
+                            }
+                        }
+                    }
+                ]
+            },
+            "accessory_type": {
+                "type": "string",
+                "enum": ["RING", "NECKLACE", "EARRINGS", "PURSE", "UNKNOWN"]
+            },
+            "Accessory": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ClothingItem"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "$ref": "#/components/schemas/accessory_type"
                             }
                         }
                     }
@@ -1370,7 +1582,7 @@
                                 "minimum": 0,
                                 "maximum": 100
                             },
-                            "bottom_inseam_type": {
+                            "bottomInseamType": {
                                 "$ref": "#/components/schemas/bottom_inseam_type"
                             },
                             "inseamInches": {
@@ -1620,6 +1832,17 @@
             }
         },
         "requestBodies": {
+            "AccessoryBody": {
+                "description": "A JSON object containing accessory info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Accessory"
+                        }
+                    }
+                }
+            },
             "BottomBody": {
                 "description": "A JSON object containing bottom info",
                 "required": true,

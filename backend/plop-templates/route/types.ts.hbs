@@ -1,18 +1,16 @@
 import { ClothingItem } from "../../types";
 
-import { {{typeName}}Type, {{typeName}} as I{{typeName}} } from "../../../docs/client/api";
+import { {{typeName}} as I{{typeName}} } from "../../../docs/openapi/client/api";
 
 export class {{typeName}} extends ClothingItem implements I{{typeName}} {
-    type: {{typeName}}Type;
 
     constructor(data: I{{typeName}}) {
         super(data);
-        this.type = data.type ?? {{typeName}}Type.Unknown;
     }
 
     toString(): string {
-        return super.toString(`type: ${this.type}`);
+        return super.toString(``);
     }
 }
 
-export { I{{typeName}}, {{typeName}}Type };
+export { I{{typeName}} };

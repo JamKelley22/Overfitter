@@ -1,6 +1,6 @@
 import escape from "escape-html";
 import { DateTime } from "luxon";
-import { WithId } from "../docs/client";
+import { WithId } from "../docs/openapi/client";
 
 export const parseDateTime = (dt?: DateTime | string): DateTime | undefined => {
     if (dt === undefined) return undefined;

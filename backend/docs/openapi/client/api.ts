@@ -61,6 +61,169 @@ export interface AccessTokenResponse {
 /**
  * 
  * @export
+ * @interface Accessory
+ */
+export interface Accessory {
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'uriImage'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'timestampAddedRFC'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'timestampLastModifiedRFC'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof Accessory
+     */
+    'rating'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'code'?: string;
+    /**
+     * 
+     * @type {SizeUsLetter}
+     * @memberof Accessory
+     */
+    'sizeUSLetter'?: SizeUsLetter;
+    /**
+     * 
+     * @type {number}
+     * @memberof Accessory
+     */
+    'sizeUSNumber'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'brand'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'timestampPurchasedRFC'?: string;
+    /**
+     * 
+     * @type {ItemCondition}
+     * @memberof Accessory
+     */
+    'itemCondition'?: ItemCondition;
+    /**
+     * 
+     * @type {ItemStatus}
+     * @memberof Accessory
+     */
+    'itemStatus'?: ItemStatus;
+    /**
+     * 
+     * @type {number}
+     * @memberof Accessory
+     */
+    'numberOfWears'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Accessory
+     */
+    'wearsBeforeDirty'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Accessory
+     */
+    'wearsLeftBeforeDirty'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'primaryColor'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'secondaryColor'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'accentColor'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Accessory
+     */
+    'pattern'?: string;
+    /**
+     * 
+     * @type {AccessoryType}
+     * @memberof Accessory
+     */
+    'type'?: AccessoryType;
+}
+/**
+ * 
+ * @export
+ * @interface AccessoryAllOf
+ */
+export interface AccessoryAllOf {
+    /**
+     * 
+     * @type {AccessoryType}
+     * @memberof AccessoryAllOf
+     */
+    'type'?: AccessoryType;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const AccessoryType = {
+    Ring: 'RING',
+    Necklace: 'NECKLACE',
+    Earrings: 'EARRINGS',
+    Purse: 'PURSE',
+    Unknown: 'UNKNOWN'
+} as const;
+
+export type AccessoryType = typeof AccessoryType[keyof typeof AccessoryType];
+
+
+/**
+ * 
+ * @export
  * @interface Bottom
  */
 export interface Bottom {
@@ -87,13 +250,13 @@ export interface Bottom {
      * @type {string}
      * @memberof Bottom
      */
-    'timestampAddedISO'?: string;
+    'timestampAddedRFC'?: string;
     /**
      * 
      * @type {string}
      * @memberof Bottom
      */
-    'timestampLastModifiedISO'?: string;
+    'timestampLastModifiedRFC'?: string;
     /**
      * 
      * @type {number}
@@ -129,7 +292,7 @@ export interface Bottom {
      * @type {string}
      * @memberof Bottom
      */
-    'timestampPurchasedISO'?: string;
+    'timestampPurchasedRFC'?: string;
     /**
      * 
      * @type {ItemCondition}
@@ -207,7 +370,7 @@ export interface Bottom {
      * @type {BottomInseamType}
      * @memberof Bottom
      */
-    'bottom_inseam_type'?: BottomInseamType;
+    'bottomInseamType'?: BottomInseamType;
     /**
      * 
      * @type {number}
@@ -244,7 +407,7 @@ export interface BottomAllOf {
      * @type {BottomInseamType}
      * @memberof BottomAllOf
      */
-    'bottom_inseam_type'?: BottomInseamType;
+    'bottomInseamType'?: BottomInseamType;
     /**
      * 
      * @type {number}
@@ -317,13 +480,13 @@ export interface ClothingItem {
      * @type {string}
      * @memberof ClothingItem
      */
-    'timestampAddedISO'?: string;
+    'timestampAddedRFC'?: string;
     /**
      * 
      * @type {string}
      * @memberof ClothingItem
      */
-    'timestampLastModifiedISO'?: string;
+    'timestampLastModifiedRFC'?: string;
     /**
      * 
      * @type {number}
@@ -359,7 +522,7 @@ export interface ClothingItem {
      * @type {string}
      * @memberof ClothingItem
      */
-    'timestampPurchasedISO'?: string;
+    'timestampPurchasedRFC'?: string;
     /**
      * 
      * @type {ItemCondition}
@@ -450,7 +613,7 @@ export interface ClothingItemAllOf {
      * @type {string}
      * @memberof ClothingItemAllOf
      */
-    'timestampPurchasedISO'?: string;
+    'timestampPurchasedRFC'?: string;
     /**
      * 
      * @type {ItemCondition}
@@ -548,13 +711,13 @@ export interface Entity {
      * @type {string}
      * @memberof Entity
      */
-    'timestampAddedISO'?: string;
+    'timestampAddedRFC'?: string;
     /**
      * 
      * @type {string}
      * @memberof Entity
      */
-    'timestampLastModifiedISO'?: string;
+    'timestampLastModifiedRFC'?: string;
     /**
      * 
      * @type {number}
@@ -622,13 +785,13 @@ export interface Feet {
      * @type {string}
      * @memberof Feet
      */
-    'timestampAddedISO'?: string;
+    'timestampAddedRFC'?: string;
     /**
      * 
      * @type {string}
      * @memberof Feet
      */
-    'timestampLastModifiedISO'?: string;
+    'timestampLastModifiedRFC'?: string;
     /**
      * 
      * @type {number}
@@ -664,7 +827,7 @@ export interface Feet {
      * @type {string}
      * @memberof Feet
      */
-    'timestampPurchasedISO'?: string;
+    'timestampPurchasedRFC'?: string;
     /**
      * 
      * @type {ItemCondition}
@@ -801,13 +964,13 @@ export interface Head {
      * @type {string}
      * @memberof Head
      */
-    'timestampAddedISO'?: string;
+    'timestampAddedRFC'?: string;
     /**
      * 
      * @type {string}
      * @memberof Head
      */
-    'timestampLastModifiedISO'?: string;
+    'timestampLastModifiedRFC'?: string;
     /**
      * 
      * @type {number}
@@ -843,7 +1006,7 @@ export interface Head {
      * @type {string}
      * @memberof Head
      */
-    'timestampPurchasedISO'?: string;
+    'timestampPurchasedRFC'?: string;
     /**
      * 
      * @type {ItemCondition}
@@ -1024,13 +1187,13 @@ export interface Outfit {
      * @type {string}
      * @memberof Outfit
      */
-    'timestampAddedISO'?: string;
+    'timestampAddedRFC'?: string;
     /**
      * 
      * @type {string}
      * @memberof Outfit
      */
-    'timestampLastModifiedISO'?: string;
+    'timestampLastModifiedRFC'?: string;
     /**
      * 
      * @type {number}
@@ -1197,13 +1360,13 @@ export interface Top {
      * @type {string}
      * @memberof Top
      */
-    'timestampAddedISO'?: string;
+    'timestampAddedRFC'?: string;
     /**
      * 
      * @type {string}
      * @memberof Top
      */
-    'timestampLastModifiedISO'?: string;
+    'timestampLastModifiedRFC'?: string;
     /**
      * 
      * @type {number}
@@ -1239,7 +1402,7 @@ export interface Top {
      * @type {string}
      * @memberof Top
      */
-    'timestampPurchasedISO'?: string;
+    'timestampPurchasedRFC'?: string;
     /**
      * 
      * @type {ItemCondition}
@@ -1461,13 +1624,13 @@ export interface Wrist {
      * @type {string}
      * @memberof Wrist
      */
-    'timestampAddedISO'?: string;
+    'timestampAddedRFC'?: string;
     /**
      * 
      * @type {string}
      * @memberof Wrist
      */
-    'timestampLastModifiedISO'?: string;
+    'timestampLastModifiedRFC'?: string;
     /**
      * 
      * @type {number}
@@ -1503,7 +1666,7 @@ export interface Wrist {
      * @type {string}
      * @memberof Wrist
      */
-    'timestampPurchasedISO'?: string;
+    'timestampPurchasedRFC'?: string;
     /**
      * 
      * @type {ItemCondition}
@@ -1604,6 +1767,387 @@ export const WristType = {
 
 export type WristType = typeof WristType[keyof typeof WristType];
 
+
+
+/**
+ * AccessoriesApi - axios parameter creator
+ * @export
+ */
+export const AccessoriesApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create Accessory Item
+         * @param {Accessory} accessory A JSON object containing accessory info
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createAccessoryItem: async (accessory: Accessory, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accessory' is not null or undefined
+            assertParamExists('createAccessoryItem', 'accessory', accessory)
+            const localVarPath = `/accessories`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(accessory, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete Accessory Item by Id
+         * @param {number} id ID of the Accessory Item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAccessoryItemById: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteAccessoryItemById', 'id', id)
+            const localVarPath = `/accessories/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete All Accessory Items
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllAccessoryItems: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/accessories`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Accessory Item by Id
+         * @param {number} id ID of the Accessory Item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAccessoryByIdItem: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getAccessoryByIdItem', 'id', id)
+            const localVarPath = `/accessories/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get All Accessory Items
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllAccessoryItems: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/accessories`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AccessoriesApi - functional programming interface
+ * @export
+ */
+export const AccessoriesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AccessoriesApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create Accessory Item
+         * @param {Accessory} accessory A JSON object containing accessory info
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createAccessoryItem(accessory: Accessory, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatalessResponse & object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createAccessoryItem(accessory, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete Accessory Item by Id
+         * @param {number} id ID of the Accessory Item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAccessoryItemById(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatalessResponse & object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAccessoryItemById(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete All Accessory Items
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAllAccessoryItems(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WithId & DatalessResponse & Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAllAccessoryItems(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get Accessory Item by Id
+         * @param {number} id ID of the Accessory Item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAccessoryByIdItem(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatalessResponse & object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccessoryByIdItem(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get All Accessory Items
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllAccessoryItems(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WithId & DatalessResponse & Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllAccessoryItems(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * AccessoriesApi - factory interface
+ * @export
+ */
+export const AccessoriesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AccessoriesApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create Accessory Item
+         * @param {Accessory} accessory A JSON object containing accessory info
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createAccessoryItem(accessory: Accessory, options?: any): AxiosPromise<DatalessResponse & object> {
+            return localVarFp.createAccessoryItem(accessory, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete Accessory Item by Id
+         * @param {number} id ID of the Accessory Item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAccessoryItemById(id: number, options?: any): AxiosPromise<DatalessResponse & object> {
+            return localVarFp.deleteAccessoryItemById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete All Accessory Items
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllAccessoryItems(options?: any): AxiosPromise<WithId & DatalessResponse & Array<object>> {
+            return localVarFp.deleteAllAccessoryItems(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Accessory Item by Id
+         * @param {number} id ID of the Accessory Item
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAccessoryByIdItem(id: number, options?: any): AxiosPromise<DatalessResponse & object> {
+            return localVarFp.getAccessoryByIdItem(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get All Accessory Items
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllAccessoryItems(options?: any): AxiosPromise<WithId & DatalessResponse & Array<object>> {
+            return localVarFp.getAllAccessoryItems(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * AccessoriesApi - object-oriented interface
+ * @export
+ * @class AccessoriesApi
+ * @extends {BaseAPI}
+ */
+export class AccessoriesApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create Accessory Item
+     * @param {Accessory} accessory A JSON object containing accessory info
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccessoriesApi
+     */
+    public createAccessoryItem(accessory: Accessory, options?: AxiosRequestConfig) {
+        return AccessoriesApiFp(this.configuration).createAccessoryItem(accessory, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete Accessory Item by Id
+     * @param {number} id ID of the Accessory Item
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccessoriesApi
+     */
+    public deleteAccessoryItemById(id: number, options?: AxiosRequestConfig) {
+        return AccessoriesApiFp(this.configuration).deleteAccessoryItemById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete All Accessory Items
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccessoriesApi
+     */
+    public deleteAllAccessoryItems(options?: AxiosRequestConfig) {
+        return AccessoriesApiFp(this.configuration).deleteAllAccessoryItems(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Accessory Item by Id
+     * @param {number} id ID of the Accessory Item
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccessoriesApi
+     */
+    public getAccessoryByIdItem(id: number, options?: AxiosRequestConfig) {
+        return AccessoriesApiFp(this.configuration).getAccessoryByIdItem(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get All Accessory Items
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccessoriesApi
+     */
+    public getAllAccessoryItems(options?: AxiosRequestConfig) {
+        return AccessoriesApiFp(this.configuration).getAllAccessoryItems(options).then((request) => request(this.axios, this.basePath));
+    }
+}
 
 
 /**
@@ -1900,6 +2444,50 @@ export const BottomsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Update Accessory Item by Id
+         * @param {number} id ID of the Accessory Item
+         * @param {Accessory} accessory A JSON object containing accessory info
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAccessoryItemById: async (id: number, accessory: Accessory, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateAccessoryItemById', 'id', id)
+            // verify required parameter 'accessory' is not null or undefined
+            assertParamExists('updateAccessoryItemById', 'accessory', accessory)
+            const localVarPath = `/accessories/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(accessory, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Update Bottom Item by Id
          * @param {number} id ID of the Bottom Item
          * @param {Bottom} bottom A JSON object containing bottom info
@@ -2007,6 +2595,18 @@ export const BottomsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Update Accessory Item by Id
+         * @param {number} id ID of the Accessory Item
+         * @param {Accessory} accessory A JSON object containing accessory info
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateAccessoryItemById(id: number, accessory: Accessory, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DatalessResponse & object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAccessoryItemById(id, accessory, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Update Bottom Item by Id
          * @param {number} id ID of the Bottom Item
          * @param {Bottom} bottom A JSON object containing bottom info
@@ -2074,6 +2674,17 @@ export const BottomsApiFactory = function (configuration?: Configuration, basePa
          */
         getBottomByIdItem(id: number, options?: any): AxiosPromise<DatalessResponse & object> {
             return localVarFp.getBottomByIdItem(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update Accessory Item by Id
+         * @param {number} id ID of the Accessory Item
+         * @param {Accessory} accessory A JSON object containing accessory info
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAccessoryItemById(id: number, accessory: Accessory, options?: any): AxiosPromise<DatalessResponse & object> {
+            return localVarFp.updateAccessoryItemById(id, accessory, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2152,6 +2763,19 @@ export class BottomsApi extends BaseAPI {
      */
     public getBottomByIdItem(id: number, options?: AxiosRequestConfig) {
         return BottomsApiFp(this.configuration).getBottomByIdItem(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update Accessory Item by Id
+     * @param {number} id ID of the Accessory Item
+     * @param {Accessory} accessory A JSON object containing accessory info
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BottomsApi
+     */
+    public updateAccessoryItemById(id: number, accessory: Accessory, options?: AxiosRequestConfig) {
+        return BottomsApiFp(this.configuration).updateAccessoryItemById(id, accessory, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -1,0 +1,301 @@
+enum item_status {
+  CLEAN
+  WORN
+  DIRTY
+  UNKNOWN
+}
+
+enum item_condition {
+  NEW
+  LIKE_NEW
+  GOOD
+  FAIR
+  POOR
+  TRASH
+  UNKNOWN
+}
+
+enum size_us_letter {
+  5XS
+  4XS
+  3XS
+  2XS
+  XS
+  S
+  M
+  L
+  XL
+  2XL
+  3XL
+  4XL
+  5XL
+  UNKNOWN
+}
+
+enum accessory_type {
+  RING
+  NECKLACE
+  EARRINGS
+  PURSE
+  UNKNOWN
+}
+
+enum bottom_type {
+  SWEAT
+  DRESS
+  UNDER
+  SLEEP
+  WORKOUT
+  JEANS
+  KAKIS
+  UNKNOWN
+}
+enum bottom_inseam_type {
+  SHORT
+  REGULAR
+  TALL
+  UNKNOWN
+}
+
+enum feet_type {
+  DRESS_SHOE
+  TENNIS_SHOE
+  CASUAL_SHOE
+  HEEL_SHOE
+  FLIP_FLOP_SHOE
+  SANDAL_SHOE
+  DRESS_SOCK
+  CASUAL_SOCK
+  UNKNOWN
+}
+
+enum head_type {
+  BASEBALL_HAT
+  BEANIE
+  BANDANA
+  GLASSES
+  UNKNOWN
+}
+
+enum outfit_type {
+  FORMAL
+  CASUAL
+  BUSINESS
+  BUSINESS_CASUAL
+  SPORT
+  SLEEP
+}
+
+enum top_type {
+  TEE
+  SWEAT
+  DRESS
+  FLANNEL
+  UNDER
+  POLO
+  SLEEP
+  CASUAL
+  WORKOUT
+  UNKNOWN
+}
+
+enum wrist_type {
+  WATCH
+  BRACLET
+  UNKNOWN
+}
+
+Table accessories {
+  id int [primary key, increment]
+  code varchar(20)
+  uriImage text
+  name text
+  sizeUSLetter size_us_letter 
+  sizeUSNumber float
+  brand text
+  description text
+  timestampAddedRFC timestamp 
+  timestampLastModifiedRFC timestamp 
+  timestampPurchasedRFC timestamp 
+  rating int
+  itemCondition item_condition
+  itemStatus item_status
+  numberOfWears int
+  wearsBeforeDirty int
+  wearsLeftBeforeDirty int
+  primaryColor text
+  secondaryColor text
+  accentColor text
+  pattern text
+  
+  type accessory_type
+}
+
+Table bottoms {
+  id int [primary key, increment]
+  code varchar(20)
+  uriImage text
+  name text
+  sizeUSLetter size_us_letter 
+  sizeUSNumber float
+  brand text
+  description text
+  timestampAddedRFC timestamp 
+  timestampLastModifiedRFC timestamp 
+  timestampPurchasedRFC timestamp 
+  rating int
+  itemCondition item_condition
+  itemStatus item_status
+  numberOfWears int
+  wearsBeforeDirty int
+  wearsLeftBeforeDirty int
+  primaryColor text
+  secondaryColor text
+  accentColor text
+  pattern text
+  
+  type bottom_type
+
+  bottomInseamType bottom_inseam_type
+  inseamInches float
+  sizeHipInchesLow float
+  sizeHipInchesHigh float
+}
+
+Table feet {
+  id int [primary key, increment]
+  code varchar(20)
+  uriImage text
+  name text
+  sizeUSLetter size_us_letter 
+  sizeUSNumber float
+  brand text
+  description text
+  timestampAddedRFC timestamp 
+  timestampLastModifiedRFC timestamp 
+  timestampPurchasedRFC timestamp 
+  rating int
+  itemCondition item_condition
+  itemStatus item_status
+  numberOfWears int
+  wearsBeforeDirty int
+  wearsLeftBeforeDirty int
+  primaryColor text
+  secondaryColor text
+  accentColor text
+  pattern text
+  
+  type feet_type
+
+  sizeInches float
+}
+
+Table head {
+  id int [primary key, increment]
+  code varchar(20)
+  uriImage text
+  name text
+  sizeUSLetter size_us_letter 
+  sizeUSNumber float
+  brand text
+  description text
+  timestampAddedRFC timestamp 
+  timestampLastModifiedRFC timestamp 
+  timestampPurchasedRFC timestamp 
+  rating int
+  itemCondition item_condition
+  itemStatus item_status
+  numberOfWears int
+  wearsBeforeDirty int
+  wearsLeftBeforeDirty int
+  primaryColor text
+  secondaryColor text
+  accentColor text
+  pattern text
+  
+  type head_type
+  
+  sizeInchesLow float
+  sizeInchesHigh float
+}
+
+Table outfits {
+  id int [primary key]
+  uriImage text
+  occasion outfit_type
+  accessories int [ref: > outfit_accessories.id]
+  bottomId int [ref: > bottoms.id]
+  feetId int [ref: > feet.id]
+  headId int [ref: > head.id]
+  topId int [ref: > tops.id]
+  wristId int [ref: > wrists.id]
+  rating int
+}
+
+Table outfit_accessories {
+  id int [primary key]
+  outfitId int [ref: - outfits.id]
+  accessoryId int [ref: - accessories.id]
+}
+
+Table tops {
+  id int [primary key, increment]
+  code varchar(20)
+  uriImage text
+  name text
+  sizeUSLetter size_us_letter 
+  sizeUSNumber float
+  brand text
+  description text
+  timestampAddedRFC timestamp 
+  timestampLastModifiedRFC timestamp 
+  timestampPurchasedRFC timestamp 
+  rating int
+  itemCondition item_condition
+  itemStatus item_status
+  numberOfWears int
+  wearsBeforeDirty int
+  wearsLeftBeforeDirty int
+  primaryColor text
+  secondaryColor text
+  accentColor text
+  pattern text
+  
+  type top_type
+  
+  sizeChestInchesLow float
+  sizeChestInchesHigh float
+  sizeNeckInchesLow float
+  sizeNeckInchesHigh float
+  sizeWaistInchesLow float
+  sizeWaistInchesHigh float
+  sizeSleeveInches float
+}
+
+Table wrists {
+  id int [primary key, increment]
+  code varchar(20)
+  uriImage text
+  name text
+  sizeUSLetter size_us_letter 
+  sizeUSNumber float
+  brand text
+  description text
+  timestampAddedRFC timestamp 
+  timestampLastModifiedRFC timestamp 
+  timestampPurchasedRFC timestamp 
+  rating int
+  itemCondition item_condition
+  itemStatus item_status
+  numberOfWears int
+  wearsBeforeDirty int
+  wearsLeftBeforeDirty int
+  primaryColor text
+  secondaryColor text
+  accentColor text
+  pattern text
+  
+  type wrist_type
+  
+  sizeInches float
+}

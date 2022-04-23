@@ -1,18 +1,10 @@
 import express from "express";
 
 import {
-    getAll,
-    getById,
-    create,
-    deleteAll,
-    deleteById,
-    updateById
-} from "../../engine";
-import {
     idParamValidator,
     ensureValidInput,
-    authenticateToken
-} from "../middleware";
+    authenticateToken,
+} from "../../middleware";
 import { Response, StatusCode } from "../../types";
 import { cleanObject, parseIdFromParams } from "../../util";
 
@@ -24,7 +16,8 @@ router.use(authenticateToken);
 router.get(``, async (req, res) => {
     let response: Response<IHead[] | undefined>;
     try {
-        response = await getAll("heads", Head);
+        if (!req.db) throw new Error("No database to query");
+        response = await req.db.getAll("heads", Head);
     } catch (e) {
         response = new Response(
             false,
@@ -41,8 +34,9 @@ router.get(``, async (req, res) => {
 router.get(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
     let response: Response<IHead | undefined>;
     try {
+        if (!req.db) throw new Error("No database to query");
         const id = parseIdFromParams(req.params);
-        response = await getById("heads", id, Head);
+        response = await req.db.getById("heads", id, Head);
     } catch (e) {
         response = new Response(
             false,
@@ -59,8 +53,9 @@ router.get(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
 router.post(``, async (req, res) => {
     let response: Response<IHead | undefined>;
     try {
+        if (!req.db) throw new Error("No database to query");
         const item = new Head(cleanObject(req.body));
-        response = await create("heads", item, Head);
+        response = await req.db.create("heads", item, Head);
     } catch (e) {
         response = new Response(
             false,
@@ -77,7 +72,8 @@ router.post(``, async (req, res) => {
 router.delete(``, async (req, res) => {
     let response: Response<IHead[] | undefined>;
     try {
-        response = await deleteAll("heads", Head);
+        if (!req.db) throw new Error("No database to query");
+        response = await req.db.deleteAll("heads", Head);
     } catch (e) {
         response = new Response(
             false,
@@ -94,8 +90,9 @@ router.delete(``, async (req, res) => {
 router.delete(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
     let response: Response<IHead | undefined>;
     try {
+        if (!req.db) throw new Error("No database to query");
         const id = parseIdFromParams(req.params);
-        response = await deleteById("heads", id, Head);
+        response = await req.db.deleteById("heads", id, Head);
     } catch (e) {
         response = new Response(
             false,
@@ -112,9 +109,15 @@ router.delete(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
 router.put(`/:id`, idParamValidator, ensureValidInput, async (req, res) => {
     let response: Response<IHead | undefined>;
     try {
+        if (!req.db) throw new Error("No database to query");
         const id = parseIdFromParams(req.params);
         const item = cleanObject(req.body);
-        response = await updateById("heads", id, item as Partial<Head>, Head);
+        response = await req.db.updateById(
+            "heads",
+            id,
+            item as Partial<Head>,
+            Head
+        );
     } catch (e) {
         response = new Response(
             false,

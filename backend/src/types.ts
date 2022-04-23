@@ -5,7 +5,7 @@ import {
     Entity as IEntity,
     WithId as IWithId,
     ClothingItem as IClothingItem
-} from "../docs/client/api";
+} from "../docs/openapi/client/api";
 import { parseDateTime } from "./util";
 
 export enum StatusCode {
@@ -31,8 +31,8 @@ export class Response<T> {
         data?: T,
         statusCode = StatusCode.OK,
         errorMessage = "",
-        error = undefined,
-        detail = ""
+        error: unknown = undefined,
+        detail: unknown = ""
     ) {
         this.success = success;
         this.data = data;
@@ -53,8 +53,8 @@ const entityDefaults = {
     uriImage: undefined,
     name: undefined,
     description: undefined,
-    timestampAddedISO: undefined,
-    timestampLastModifiedISO: undefined,
+    timestampAddedRFC: undefined,
+    timestampLastModifiedRFC: undefined,
     rating: undefined
 };
 
@@ -63,8 +63,8 @@ export class Entity implements IEntity {
     uriImage?: string;
     name?: string;
     description?: string;
-    timestampAddedISO?: string;
-    timestampLastModifiedISO?: string;
+    timestampAddedRFC?: string;
+    timestampLastModifiedRFC?: string;
     rating?: number;
 
     constructor(data: IEntity & IWithId) {
@@ -72,11 +72,11 @@ export class Entity implements IEntity {
         this.uriImage = data.uriImage ?? entityDefaults.uriImage;
         this.name = data.name ?? entityDefaults.name;
         this.description = data.description ?? entityDefaults.description;
-        this.timestampAddedISO =
-            data.timestampAddedISO ?? entityDefaults.timestampAddedISO;
-        this.timestampLastModifiedISO =
-            data.timestampLastModifiedISO ??
-            entityDefaults.timestampLastModifiedISO;
+        this.timestampAddedRFC =
+            data.timestampAddedRFC ?? entityDefaults.timestampAddedRFC;
+        this.timestampLastModifiedRFC =
+            data.timestampLastModifiedRFC ??
+            entityDefaults.timestampLastModifiedRFC;
         this.rating = data.rating ?? entityDefaults.rating;
     }
 
@@ -86,11 +86,11 @@ export class Entity implements IEntity {
             uriImage: ${this.uriImage},
             name: ${this.name},
             description: ${this.description},
-            timestampAddedISO: ${parseDateTime(
-                this.timestampAddedISO
+            timestampAddedRFC: ${parseDateTime(
+                this.timestampAddedRFC
             )?.toLocaleString()},
-            timestampLastModifiedISO: ${parseDateTime(
-                this.timestampLastModifiedISO
+            timestampLastModifiedRFC: ${parseDateTime(
+                this.timestampLastModifiedRFC
             )?.toLocaleString()},
             rating: ${this.rating},
             ${extra}
@@ -103,7 +103,7 @@ const clothingItemDefaults = {
     sizeUSLetter: SizeUsLetter.Unknown,
     sizeUSNumber: -1,
     brand: undefined,
-    timestampPurchasedISO: undefined,
+    timestampPurchasedRFC: undefined,
     itemCondition: ItemCondition.Unknown,
     itemStatus: ItemStatus.Unknown,
     numberOfWears: undefined,
@@ -120,7 +120,7 @@ export class ClothingItem extends Entity implements IClothingItem {
     sizeUSLetter: SizeUsLetter;
     sizeUSNumber?: number;
     brand?: string;
-    timestampPurchasedISO?: string;
+    timestampPurchasedRFC?: string;
     itemCondition: ItemCondition;
     itemStatus: ItemStatus;
     numberOfWears?: number;
@@ -140,9 +140,9 @@ export class ClothingItem extends Entity implements IClothingItem {
             data.sizeUSNumber ?? clothingItemDefaults.sizeUSNumber;
         this.brand = data.brand ?? clothingItemDefaults.brand;
 
-        this.timestampPurchasedISO =
-            data.timestampPurchasedISO ??
-            clothingItemDefaults.timestampPurchasedISO;
+        this.timestampPurchasedRFC =
+            data.timestampPurchasedRFC ??
+            clothingItemDefaults.timestampPurchasedRFC;
 
         this.itemCondition =
             data.itemCondition ?? clothingItemDefaults.itemCondition;
@@ -167,7 +167,7 @@ export class ClothingItem extends Entity implements IClothingItem {
             sizeUSLetter: ${this.sizeUSLetter},
             sizeUSNumber: ${this.sizeUSNumber},
             brand: ${this.brand},
-            datetimePurchased: ${this.timestampPurchasedISO?.toLocaleString()},
+            datetimePurchased: ${this.timestampPurchasedRFC?.toLocaleString()},
             itemCondition: ${this.itemCondition},
             itemStatus: ${this.itemStatus},
             numberOfWears: ${this.numberOfWears},

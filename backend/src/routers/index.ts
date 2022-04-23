@@ -1,4 +1,8 @@
 import { router as auth, baseEndpoint as authEndpoint } from "./auth";
+import {
+    router as accessories,
+    baseEndpoint as accessoriesEndpoint
+} from "./accessories";
 import { router as bottoms, baseEndpoint as bottomsEndpoint } from "./bottoms";
 import { router as feet, baseEndpoint as feetEndpoint } from "./feet";
 import { router as heads, baseEndpoint as headsEndpoint } from "./heads";
@@ -10,6 +14,10 @@ export const appRouters = [
     {
         router: auth,
         endpoint: authEndpoint
+    },
+    {
+        router: accessories,
+        endpoint: accessoriesEndpoint
     },
     {
         router: bottoms,
