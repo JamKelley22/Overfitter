@@ -7,7 +7,7 @@
         "start:dev": "tsnd --respawn src/index.ts",
         "build": "rimraf ./build && tsc",
         "docker-build": "docker build . -t overfitter:latest",
-        "start": "npm run build && node build/index.js",
+        "start": "npm run build && node build/src/index.js",
         "plop": "plop",
         "plop-test": "rimraf ./src/routers/bottoms && plop -- --typeName Bottom --tableName bottoms --endpoint bottoms",
         "create-routes": "plop -- --typeName Accessory --tableName accessories --endpoint accessories && plop -- --typeName Bottom --tableName bottoms --endpoint bottoms && plop -- --typeName Feet --tableName feet --endpoint feet && plop -- --typeName Head --tableName heads --endpoint heads && plop -- --typeName Outfit --tableName outfits --endpoint outfits && plop -- --typeName Top --tableName tops --endpoint tops && plop -- --typeName Wrist --tableName wrists --endpoint wrists",
