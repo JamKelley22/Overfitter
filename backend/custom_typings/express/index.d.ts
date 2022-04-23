@@ -1,4 +1,4 @@
-import { IDatabase } from "../../src/db/types";
+import { IDatabase } from "../../src/db/types"; // eslint-disable-line
 
 declare global {
     declare namespace Express {

@@ -1,18 +1,15 @@
 import { ClothingItem } from "../../types";
 
-import {
-	FeetType,
-	Feet as IFeet
-} from "../../../docs/openapi/client/api";
+import { FeetType, Feet as IFeet } from "../../../docs/openapi/client/api";
 
 export class Feet extends ClothingItem implements IFeet {
-	type?: FeetType;
-	sizeInches?: number;
+    type?: FeetType;
+    sizeInches?: number;
 
     constructor(data: IFeet) {
         super(data);
-		this.type = data.type || FeetType.Unknown;
-		this.sizeInches = data.sizeInches;
+        this.type = data.type || FeetType.Unknown;
+        this.sizeInches = data.sizeInches;
     }
 
     toString(): string {

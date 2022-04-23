@@ -14,7 +14,9 @@
         "create-sql-from-dbml": "dbml2sql docs/db/Overfitter.dbml -o docs/db/Overfitter.sql --postgres",
         "generate-types-from-openapi-json": "rimraf docs/openapi/client && openapi-generator-cli generate -g typescript-axios -i docs/openapi/OverfitterAPI.json -o docs/openapi/client",
         "lint": "eslint . --ext .ts",
-        "lint-and-fix": "eslint . --ext .ts --fix"
+        "lint-and-fix": "eslint . --ext .ts --fix",
+        "prettier-format": "prettier --config .prettierrc ./src/**/*.ts --write",
+        "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}"
     },
     "author": "Jameel Kelley",
     "license": "ISC",

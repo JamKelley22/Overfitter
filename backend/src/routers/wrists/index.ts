@@ -3,7 +3,7 @@ import express from "express";
 import {
     idParamValidator,
     ensureValidInput,
-    authenticateToken,
+    authenticateToken
 } from "../../middleware";
 import { Response, StatusCode } from "../../types";
 import { cleanObject, parseIdFromParams } from "../../util";

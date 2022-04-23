@@ -18,7 +18,7 @@ import docs from "../docs/openapi/OverfitterAPI.json";
 
 // Init
 const app = express();
-const db: IDatabase = new PostgresDatabase(CONNECTION_STRING!);
+const db: IDatabase = new PostgresDatabase(CONNECTION_STRING || "");
 
 // Set up config
 app.use(config);

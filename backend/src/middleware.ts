@@ -20,11 +20,14 @@ const addDatabaseToRequestInternal = (
     next();
 };
 
-export const addDatabaseToRequest = (db: IDatabase) => (
-    req: any,
+export const addDatabaseToRequest = (
+    db: IDatabase
+): ((
+    req: ExpressRequest,
     res: ExpressResponse,
     next: NextFunction
-) => addDatabaseToRequestInternal(req, res, next, db);
+) => void) => (req: ExpressRequest, res: ExpressResponse, next: NextFunction) =>
+    addDatabaseToRequestInternal(req, res, next, db);
 
 export const authenticateToken = (
     req: ExpressRequest,

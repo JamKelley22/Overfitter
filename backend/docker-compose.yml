@@ -1,7 +1,7 @@
 version: "3.8"
 services:
     postgres-db:
-        build: db
+        build: docs/db
         container_name: postgres
         restart: always
         environment:
@@ -16,7 +16,7 @@ services:
         ports:
             - "5432:5432"
         volumes:
-            - db/data/postgres:/var/lib/postgresql/data
+            - data:/var/lib/postgresql/data
     backend:
         build: .
         restart: always
@@ -27,5 +27,4 @@ services:
         depends_on:
             - postgres-db
 volumes:
-    db:
-        driver: local
+    data:
