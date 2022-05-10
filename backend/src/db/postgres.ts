@@ -1,8 +1,9 @@
+import escape from "escape-html";
 import { Pool, QueryResult } from "pg";
 
 import { IDatabase } from "./types";
-import { WithId } from "../../docs/openapi/client";
 import { Response, StatusCode } from "../types";
+import { WithId } from "../../docs/openapi/client";
 
 export class PostgresDatabase implements IDatabase {
     pool: Pool;
@@ -25,9 +26,20 @@ export class PostgresDatabase implements IDatabase {
 
     async getAll<T>(
         tableName: string,
-        dataType: new (data: T) => T
+        dataType: new (data: T) => T,
+        filters: Record<string, unknown> = {}
     ): Promise<Response<T[] | undefined>> {
-        const sqlQuery = `SELECT * FROM ${tableName}`;
+        const filterKeys = Object.keys(filters);
+        let filtersString = "";
+        if (filterKeys.length !== 0) {
+            filtersString =
+                "WHERE " +
+                Object.keys(filters)
+                    .map((key) => `${key} = ${filters[key]}`)
+                    .join(" AND ");
+        }
+
+        const sqlQuery = `SELECT * FROM ${tableName} ${filtersString}`;
 
         const queryResults = await this.runQuery<T>(sqlQuery);
 
@@ -73,6 +85,16 @@ export class PostgresDatabase implements IDatabase {
         dataType: new (data: T) => T
     ): Promise<Response<T | undefined>> {
         const bodyNoId = Object.entries(body).filter((v) => v[0] !== "id");
+
+        if (bodyNoId.length === 0) {
+            return new Response(
+                false,
+                undefined,
+                StatusCode.BAD_REQUEST,
+                `Create Failed: No valid update parameters in body`
+            );
+        }
+
         let sqlQuery = `INSERT INTO ${tableName}(${bodyNoId
             .map((pair) => `"${pair[0]}"`)
             .join(",")}) VALUES (${bodyNoId
@@ -182,13 +204,23 @@ export class PostgresDatabase implements IDatabase {
         }
 
         const bodyNoId = Object.entries(body).filter((v) => v[0] !== "id");
+
+        if (bodyNoId.length === 0) {
+            return new Response(
+                false,
+                undefined,
+                StatusCode.BAD_REQUEST,
+                `Update Failed: No valid update parameters in body`
+            );
+        }
+
         let sqlQuery = `UPDATE ${tableName} SET ${bodyNoId
             .map((pair) => `"${pair[0]}" = '${pair[1]}'`)
             .join(", ")} WHERE id = ${id}`;
 
         let queryResults = await this.runQuery<T>(sqlQuery);
 
-        sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${id}`;
+        sqlQuery = `SELECT * FROM ${tableName} WHERE id = ${id} LIMIT 1`;
         queryResults = await this.runQuery<T>(sqlQuery);
 
         if (queryResults.rowCount === 0) {

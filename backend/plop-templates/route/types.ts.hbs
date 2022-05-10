@@ -1,6 +1,9 @@
-import { ClothingItem } from "../../types";
+import { ClothingItem } from "../../../types";
 
-import { {{typeName}} as I{{typeName}} } from "../../../docs/openapi/client/api";
+import { 
+    {{typeName}}Type,
+    {{typeName}} as I{{typeName}}
+} from "../../../../docs/openapi/client/api";
 
 export class {{typeName}} extends ClothingItem implements I{{typeName}} {
 

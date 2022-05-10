@@ -3,7 +3,8 @@ import { Response } from "../types";
 export interface IDatabase {
     getAll<T>(
         tableName: string,
-        dataType: new (data: T) => T
+        dataType: new (data: T) => T,
+        filter?: Record<string, string>
     ): Promise<Response<T[] | undefined>>;
     getById<T>(
         tableName: string,

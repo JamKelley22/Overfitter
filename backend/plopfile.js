@@ -47,22 +47,28 @@ module.exports = function (plop) {
                 type: "input",
                 name: "endpoint",
                 message: "Endpoint Name (no slashes)"
+            },
+            {
+                type: "input",
+                name: "validationSchema",
+                message:
+                    "Validation Schema Object for endpoints (ClothingItemValidationSchema or EntityValidationSchema)"
             }
         ],
         actions: [
             {
                 type: "add",
-                path: "src/routers/{{endpoint}}/index.ts",
+                path: "src/routers/generated/{{endpoint}}/index.ts",
                 templateFile: "plop-templates/route/index.ts.hbs"
             },
             {
                 type: "add",
-                path: "src/routers/{{endpoint}}/types.ts",
+                path: "src/routers/generated/{{endpoint}}/types.ts",
                 templateFile: "plop-templates/route/types.ts.hbs"
             },
             {
                 type: "modify",
-                path: "src/routers/{{endpoint}}/types.ts",
+                path: "src/routers/generated/{{endpoint}}/types.ts",
                 async transform(fileContents, data) {
                     // Grab schemas
                     const schemas = OverfitterAPI.components.schemas;
@@ -138,8 +144,8 @@ module.exports = function (plop) {
 
                     // Imports
                     let newContents = fileContents.replace(
-                        /(import {) (.+ as I\w+) (} from "..\/..\/..\/docs\/openapi\/client\/api")/g,
-                        `$1\r\n\t${imports},\r\n\t$2\r\n$3`
+                        /(\w+Type,\s)(\s.+ as I\w+)/g,
+                        `${imports},$2`
                     );
 
                     // Instance Variables

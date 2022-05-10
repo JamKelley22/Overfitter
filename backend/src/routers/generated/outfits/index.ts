@@ -8,24 +8,24 @@ import { Response, StatusCode } from "../../../types";
 import { cleanObject, parseIdFromParams } from "../../../util";
 import { Validators, authenticateToken } from "../../../middleware";
 
-import { I{{typeName}}, {{typeName}} } from "./types";
+import { IOutfit, Outfit } from "./types";
 
 const router = express.Router();
 router.use(authenticateToken);
 
-const { {{validationSchema}}, ensureValidInput } = Validators;
+const { EntityValidationSchema, ensureValidInput } = Validators;
 
 router.get(``, async (req: ExpressRequest, res: ExpressResponse) => {
-    let response: Response<I{{typeName}}[] | undefined>;
+    let response: Response<IOutfit[] | undefined>;
     try {
         if (!req.db) throw new Error("No database to query");
-        response = await req.db.getAll("{{tableName}}", {{typeName}});
+        response = await req.db.getAll("outfits", Outfit);
     } catch (e) {
         response = new Response(
             false,
             undefined,
             StatusCode.SERVER_ERROR,
-            "Error when getting all {{lowerCase typeName}} items",
+            "Error when getting all outfit items",
             e
         );
     }
@@ -38,7 +38,7 @@ router.get(
     param("id").escape().trim(),
     ensureValidInput,
     async (req: ExpressRequest, res: ExpressResponse) => {
-        let response: Response<I{{typeName}} | undefined>;
+        let response: Response<IOutfit | undefined>;
         const matchedParams = matchedData(req, {
             includeOptionals: false,
             locations: ["params"]
@@ -46,13 +46,13 @@ router.get(
         try {
             if (!req.db) throw new Error("No database to query");
             const id = parseIdFromParams(matchedParams);
-            response = await req.db.getById("{{tableName}}", id, {{typeName}});
+            response = await req.db.getById("outfits", id, Outfit);
         } catch (e) {
             response = new Response(
                 false,
                 undefined,
                 StatusCode.SERVER_ERROR,
-                "Error when getting {{lowerCase typeName}} item",
+                "Error when getting outfit item",
                 e
             );
         }
@@ -63,24 +63,24 @@ router.get(
 
 router.post(
     ``,
-    checkSchema({{validationSchema}}("CREATE")),
+    checkSchema(EntityValidationSchema("CREATE")),
     ensureValidInput,
     async (req: ExpressRequest, res: ExpressResponse) => {
-        let response: Response<I{{typeName}} | undefined>;
+        let response: Response<IOutfit | undefined>;
         const matchedBody = matchedData(req, {
             includeOptionals: false,
             locations: ["body"]
         });
         try {
             if (!req.db) throw new Error("No database to query");
-            const item = new {{typeName}}(cleanObject(matchedBody));
-            response = await req.db.create("{{tableName}}", item, {{typeName}});
+            const item = new Outfit(cleanObject(matchedBody));
+            response = await req.db.create("outfits", item, Outfit);
         } catch (e) {
             response = new Response(
                 false,
                 undefined,
                 StatusCode.SERVER_ERROR,
-                "Error when creating {{lowerCase typeName}} item",
+                "Error when creating outfit item",
                 e
             );
         }
@@ -90,16 +90,16 @@ router.post(
 );
 
 router.delete(``, async (req: ExpressRequest, res: ExpressResponse) => {
-    let response: Response<I{{typeName}}[] | undefined>;
+    let response: Response<IOutfit[] | undefined>;
     try {
         if (!req.db) throw new Error("No database to query");
-        response = await req.db.deleteAll("{{tableName}}", {{typeName}});
+        response = await req.db.deleteAll("outfits", Outfit);
     } catch (e) {
         response = new Response(
             false,
             undefined,
             StatusCode.SERVER_ERROR,
-            "Error when deleting all {{lowerCase typeName}} items",
+            "Error when deleting all outfit items",
             e
         );
     }
@@ -109,10 +109,10 @@ router.delete(``, async (req: ExpressRequest, res: ExpressResponse) => {
 
 router.post(
     `/search`,
-    checkSchema({{validationSchema}}("SEARCH")),
+    checkSchema(EntityValidationSchema("SEARCH")),
     ensureValidInput,
     async (req: ExpressRequest, res: ExpressResponse) => {
-        let response: Response<I{{typeName}}[] | undefined>;
+        let response: Response<IOutfit[] | undefined>;
         const matchedBody = matchedData(req, {
             includeOptionals: false,
             locations: ["body"]
@@ -120,8 +120,8 @@ router.post(
         try {
             if (!req.db) throw new Error("No database to query");
             response = await req.db.getAll(
-                "{{tableName}}",
-                {{typeName}},
+                "outfits",
+                Outfit,
                 cleanObject(matchedBody)
             );
         } catch (e) {
@@ -129,7 +129,7 @@ router.post(
                 false,
                 undefined,
                 StatusCode.SERVER_ERROR,
-                "Error when deleting all {{lowerCase typeName}} items",
+                "Error when deleting all outfit items",
                 e
             );
         }
@@ -143,7 +143,7 @@ router.delete(
     param("id").escape().trim(),
     ensureValidInput,
     async (req: ExpressRequest, res: ExpressResponse) => {
-        let response: Response<I{{typeName}} | undefined>;
+        let response: Response<IOutfit | undefined>;
         const matchedParams = matchedData(req, {
             includeOptionals: false,
             locations: ["params"]
@@ -151,13 +151,13 @@ router.delete(
         try {
             if (!req.db) throw new Error("No database to query");
             const id = parseIdFromParams(matchedParams);
-            response = await req.db.deleteById("{{tableName}}", id, {{typeName}});
+            response = await req.db.deleteById("outfits", id, Outfit);
         } catch (e) {
             response = new Response(
                 false,
                 undefined,
                 StatusCode.SERVER_ERROR,
-                "Error when deleting {{lowerCase typeName}} item",
+                "Error when deleting outfit item",
                 e
             );
         }
@@ -168,10 +168,10 @@ router.delete(
 
 router.put(
     `/:id`, 
-    checkSchema({{validationSchema}}("UPDATE")),
+    checkSchema(EntityValidationSchema("UPDATE")),
     ensureValidInput,
     async (req: ExpressRequest, res: ExpressResponse) => {
-        let response: Response<I{{typeName}} | undefined>;
+        let response: Response<IOutfit | undefined>;
         const matchedParams = matchedData(req, {
             includeOptionals: false,
             locations: ["params"]
@@ -185,17 +185,17 @@ router.put(
             const id = parseIdFromParams(matchedParams);
             const item = cleanObject(matchedBody);
             response = await req.db.updateById(
-                "{{tableName}}",
+                "outfits",
                 id,
-                item as Partial<{{typeName}}>,
-                {{typeName}}
+                item as Partial<Outfit>,
+                Outfit
             );
         } catch (e) {
             response = new Response(
                 false,
                 undefined,
                 StatusCode.SERVER_ERROR,
-                "Error when updating {{lowerCase typeName}} item",
+                "Error when updating outfit item",
                 e
             );
         }
@@ -204,5 +204,5 @@ router.put(
     }
 );
 
-const baseEndpoint = "/{{endpoint}}";
+const baseEndpoint = "/outfits";
 export { router, baseEndpoint };
