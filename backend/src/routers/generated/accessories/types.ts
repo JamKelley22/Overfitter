@@ -1,16 +1,16 @@
 import { ClothingItem } from "../../../types";
 
-import {
+import { 
     AccessoryType,
     Accessory as IAccessory
 } from "../../../../docs/openapi/client/api";
 
 export class Accessory extends ClothingItem implements IAccessory {
-    type?: AccessoryType;
+	type?: AccessoryType;
 
     constructor(data: IAccessory) {
         super(data);
-        this.type = data.type || AccessoryType.Unknown;
+		this.type = data.type || AccessoryType.Unknown;
     }
 
     toString(): string {

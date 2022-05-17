@@ -57,11 +57,36 @@ export const ensureValidInput = (
     next: NextFunction
 ): ExpressResponse | void => {
     const errors = validationResult(req);
+    // // if (!allowExtraFields) {
+    // //     // Fields validation
+    // //   }
+    // const extraFields = checkIfExtraFields(ClothingItemValidationSchema("CREATE"), req);
+    // if (extraFields) {
+    //     return res.status(400).json({ error: true, message: "Bad request" });
+    // }
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
     next();
 };
+
+// function checkIfExtraFields(schema: Record<any, unknown>, req: ExpressRequest) {
+//     const objArr = Object.keys(schema);
+//     const allowedFields = objArr.reduce((a, _) => {
+//             return [...fields, ...rule.builder.fields];
+//         }, [])
+//         .sort();
+
+//     // Check for all common request inputs
+//     const requestInput = { ...req.query, ...req.params, ...req.body };
+//     const requestFields = Object.keys(requestInput).sort();
+
+//     if (JSON.stringify(allowedFields) === JSON.stringify(requestFields)) {
+//         return false;
+//     }
+//     // logger.error(`${req.ip} try to make a invalid request`)
+//     return true;
+// }
 
 const createErrorMessage = (
     paramName: string,
@@ -156,13 +181,16 @@ const timestampValidationSchema = (
     return basicValidationSchema({ paramName, location, optional }, rest);
 };
 
+const checkOptional = (type: "CREATE" | "UPDATE" | "SEARCH"): boolean =>
+    type === "CREATE";
+
 export const EntityValidationSchema = (
     type: "CREATE" | "UPDATE" | "SEARCH"
 ): Schema => {
     // prettier-ignore
     const common = {
-        name: stringValidationSchema("name", "body", type !== "CREATE"),
-        rating: floatValidationSchema("rating", "body", type !== "CREATE", 0, 5)
+        name: stringValidationSchema("name", "body", checkOptional(type)),
+        rating: floatValidationSchema("rating", "body", checkOptional(type), 0, 5)
     };
     let additional = {};
     switch (type) {
@@ -170,19 +198,19 @@ export const EntityValidationSchema = (
         case "UPDATE":
             // prettier-ignore
             additional = {
-                uriImage: stringValidationSchema("name", "body", type !== "CREATE", { isURL: true }),
-                description: stringValidationSchema("description", "body", type !== "CREATE", { escape: true }),
-                timestampAddedRFC: timestampValidationSchema("timestampAddedRFC", "body", type !== "CREATE"),
-                timestampLastModifiedRFC: timestampValidationSchema("timestampLastModifiedRFC", "body", type !== "CREATE")
+                uriImage: stringValidationSchema("name", "body", checkOptional(type), { isURL: true }),
+                description: stringValidationSchema("description", "body", checkOptional(type), { escape: true }),
+                timestampAddedRFC: timestampValidationSchema("timestampAddedRFC", "body", checkOptional(type)),
+                timestampLastModifiedRFC: timestampValidationSchema("timestampLastModifiedRFC", "body", checkOptional(type))
             }
             break;
         case "SEARCH":
             // prettier-ignore
             additional = {
-                timestampAddedBeginRFC: timestampValidationSchema("timestampAddedBeginRFC", "body", true),
-                timestampAddedEndRFC: timestampValidationSchema("timestampAddedEndRFC", "body", true),
-                timestampModifiedBeginRFC: timestampValidationSchema("timestampModifiedBeginRFC", "body", true),
-                timestampModifiedEndRFC: timestampValidationSchema("timestampModifiedEndRFC", "body", true)
+                timestampAddedBeginRFC: timestampValidationSchema("timestampAddedBeginRFC", "body", checkOptional(type)),
+                timestampAddedEndRFC: timestampValidationSchema("timestampAddedEndRFC", "body", checkOptional(type)),
+                timestampModifiedBeginRFC: timestampValidationSchema("timestampModifiedBeginRFC", "body", checkOptional(type)),
+                timestampModifiedEndRFC: timestampValidationSchema("timestampModifiedEndRFC", "body", checkOptional(type))
             };
             break;
     }
@@ -197,20 +225,20 @@ export const ClothingItemValidationSchema = (
 ): Schema => {
     // prettier-ignore
     const common = {
-        code: stringValidationSchema("code", "body", type !== "CREATE", { escape: true }),
-        sizeUSLetter: stringValidationSchema("sizeUSLetter", "body", type !== "CREATE", { escape: true }),
-        sizeUSNumber: floatValidationSchema("sizeUSNumber", "body", type !== "CREATE", 0, 100),
-        brand: stringValidationSchema("brand", "body", type !== "CREATE", { escape: true }),
-        itemCondition: stringValidationSchema("itemCondition", "body", type !== "CREATE", { escape: true }),
-        itemStatus: stringValidationSchema("itemStatus", "body", type !== "CREATE", { escape: true }),
-        numberOfWears: intValidationSchema("numberOfWears", "body", type !== "CREATE", 0, Number.MAX_SAFE_INTEGER),
-        wearsBeforeDirty: intValidationSchema("wearsBeforeDirty", "body", type !== "CREATE", 0, Number.MAX_SAFE_INTEGER),
-        wearsLeftBeforeDirty: intValidationSchema("wearsLeftBeforeDirty", "body", type !== "CREATE", 0, Number.MAX_SAFE_INTEGER),
-        primaryColor: stringValidationSchema("primaryColor", "body", type !== "CREATE", { escape: true }),
-        secondaryColor: stringValidationSchema("secondaryColor", "body", type !== "CREATE", { escape: true }),
-        accentColor: stringValidationSchema("accentColor", "body", type !== "CREATE", { escape: true }),
-        pattern: stringValidationSchema("pattern", "body", type !== "CREATE", { escape: true }),
-        type: stringValidationSchema("type", "body", type !== "CREATE", { escape: true })
+        code: stringValidationSchema("code", "body", checkOptional(type), { escape: true }),
+        sizeUSLetter: stringValidationSchema("sizeUSLetter", "body", checkOptional(type), { escape: true }),
+        sizeUSNumber: floatValidationSchema("sizeUSNumber", "body", checkOptional(type), 0, 100),
+        brand: stringValidationSchema("brand", "body", checkOptional(type), { escape: true }),
+        itemCondition: stringValidationSchema("itemCondition", "body", checkOptional(type), { escape: true }),
+        itemStatus: stringValidationSchema("itemStatus", "body", checkOptional(type), { escape: true }),
+        numberOfWears: intValidationSchema("numberOfWears", "body", checkOptional(type), 0, Number.MAX_SAFE_INTEGER),
+        wearsBeforeDirty: intValidationSchema("wearsBeforeDirty", "body", checkOptional(type), 0, Number.MAX_SAFE_INTEGER),
+        wearsLeftBeforeDirty: intValidationSchema("wearsLeftBeforeDirty", "body", checkOptional(type), 0, Number.MAX_SAFE_INTEGER),
+        primaryColor: stringValidationSchema("primaryColor", "body", checkOptional(type), { escape: true }),
+        secondaryColor: stringValidationSchema("secondaryColor", "body", checkOptional(type), { escape: true }),
+        accentColor: stringValidationSchema("accentColor", "body", checkOptional(type), { escape: true }),
+        pattern: stringValidationSchema("pattern", "body", checkOptional(type), { escape: true }),
+        type: stringValidationSchema("type", "body", checkOptional(type), { escape: true })
     };
     let additional = {};
     switch (type) {
@@ -218,14 +246,14 @@ export const ClothingItemValidationSchema = (
         case "UPDATE":
             // prettier-ignore
             additional = {
-                timestampPurchasedRFC: timestampValidationSchema("timestampPurchasedRFC", "body", type !== "CREATE"),
+                timestampPurchasedRFC: timestampValidationSchema("timestampPurchasedRFC", "body", checkOptional(type)),
             }
             break;
         case "SEARCH":
             // prettier-ignore
             additional = {
-                timestampPurchasedBeginRFC: timestampValidationSchema("timestampPurchasedRFC", "body", true),
-                timestampPurchasedEndRFC: timestampValidationSchema("timestampPurchasedRFC", "body", true),
+                timestampPurchasedBeginRFC: timestampValidationSchema("timestampPurchasedRFC", "body", checkOptional(type)),
+                timestampPurchasedEndRFC: timestampValidationSchema("timestampPurchasedRFC", "body", checkOptional(type)),
             };
             break;
     }

@@ -1,26 +1,25 @@
 import { ClothingItem } from "../../../types";
 
-import {
+import { 
     BottomType,
-    BottomInseamType,
+	BottomInseamType,
     Bottom as IBottom
 } from "../../../../docs/openapi/client/api";
 
 export class Bottom extends ClothingItem implements IBottom {
-    type?: BottomType;
-    sizeHipInchesLow?: number;
-    sizeHipInchesHigh?: number;
-    bottomInseamType?: BottomInseamType;
-    inseamInches?: number;
+	type?: BottomType;
+	sizeHipInchesLow?: number;
+	sizeHipInchesHigh?: number;
+	bottomInseamType?: BottomInseamType;
+	inseamInches?: number;
 
     constructor(data: IBottom) {
         super(data);
-        this.type = data.type || BottomType.Unknown;
-        this.sizeHipInchesLow = data.sizeHipInchesLow;
-        this.sizeHipInchesHigh = data.sizeHipInchesHigh;
-        this.bottomInseamType =
-            data.bottomInseamType || BottomInseamType.Unknown;
-        this.inseamInches = data.inseamInches;
+		this.type = data.type || BottomType.Unknown;
+		this.sizeHipInchesLow = data.sizeHipInchesLow;
+		this.sizeHipInchesHigh = data.sizeHipInchesHigh;
+		this.bottomInseamType = data.bottomInseamType || BottomInseamType.Unknown;
+		this.inseamInches = data.inseamInches;
     }
 
     toString(): string {

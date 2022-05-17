@@ -35,11 +35,12 @@ export class PostgresDatabase implements IDatabase {
             filtersString =
                 "WHERE " +
                 Object.keys(filters)
-                    .map((key) => `${key} = ${filters[key]}`)
+                    .map((key) => `${key} = \'${filters[key]}\'`)
                     .join(" AND ");
         }
 
         const sqlQuery = `SELECT * FROM ${tableName} ${filtersString}`;
+        console.log(sqlQuery);
 
         const queryResults = await this.runQuery<T>(sqlQuery);
 

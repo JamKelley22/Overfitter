@@ -34,7 +34,7 @@ router.get(``, async (req: ExpressRequest, res: ExpressResponse) => {
 });
 
 router.get(
-    `/:id`,
+    `/:id`, 
     param("id").escape().trim(),
     ensureValidInput,
     async (req: ExpressRequest, res: ExpressResponse) => {
@@ -129,7 +129,7 @@ router.post(
                 false,
                 undefined,
                 StatusCode.SERVER_ERROR,
-                "Error when deleting all outfit items",
+                "Error when searching for outfit item",
                 e
             );
         }
@@ -139,7 +139,7 @@ router.post(
 );
 
 router.delete(
-    `/:id`,
+    `/:id`, 
     param("id").escape().trim(),
     ensureValidInput,
     async (req: ExpressRequest, res: ExpressResponse) => {
@@ -167,7 +167,8 @@ router.delete(
 );
 
 router.put(
-    `/:id`,
+    `/:id`, 
+    param("id").escape().trim(),
     checkSchema(EntityValidationSchema("UPDATE")),
     ensureValidInput,
     async (req: ExpressRequest, res: ExpressResponse) => {

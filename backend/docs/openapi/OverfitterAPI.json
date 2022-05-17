@@ -1,2266 +1,2160 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "version": "0.1.0",
-    "title": "Overfitter",
-    "license": {
-      "name": "MIT"
-    }
-  },
-  "servers": [
-    {
-      "url": "localhost:4000"
+    "openapi": "3.0.0",
+    "info": {
+        "version": "0.1.0",
+        "title": "Overfitter",
+        "license": {
+            "name": "MIT"
+        }
     },
-    {
-      "url": "overfitter.jamkelley.com/api"
-    }
-  ],
-  "paths": {
-    "/auth": {
-      "post": {
-        "summary": "Get Token",
-        "operationId": "getToken",
-        "tags": [
-          "Auth"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessTokenResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/accessories": {
-      "get": {
-        "summary": "Get All Accessory Items",
-        "operationId": "getAllAccessoryItems",
-        "tags": [
-          "Accessories"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/AccessoryResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "post": {
-        "summary": "Create Accessory Item",
-        "operationId": "createAccessoryItem",
-        "tags": [
-          "Accessories"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/AccessoryBody"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/AccessoryResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete All Accessory Items",
-        "operationId": "deleteAllAccessoryItems",
-        "tags": [
-          "Accessories"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/AccessoryResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/accessories/{id}": {
-      "parameters": [
+    "servers": [
         {
-          "$ref": "#/components/parameters/idParam"
-        }
-      ],
-      "get": {
-        "summary": "Get Accessory Item by Id",
-        "operationId": "getAccessoryByIdItem",
-        "tags": [
-          "Accessories"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/AccessoryResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete Accessory Item by Id",
-        "operationId": "deleteAccessoryItemById",
-        "tags": [
-          "Accessories"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/AccessoryResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "put": {
-        "summary": "Update Accessory Item by Id",
-        "operationId": "updateAccessoryItemById",
-        "tags": [
-          "Accessories"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/AccessoryBody"
+            "url": "localhost:4000"
         },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/AccessoryResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/accessories/search": {
-      "post": {
-        "summary": "Search for Accessory Item",
-        "operationId": "searchAccessoryItem",
-        "tags": [
-          "Accessories"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/ClothingItemSearchBody"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/AccessoryResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/bottoms": {
-      "get": {
-        "summary": "Get All Bottom Items",
-        "operationId": "getAllBottomItems",
-        "tags": [
-          "Bottoms"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/BottomResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "post": {
-        "summary": "Create Bottom Item",
-        "operationId": "createBottomItem",
-        "tags": [
-          "Bottoms"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/BottomBody"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/BottomResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete All Bottom Items",
-        "operationId": "deleteAllBottomItems",
-        "tags": [
-          "Bottoms"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/BottomResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/bottoms/{id}": {
-      "parameters": [
         {
-          "$ref": "#/components/parameters/idParam"
+            "url": "overfitter.jamkelley.com/api"
         }
-      ],
-      "get": {
-        "summary": "Get Bottom Item by Id",
-        "operationId": "getBottomByIdItem",
-        "tags": [
-          "Bottoms"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/BottomResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete Bottom Item by Id",
-        "operationId": "deleteBottomItemById",
-        "tags": [
-          "Bottoms"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/BottomResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "put": {
-        "summary": "Update Bottom Item by Id",
-        "operationId": "updateBottomItemById",
-        "tags": [
-          "Bottoms"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/BottomBody"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/BottomResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/bottoms/search": {
-      "post": {
-        "summary": "Search for Bottom Item",
-        "operationId": "searchBottomItem",
-        "tags": [
-          "Bottoms"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/ClothingItemSearchBody"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/BottomResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/feet": {
-      "get": {
-        "summary": "Get All Feet Items",
-        "operationId": "getAllFeetItems",
-        "tags": [
-          "Feet"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/FeetResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "post": {
-        "summary": "Create Feet Item",
-        "operationId": "createFeetItem",
-        "tags": [
-          "Feet"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/FeetResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete All Feet Items",
-        "operationId": "deleteAllFeetItems",
-        "tags": [
-          "Feet"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/FeetResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/feet/{id}": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/idParam"
-        }
-      ],
-      "get": {
-        "summary": "Get Feet Item by Id",
-        "operationId": "getFeetItemById",
-        "tags": [
-          "Feet"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/FeetResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete Feet Item by Id",
-        "operationId": "deleteFeetById",
-        "tags": [
-          "Feet"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/FeetResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "put": {
-        "summary": "Update Feet Item by Id",
-        "operationId": "updateFeetItemById",
-        "tags": [
-          "Feet"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/FeetResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/feet/search": {
-      "post": {
-        "summary": "Search for Feet Item",
-        "operationId": "searchFeetItem",
-        "tags": [
-          "Feet"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/ClothingItemSearchBody"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/FeetResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/heads": {
-      "get": {
-        "summary": "Get All Head Items",
-        "operationId": "getAllHeadItems",
-        "tags": [
-          "Heads"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/HeadResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "post": {
-        "summary": "Create Head Item",
-        "operationId": "createHeadItem",
-        "tags": [
-          "Heads"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/HeadResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete All Head Items",
-        "operationId": "deleteAllHeadItems",
-        "tags": [
-          "Heads"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/HeadResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/heads/{id}": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/idParam"
-        }
-      ],
-      "get": {
-        "summary": "Get Head Item by Id",
-        "operationId": "getHeadItemById",
-        "tags": [
-          "Heads"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/HeadResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete Head Item by Id",
-        "operationId": "deleteHeadById",
-        "tags": [
-          "Heads"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/HeadResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "put": {
-        "summary": "Update Head Item by Id",
-        "operationId": "updateHeadItemById",
-        "tags": [
-          "Heads"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/HeadResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/heads/search": {
-      "post": {
-        "summary": "Search for Head Item",
-        "operationId": "searchHeadItem",
-        "tags": [
-          "Heads"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/ClothingItemSearchBody"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/HeadResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/outfits": {
-      "get": {
-        "summary": "Get All Outfits",
-        "operationId": "getAllOutfits",
-        "tags": [
-          "Outfits"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/OutfitResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "post": {
-        "summary": "Create Outfit",
-        "operationId": "createOutfit",
-        "tags": [
-          "Outfits"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/OutfitResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete All Outfits",
-        "operationId": "deleteAllOutfits",
-        "tags": [
-          "Outfits"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/OutfitResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/outfits/{id}": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/idParam"
-        }
-      ],
-      "get": {
-        "summary": "Get Outfit by Id",
-        "operationId": "getOutfitById",
-        "tags": [
-          "Outfits"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/OutfitResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete Outfit by Id",
-        "operationId": "deleteOutfitById",
-        "tags": [
-          "Outfits"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/OutfitResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "put": {
-        "summary": "Update Outfit by Id",
-        "operationId": "updateOutfitById",
-        "tags": [
-          "Outfits"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/OutfitResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/outfits/search": {
-      "post": {
-        "summary": "Search for Outfit Item",
-        "operationId": "searchOutfitItem",
-        "tags": [
-          "Outfits"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/EntitySearchBody"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/OutfitResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/tops": {
-      "get": {
-        "summary": "Get All Top Items",
-        "operationId": "getAllTopItems",
-        "tags": [
-          "Tops"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/TopResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "post": {
-        "summary": "Create Top Item",
-        "operationId": "createTopItem",
-        "tags": [
-          "Tops"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/TopResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete All Top Items",
-        "operationId": "deleteAllTopItems",
-        "tags": [
-          "Tops"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/TopResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/tops/{id}": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/idParam"
-        }
-      ],
-      "get": {
-        "summary": "Get Top Item by Id",
-        "operationId": "getTopItemById",
-        "tags": [
-          "Tops"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/TopResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete Top Item by Id",
-        "operationId": "deleteTopById",
-        "tags": [
-          "Tops"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/TopResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "put": {
-        "summary": "Update Top Item by Id",
-        "operationId": "updateTopItemById",
-        "tags": [
-          "Tops"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/TopResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/tops/search": {
-      "post": {
-        "summary": "Search for Top Item",
-        "operationId": "searchTopItem",
-        "tags": [
-          "Tops"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/ClothingItemSearchBody"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/TopResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/wrists": {
-      "get": {
-        "summary": "Get All Wrist Items",
-        "operationId": "getAllWristItems",
-        "tags": [
-          "Wrists"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/WristResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "post": {
-        "summary": "Create Wrist Item",
-        "operationId": "createWristItem",
-        "tags": [
-          "Wrists"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/WristResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete All Wrist Items",
-        "operationId": "deleteAllWristItems",
-        "tags": [
-          "Wrists"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/WristResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/wrists/{id}": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/idParam"
-        }
-      ],
-      "get": {
-        "summary": "Get Wrist Item by Id",
-        "operationId": "getWristItemById",
-        "tags": [
-          "Wrists"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/WristResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete Wrist Item by Id",
-        "operationId": "deleteWristById",
-        "tags": [
-          "Wrists"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/WristResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      },
-      "put": {
-        "summary": "Update Wrist Item by Id",
-        "operationId": "updateTopWristById",
-        "tags": [
-          "Wrists"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/WristResponse"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    },
-    "/wrists/search": {
-      "post": {
-        "summary": "Search for Wrists Item",
-        "operationId": "searchWristItem",
-        "tags": [
-          "Wrists"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/ClothingItemSearchBody"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/WristResponseList"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "5XX": {
-            "$ref": "#/components/responses/UnexpctedError"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "responses": {
-      "AccessoryResponse": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/DatalessResponse"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "allOf": [
-                        {
-                          "$ref": "#/components/schemas/WithId"
-                        },
-                        {
-                          "$ref": "#/components/schemas/Accessory"
+    ],
+    "paths": {
+        "/auth": {
+            "post": {
+                "summary": "Get Token",
+                "operationId": "getToken",
+                "tags": ["Auth"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessTokenResponse"
+                                }
+                            }
                         }
-                      ]
                     }
-                  }
                 }
-              ]
             }
-          }
-        }
-      },
-      "AccessoryResponseList": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/WithId"
-                },
-                {
-                  "$ref": "#/components/schemas/DatalessResponse"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "data": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/WithId"
-                          },
-                          {
-                            "$ref": "#/components/schemas/Accessory"
-                          }
-                        ]
-                      }
+        },
+        "/accessories": {
+            "get": {
+                "summary": "Get All Accessory Items",
+                "operationId": "getAllAccessoryItems",
+                "tags": ["Accessories"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
-            }
-          }
-        }
-      },
-      "BottomResponse": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/DatalessResponse"
+            },
+            "post": {
+                "summary": "Create Accessory Item",
+                "operationId": "createAccessoryItem",
+                "tags": ["Accessories"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/AccessoryBody"
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "allOf": [
-                        {
-                          "$ref": "#/components/schemas/WithId"
-                        },
-                        {
-                          "$ref": "#/components/schemas/Bottom"
-                        }
-                      ]
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
-            }
-          }
-        }
-      },
-      "BottomResponseList": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/WithId"
-                },
-                {
-                  "$ref": "#/components/schemas/DatalessResponse"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "data": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/WithId"
-                          },
-                          {
-                            "$ref": "#/components/schemas/Bottom"
-                          }
-                        ]
-                      }
+            },
+            "delete": {
+                "summary": "Delete All Accessory Items",
+                "operationId": "deleteAllAccessoryItems",
+                "tags": ["Accessories"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
             }
-          }
-        }
-      },
-      "FeetResponse": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
+        },
+        "/accessories/{id}": {
+            "parameters": [
                 {
-                  "$ref": "#/components/schemas/DatalessResponse"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "allOf": [
-                        {
-                          "$ref": "#/components/schemas/WithId"
-                        },
-                        {
-                          "$ref": "#/components/schemas/Feet"
-                        }
-                      ]
+                    "$ref": "#/components/parameters/idParam"
+                }
+            ],
+            "get": {
+                "summary": "Get Accessory Item by Id",
+                "operationId": "getAccessoryByIdItem",
+                "tags": ["Accessories"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
-            }
-          }
-        }
-      },
-      "FeetResponseList": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/DatalessResponse"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "data": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/WithId"
-                          },
-                          {
-                            "$ref": "#/components/schemas/Feet"
-                          }
-                        ]
-                      }
+            },
+            "delete": {
+                "summary": "Delete Accessory Item by Id",
+                "operationId": "deleteAccessoryItemById",
+                "tags": ["Accessories"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
-            }
-          }
-        }
-      },
-      "HeadResponse": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/DatalessResponse"
+            },
+            "put": {
+                "summary": "Update Accessory Item by Id",
+                "operationId": "updateAccessoryItemById",
+                "tags": ["Accessories"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/AccessoryBody"
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "allOf": [
-                        {
-                          "$ref": "#/components/schemas/WithId"
-                        },
-                        {
-                          "$ref": "#/components/schemas/Head"
-                        }
-                      ]
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
             }
-          }
-        }
-      },
-      "HeadResponseList": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/DatalessResponse"
+        },
+        "/accessories/search": {
+            "post": {
+                "summary": "Search for Accessory Item",
+                "operationId": "searchAccessoryItem",
+                "tags": ["Accessories"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ClothingItemSearchBody"
                 },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "data": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/WithId"
-                          },
-                          {
-                            "$ref": "#/components/schemas/Head"
-                          }
-                        ]
-                      }
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/AccessoryResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
             }
-          }
-        }
-      },
-      "OutfitResponse": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/DatalessResponse"
+        },
+        "/bottoms": {
+            "get": {
+                "summary": "Get All Bottom Items",
+                "operationId": "getAllBottomItems",
+                "tags": ["Bottoms"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/BottomResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Bottom Item",
+                "operationId": "createBottomItem",
+                "tags": ["Bottoms"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/BottomBody"
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "allOf": [
-                        {
-                          "$ref": "#/components/schemas/WithId"
-                        },
-                        {
-                          "$ref": "#/components/schemas/Outfit"
-                        }
-                      ]
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/BottomResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
+            },
+            "delete": {
+                "summary": "Delete All Bottom Items",
+                "operationId": "deleteAllBottomItems",
+                "tags": ["Bottoms"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/BottomResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
             }
-          }
-        }
-      },
-      "OutfitResponseList": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
+        },
+        "/bottoms/{id}": {
+            "parameters": [
                 {
-                  "$ref": "#/components/schemas/DatalessResponse"
+                    "$ref": "#/components/parameters/idParam"
+                }
+            ],
+            "get": {
+                "summary": "Get Bottom Item by Id",
+                "operationId": "getBottomByIdItem",
+                "tags": ["Bottoms"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/BottomResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Bottom Item by Id",
+                "operationId": "deleteBottomItemById",
+                "tags": ["Bottoms"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/BottomResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Bottom Item by Id",
+                "operationId": "updateBottomItemById",
+                "tags": ["Bottoms"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/BottomBody"
                 },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "data": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/WithId"
-                          },
-                          {
-                            "$ref": "#/components/schemas/Outfit"
-                          }
-                        ]
-                      }
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/BottomResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
             }
-          }
-        }
-      },
-      "TopResponse": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/DatalessResponse"
+        },
+        "/bottoms/search": {
+            "post": {
+                "summary": "Search for Bottom Item",
+                "operationId": "searchBottomItem",
+                "tags": ["Bottoms"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ClothingItemSearchBody"
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "allOf": [
-                        {
-                          "$ref": "#/components/schemas/WithId"
-                        },
-                        {
-                          "$ref": "#/components/schemas/Top"
-                        }
-                      ]
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/BottomResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
             }
-          }
-        }
-      },
-      "TopResponseList": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/DatalessResponse"
+        },
+        "/feet": {
+            "get": {
+                "summary": "Get All Feet Items",
+                "operationId": "getAllFeetItems",
+                "tags": ["Feet"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/FeetResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Feet Item",
+                "operationId": "createFeetItem",
+                "tags": ["Feet"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/FeetBody"
                 },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "data": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/WithId"
-                          },
-                          {
-                            "$ref": "#/components/schemas/Top"
-                          }
-                        ]
-                      }
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/FeetResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
+            },
+            "delete": {
+                "summary": "Delete All Feet Items",
+                "operationId": "deleteAllFeetItems",
+                "tags": ["Feet"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/FeetResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
             }
-          }
-        }
-      },
-      "WristResponse": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
+        },
+        "/feet/{id}": {
+            "parameters": [
                 {
-                  "$ref": "#/components/schemas/DatalessResponse"
+                    "$ref": "#/components/parameters/idParam"
+                }
+            ],
+            "get": {
+                "summary": "Get Feet Item by Id",
+                "operationId": "getFeetItemById",
+                "tags": ["Feet"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/FeetResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Feet Item by Id",
+                "operationId": "deleteFeetById",
+                "tags": ["Feet"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/FeetResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Feet Item by Id",
+                "operationId": "updateFeetItemById",
+                "tags": ["Feet"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/FeetResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            }
+        },
+        "/feet/search": {
+            "post": {
+                "summary": "Search for Feet Item",
+                "operationId": "searchFeetItem",
+                "tags": ["Feet"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ClothingItemSearchBody"
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "allOf": [
-                        {
-                          "$ref": "#/components/schemas/WithId"
-                        },
-                        {
-                          "$ref": "#/components/schemas/Wrist"
-                        }
-                      ]
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/FeetResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
             }
-          }
-        }
-      },
-      "WristResponseList": {
-        "description": "Ok",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/DatalessResponse"
+        },
+        "/heads": {
+            "get": {
+                "summary": "Get All Head Items",
+                "operationId": "getAllHeadItems",
+                "tags": ["Heads"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/HeadResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Head Item",
+                "operationId": "createHeadItem",
+                "tags": ["Heads"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/HeadBody"
                 },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "data": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/WithId"
-                          },
-                          {
-                            "$ref": "#/components/schemas/Wrist"
-                          }
-                        ]
-                      }
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/HeadResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
                     }
-                  }
                 }
-              ]
+            },
+            "delete": {
+                "summary": "Delete All Head Items",
+                "operationId": "deleteAllHeadItems",
+                "tags": ["Heads"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/HeadResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
             }
-          }
-        }
-      },
-      "NotFound": {
-        "description": "The specified resource was not found",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ErrorType"
+        },
+        "/heads/{id}": {
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/idParam"
+                }
+            ],
+            "get": {
+                "summary": "Get Head Item by Id",
+                "operationId": "getHeadItemById",
+                "tags": ["Heads"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/HeadResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Head Item by Id",
+                "operationId": "deleteHeadById",
+                "tags": ["Heads"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/HeadResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Head Item by Id",
+                "operationId": "updateHeadItemById",
+                "tags": ["Heads"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/HeadResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
             }
-          }
-        }
-      },
-      "Unauthorized": {
-        "description": "Unauthorized",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ErrorType"
+        },
+        "/heads/search": {
+            "post": {
+                "summary": "Search for Head Item",
+                "operationId": "searchHeadItem",
+                "tags": ["Heads"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ClothingItemSearchBody"
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/HeadResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
             }
-          }
-        }
-      },
-      "UnexpctedError": {
-        "description": "Unexpected error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/ErrorType"
+        },
+        "/outfits": {
+            "get": {
+                "summary": "Get All Outfits",
+                "operationId": "getAllOutfits",
+                "tags": ["Outfits"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OutfitResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Outfit",
+                "operationId": "createOutfit",
+                "tags": ["Outfits"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/OutfitBody"
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OutfitResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete All Outfits",
+                "operationId": "deleteAllOutfits",
+                "tags": ["Outfits"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OutfitResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
             }
-          }
+        },
+        "/outfits/{id}": {
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/idParam"
+                }
+            ],
+            "get": {
+                "summary": "Get Outfit by Id",
+                "operationId": "getOutfitById",
+                "tags": ["Outfits"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OutfitResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Outfit by Id",
+                "operationId": "deleteOutfitById",
+                "tags": ["Outfits"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OutfitResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Outfit by Id",
+                "operationId": "updateOutfitById",
+                "tags": ["Outfits"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OutfitResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            }
+        },
+        "/outfits/search": {
+            "post": {
+                "summary": "Search for Outfit Item",
+                "operationId": "searchOutfitItem",
+                "tags": ["Outfits"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/EntitySearchBody"
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OutfitResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            }
+        },
+        "/tops": {
+            "get": {
+                "summary": "Get All Top Items",
+                "operationId": "getAllTopItems",
+                "tags": ["Tops"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/TopResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Top Item",
+                "operationId": "createTopItem",
+                "tags": ["Tops"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/TopBody"
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/TopResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete All Top Items",
+                "operationId": "deleteAllTopItems",
+                "tags": ["Tops"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/TopResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            }
+        },
+        "/tops/{id}": {
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/idParam"
+                }
+            ],
+            "get": {
+                "summary": "Get Top Item by Id",
+                "operationId": "getTopItemById",
+                "tags": ["Tops"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/TopResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Top Item by Id",
+                "operationId": "deleteTopById",
+                "tags": ["Tops"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/TopResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Top Item by Id",
+                "operationId": "updateTopItemById",
+                "tags": ["Tops"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/TopResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            }
+        },
+        "/tops/search": {
+            "post": {
+                "summary": "Search for Top Item",
+                "operationId": "searchTopItem",
+                "tags": ["Tops"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ClothingItemSearchBody"
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/TopResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            }
+        },
+        "/wrists": {
+            "get": {
+                "summary": "Get All Wrist Items",
+                "operationId": "getAllWristItems",
+                "tags": ["Wrists"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/WristResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Wrist Item",
+                "operationId": "createWristItem",
+                "tags": ["Wrists"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/WristBody"
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/WristResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete All Wrist Items",
+                "operationId": "deleteAllWristItems",
+                "tags": ["Wrists"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/WristResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            }
+        },
+        "/wrists/{id}": {
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/idParam"
+                }
+            ],
+            "get": {
+                "summary": "Get Wrist Item by Id",
+                "operationId": "getWristItemById",
+                "tags": ["Wrists"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/WristResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Wrist Item by Id",
+                "operationId": "deleteWristById",
+                "tags": ["Wrists"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/WristResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Wrist Item by Id",
+                "operationId": "updateTopWristById",
+                "tags": ["Wrists"],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/WristResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            }
+        },
+        "/wrists/search": {
+            "post": {
+                "summary": "Search for Wrists Item",
+                "operationId": "searchWristItem",
+                "tags": ["Wrists"],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ClothingItemSearchBody"
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/WristResponseList"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "5XX": {
+                        "$ref": "#/components/responses/UnexpctedError"
+                    }
+                }
+            }
         }
-      }
     },
-    "schemas": {
-      "WithId": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          }
-        }
-      },
-      "AccessTokenResponse": {
-        "type": "object",
-        "properties": {
-          "accessToken": {
-            "type": "string",
-            "example": "MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3"
-          },
-          "tokenType": {
-            "type": "string",
-            "example": "Bearer"
-          },
-          "expiresIn": {
-            "type": "integer",
-            "format": "int32",
-            "example": 3600
-          },
-          "refreshToken": {
-            "type": "string",
-            "example": "IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk"
-          },
-          "scope": {
-            "type": "string",
-            "example": "create"
-          }
-        }
-      },
-      "DatalessResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "example": true
-          }
-        }
-      },
-      "item_status": {
-        "type": "string",
-        "enum": [
-          "CLEAN",
-          "DIRTY",
-          "WORN",
-          "OK",
-          "UNKNOWN"
-        ]
-      },
-      "item_condition": {
-        "type": "string",
-        "enum": [
-          "NEW",
-          "LIKE_NEW",
-          "GOOD",
-          "FAIR",
-          "POOR",
-          "TRASH",
-          "UNKNOWN"
-        ]
-      },
-      "size_us_letter": {
-        "type": "string",
-        "enum": [
-          "5XS",
-          "4XS",
-          "3XS",
-          "2XS",
-          "XS",
-          "S",
-          "M",
-          "L",
-          "XL",
-          "2XL",
-          "3XL",
-          "4XL",
-          "5XL",
-          "UNKNOWN"
-        ]
-      },
-      "Entity": {
-        "type": "object",
-        "properties": {
-          "uriImage": {
-            "type": "string",
-            "pattern": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)",
-            "example": "https://www.pngmart.com/files/11/Rickrolling-PNG-Transparent-Image.png"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "timestampAddedRFC": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "timestampLastModifiedRFC": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "rating": {
-            "type": "integer",
-            "minimum": 0,
-            "maximum": 5
-          }
-        }
-      },
-      "ClothingItem": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Entity"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string"
-              },
-              "sizeUSLetter": {
-                "$ref": "#/components/schemas/size_us_letter"
-              },
-              "sizeUSNumber": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 100
-              },
-              "brand": {
-                "type": "string"
-              },
-              "timestampPurchasedRFC": {
+    "components": {
+        "responses": {
+            "AccessoryResponse": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/components/schemas/WithId"
+                                                },
+                                                {
+                                                    "$ref": "#/components/schemas/Accessory"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "AccessoryResponseList": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/WithId"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/WithId"
+                                                    },
+                                                    {
+                                                        "$ref": "#/components/schemas/Accessory"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "BottomResponse": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/components/schemas/WithId"
+                                                },
+                                                {
+                                                    "$ref": "#/components/schemas/Bottom"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "BottomResponseList": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/WithId"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/WithId"
+                                                    },
+                                                    {
+                                                        "$ref": "#/components/schemas/Bottom"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "FeetResponse": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/components/schemas/WithId"
+                                                },
+                                                {
+                                                    "$ref": "#/components/schemas/Feet"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "FeetResponseList": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/WithId"
+                                                    },
+                                                    {
+                                                        "$ref": "#/components/schemas/Feet"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "HeadResponse": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/components/schemas/WithId"
+                                                },
+                                                {
+                                                    "$ref": "#/components/schemas/Head"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "HeadResponseList": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/WithId"
+                                                    },
+                                                    {
+                                                        "$ref": "#/components/schemas/Head"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "OutfitResponse": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/components/schemas/WithId"
+                                                },
+                                                {
+                                                    "$ref": "#/components/schemas/Outfit"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "OutfitResponseList": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/WithId"
+                                                    },
+                                                    {
+                                                        "$ref": "#/components/schemas/Outfit"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "TopResponse": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/components/schemas/WithId"
+                                                },
+                                                {
+                                                    "$ref": "#/components/schemas/Top"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "TopResponseList": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/WithId"
+                                                    },
+                                                    {
+                                                        "$ref": "#/components/schemas/Top"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "WristResponse": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/components/schemas/WithId"
+                                                },
+                                                {
+                                                    "$ref": "#/components/schemas/Wrist"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "WristResponseList": {
+                "description": "Ok",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/DatalessResponse"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/WithId"
+                                                    },
+                                                    {
+                                                        "$ref": "#/components/schemas/Wrist"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "NotFound": {
+                "description": "The specified resource was not found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ErrorType"
+                        }
+                    }
+                }
+            },
+            "Unauthorized": {
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ErrorType"
+                        }
+                    }
+                }
+            },
+            "UnexpctedError": {
+                "description": "Unexpected error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ErrorType"
+                        }
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "WithId": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "AccessTokenResponse": {
+                "type": "object",
+                "properties": {
+                    "accessToken": {
+                        "type": "string",
+                        "example": "MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3"
+                    },
+                    "tokenType": {
+                        "type": "string",
+                        "example": "Bearer"
+                    },
+                    "expiresIn": {
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 3600
+                    },
+                    "refreshToken": {
+                        "type": "string",
+                        "example": "IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk"
+                    },
+                    "scope": {
+                        "type": "string",
+                        "example": "create"
+                    }
+                }
+            },
+            "DatalessResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                }
+            },
+            "item_status": {
                 "type": "string",
-                "format": "date-time"
-              },
-              "itemCondition": {
-                "$ref": "#/components/schemas/item_condition"
-              },
-              "itemStatus": {
-                "$ref": "#/components/schemas/item_status"
-              },
-              "numberOfWears": {
-                "type": "integer",
-                "minimum": 0,
-                "maximum": 1000000
-              },
-              "wearsBeforeDirty": {
-                "type": "integer",
-                "minimum": 0,
-                "maximum": 1000000
-              },
-              "wearsLeftBeforeDirty": {
-                "type": "integer",
-                "minimum": 0,
-                "maximum": 1000000
-              },
-              "primaryColor": {
-                "type": "string"
-              },
-              "secondaryColor": {
-                "type": "string"
-              },
-              "accentColor": {
-                "type": "string"
-              },
-              "pattern": {
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
-      "accessory_type": {
-        "type": "string",
-        "enum": [
-          "RING",
-          "NECKLACE",
-          "EARRINGS",
-          "PURSE",
-          "UNKNOWN"
-        ]
-      },
-      "Accessory": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ClothingItem"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "type": {
-                "$ref": "#/components/schemas/accessory_type"
-              }
-            }
-          }
-        ]
-      },
-      "bottom_type": {
-        "type": "string",
-        "enum": [
-          "SWEAT",
-          "DRESS",
-          "UNDER",
-          "SLEEP",
-          "WORKOUT",
-          "JEANS",
-          "KAKIS",
-          "UNKNOWN"
-        ]
-      },
-      "bottom_inseam_type": {
-        "type": "string",
-        "enum": [
-          "SHORT",
-          "REGULAR",
-          "TALL",
-          "UNKNOWN"
-        ]
-      },
-      "Bottom": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ClothingItem"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "type": {
-                "$ref": "#/components/schemas/bottom_type"
-              },
-              "sizeHipInchesLow": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 100
-              },
-              "sizeHipInchesHigh": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 100
-              },
-              "bottomInseamType": {
-                "$ref": "#/components/schemas/bottom_inseam_type"
-              },
-              "inseamInches": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 50
-              }
-            }
-          }
-        ]
-      },
-      "feet_type": {
-        "type": "string",
-        "enum": [
-          "DRESS_SHOE",
-          "TENNIS_SHOE",
-          "CASUAL_SHOE",
-          "HEEL_SHOE",
-          "FLIP_FLOP_SHOE",
-          "SANDAL_SHOE",
-          "DRESS_SOCK",
-          "CASUAL_SOCK",
-          "UNKNOWN"
-        ]
-      },
-      "Feet": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ClothingItem"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "type": {
-                "$ref": "#/components/schemas/feet_type"
-              },
-              "sizeInches": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 50
-              }
-            }
-          }
-        ]
-      },
-      "head_type": {
-        "type": "string",
-        "enum": [
-          "BASEBALL_HAT",
-          "BEANIE",
-          "BANDANA",
-          "GLASSES",
-          "UNKNOWN"
-        ]
-      },
-      "Head": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ClothingItem"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "type": {
-                "$ref": "#/components/schemas/head_type"
-              },
-              "sizeInchesLow": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 50
-              },
-              "sizeInchesHigh": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 50
-              }
-            }
-          }
-        ]
-      },
-      "outfit_type": {
-        "type": "string",
-        "enum": [
-          "FORMAL",
-          "CASUAL",
-          "BUSINESS",
-          "BUSINESS_CASUAL",
-          "SPORT",
-          "SLEEP",
-          "UNKNOWN"
-        ]
-      },
-      "Outfit": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Entity"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "type": {
-                "$ref": "#/components/schemas/outfit_type"
-              },
-              "topId": {
-                "type": "integer",
-                "minimum": 0
-              },
-              "bottomId": {
-                "type": "integer",
-                "minimum": 0
-              },
-              "headId": {
-                "type": "integer",
-                "minimum": 0
-              },
-              "feetId": {
-                "type": "integer",
-                "minimum": 0
-              },
-              "wristId": {
-                "type": "integer",
-                "minimum": 0
-              },
-              "rating": {
-                "type": "integer",
-                "minimum": 0,
-                "maximum": 5
-              }
-            }
-          }
-        ]
-      },
-      "top_type": {
-        "type": "string",
-        "enum": [
-          "TEE",
-          "SWEAT",
-          "DRESS",
-          "FLANNEL",
-          "UNDER",
-          "SLEEP",
-          "CASUAL",
-          "WORKOUT",
-          "UNKNOWN"
-        ]
-      },
-      "Top": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ClothingItem"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "type": {
-                "$ref": "#/components/schemas/top_type"
-              },
-              "sizeChestInchesLow": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 100
-              },
-              "sizeChestInchesHigh": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 100
-              },
-              "sizeNeckInchesLow": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 50
-              },
-              "sizeNeckInchesHigh": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 50
-              },
-              "sizeWaistInchesLow": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 100
-              },
-              "sizeWaistInchesHigh": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 100
-              },
-              "sizeSleeveInches": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 50
-              }
-            }
-          }
-        ]
-      },
-      "wrist_type": {
-        "type": "string",
-        "enum": [
-          "WATCH",
-          "BRACELET",
-          "UNKNOWN"
-        ]
-      },
-      "Wrist": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ClothingItem"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "type": {
-                "$ref": "#/components/schemas/wrist_type"
-              },
-              "sizeInches": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 50
-              }
-            }
-          }
-        ]
-      },
-      "ErrorType": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "example": false
-          },
-          "errorMessage": {
-            "type": "string"
-          },
-          "error": {
-            "type": "object",
-            "nullable": true
-          },
-          "detail": {
-            "type": "object",
-            "nullable": true
-          }
-        }
-      }
-    },
-    "parameters": {
-      "idParam": {
-        "name": "id",
-        "in": "path",
-        "description": "ID of the Item",
-        "required": true,
-        "schema": {
-          "type": "integer"
-        }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    },
-    "requestBodies": {
-      "AccessoryBody": {
-        "description": "A JSON object containing accessory info",
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Accessory"
-            }
-          }
-        }
-      },
-      "BottomBody": {
-        "description": "A JSON object containing bottom info",
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Bottom"
-            }
-          }
-        }
-      },
-      "FeetBody": {
-        "description": "A JSON object containing feet info",
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Feet"
-            }
-          }
-        }
-      },
-      "HeadBody": {
-        "description": "A JSON object containing head info",
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Head"
-            }
-          }
-        }
-      },
-      "OutfitBody": {
-        "description": "A JSON object containing outfit info",
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Outfit"
-            }
-          }
-        }
-      },
-      "TopBody": {
-        "description": "A JSON object containing top info",
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Top"
-            }
-          }
-        }
-      },
-      "WristBody": {
-        "description": "A JSON object containing wrist info",
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Wrist"
-            }
-          }
-        }
-      },
-      "EntitySearchBody": {
-        "description": "A JSON object containing search info for an Entity",
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "timestampAddedBeginRFC": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "timestampAddedEndRFC": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "timestampModifiedBeginRFC": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "timestampModifiedEndRFC": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "rating": {
-                  "type": "integer"
-                }
-              }
-            }
-          }
-        }
-      },
-      "ClothingItemSearchBody": {
-        "description": "A JSON object containing search info for a ClothingItem",
-        "content": {
-          "application/json": {
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/requestBodies/EntitySearchBody"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "sizeUSLetter": {
-                      "type": "string"
+                "enum": ["CLEAN", "DIRTY", "WORN", "OK", "UNKNOWN"]
+            },
+            "item_condition": {
+                "type": "string",
+                "enum": [
+                    "NEW",
+                    "LIKE_NEW",
+                    "GOOD",
+                    "FAIR",
+                    "POOR",
+                    "TRASH",
+                    "UNKNOWN"
+                ]
+            },
+            "size_us_letter": {
+                "type": "string",
+                "enum": [
+                    "5XS",
+                    "4XS",
+                    "3XS",
+                    "2XS",
+                    "XS",
+                    "S",
+                    "M",
+                    "L",
+                    "XL",
+                    "2XL",
+                    "3XL",
+                    "4XL",
+                    "5XL",
+                    "UNKNOWN"
+                ]
+            },
+            "Entity": {
+                "type": "object",
+                "properties": {
+                    "uriImage": {
+                        "type": "string",
+                        "pattern": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)",
+                        "example": "https://www.pngmart.com/files/11/Rickrolling-PNG-Transparent-Image.png"
                     },
-                    "sizeUSNumber": {
-                      "type": "integer"
+                    "name": {
+                        "type": "string"
                     },
-                    "brand": {
-                      "type": "string"
+                    "description": {
+                        "type": "string"
                     },
-                    "timestampPurchasedBeginRFC": {
-                      "type": "string",
-                      "format": "date-time"
+                    "timestampAddedRFC": {
+                        "type": "string",
+                        "format": "date-time"
                     },
-                    "timestampPurchasedEndRFC": {
-                      "type": "string",
-                      "format": "date-time"
+                    "timestampLastModifiedRFC": {
+                        "type": "string",
+                        "format": "date-time"
                     },
-                    "itemCondition": {
-                      "type": "string"
-                    },
-                    "itemStatus": {
-                      "type": "string"
-                    },
-                    "numberOfWearsMin": {
-                      "type": "integer"
-                    },
-                    "numberOfWearsMax": {
-                      "type": "integer"
-                    },
-                    "wearsBeforeDirtyMin": {
-                      "type": "integer"
-                    },
-                    "wearsBeforeDirtyMax": {
-                      "type": "integer"
-                    },
-                    "wearsLeftBeforeDirtyMin": {
-                      "type": "integer"
-                    },
-                    "wearsLeftBeforeDirtyMax": {
-                      "type": "integer"
-                    },
-                    "primaryColor": {
-                      "type": "string"
-                    },
-                    "secondaryColor": {
-                      "type": "string"
-                    },
-                    "accentColor": {
-                      "type": "string"
-                    },
-                    "pattern": {
-                      "type": "string"
-                    },
-                    "itemType": {
-                      "type": "string"
+                    "rating": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 5
                     }
-                  }
                 }
-              ]
+            },
+            "ClothingItem": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Entity"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "code": {
+                                "type": "string"
+                            },
+                            "sizeUSLetter": {
+                                "$ref": "#/components/schemas/size_us_letter"
+                            },
+                            "sizeUSNumber": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100
+                            },
+                            "brand": {
+                                "type": "string"
+                            },
+                            "timestampPurchasedRFC": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "itemCondition": {
+                                "$ref": "#/components/schemas/item_condition"
+                            },
+                            "itemStatus": {
+                                "$ref": "#/components/schemas/item_status"
+                            },
+                            "numberOfWears": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 1000000
+                            },
+                            "wearsBeforeDirty": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 1000000
+                            },
+                            "wearsLeftBeforeDirty": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 1000000
+                            },
+                            "primaryColor": {
+                                "type": "string"
+                            },
+                            "secondaryColor": {
+                                "type": "string"
+                            },
+                            "accentColor": {
+                                "type": "string"
+                            },
+                            "pattern": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ]
+            },
+            "accessory_type": {
+                "type": "string",
+                "enum": ["RING", "NECKLACE", "EARRINGS", "PURSE", "UNKNOWN"]
+            },
+            "Accessory": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ClothingItem"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "$ref": "#/components/schemas/accessory_type"
+                            }
+                        }
+                    }
+                ]
+            },
+            "bottom_type": {
+                "type": "string",
+                "enum": [
+                    "SWEAT",
+                    "DRESS",
+                    "UNDER",
+                    "SLEEP",
+                    "WORKOUT",
+                    "JEANS",
+                    "KAKIS",
+                    "UNKNOWN"
+                ]
+            },
+            "bottom_inseam_type": {
+                "type": "string",
+                "enum": ["SHORT", "REGULAR", "TALL", "UNKNOWN"]
+            },
+            "Bottom": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ClothingItem"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "$ref": "#/components/schemas/bottom_type"
+                            },
+                            "sizeHipInchesLow": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100
+                            },
+                            "sizeHipInchesHigh": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100
+                            },
+                            "bottomInseamType": {
+                                "$ref": "#/components/schemas/bottom_inseam_type"
+                            },
+                            "inseamInches": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 50
+                            }
+                        }
+                    }
+                ]
+            },
+            "feet_type": {
+                "type": "string",
+                "enum": [
+                    "DRESS_SHOE",
+                    "TENNIS_SHOE",
+                    "CASUAL_SHOE",
+                    "HEEL_SHOE",
+                    "FLIP_FLOP_SHOE",
+                    "SANDAL_SHOE",
+                    "DRESS_SOCK",
+                    "CASUAL_SOCK",
+                    "UNKNOWN"
+                ]
+            },
+            "Feet": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ClothingItem"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "$ref": "#/components/schemas/feet_type"
+                            },
+                            "sizeInches": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 50
+                            }
+                        }
+                    }
+                ]
+            },
+            "head_type": {
+                "type": "string",
+                "enum": [
+                    "BASEBALL_HAT",
+                    "BEANIE",
+                    "BANDANA",
+                    "GLASSES",
+                    "UNKNOWN"
+                ]
+            },
+            "Head": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ClothingItem"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "$ref": "#/components/schemas/head_type"
+                            },
+                            "sizeInchesLow": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 50
+                            },
+                            "sizeInchesHigh": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 50
+                            }
+                        }
+                    }
+                ]
+            },
+            "outfit_type": {
+                "type": "string",
+                "enum": [
+                    "FORMAL",
+                    "CASUAL",
+                    "BUSINESS",
+                    "BUSINESS_CASUAL",
+                    "SPORT",
+                    "SLEEP",
+                    "UNKNOWN"
+                ]
+            },
+            "Outfit": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Entity"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "$ref": "#/components/schemas/outfit_type"
+                            },
+                            "topId": {
+                                "type": "integer",
+                                "minimum": 0
+                            },
+                            "bottomId": {
+                                "type": "integer",
+                                "minimum": 0
+                            },
+                            "headId": {
+                                "type": "integer",
+                                "minimum": 0
+                            },
+                            "feetId": {
+                                "type": "integer",
+                                "minimum": 0
+                            },
+                            "wristId": {
+                                "type": "integer",
+                                "minimum": 0
+                            },
+                            "rating": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 5
+                            }
+                        }
+                    }
+                ]
+            },
+            "top_type": {
+                "type": "string",
+                "enum": [
+                    "TEE",
+                    "SWEAT",
+                    "DRESS",
+                    "FLANNEL",
+                    "UNDER",
+                    "SLEEP",
+                    "CASUAL",
+                    "WORKOUT",
+                    "UNKNOWN"
+                ]
+            },
+            "Top": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ClothingItem"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "$ref": "#/components/schemas/top_type"
+                            },
+                            "sizeChestInchesLow": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100
+                            },
+                            "sizeChestInchesHigh": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100
+                            },
+                            "sizeNeckInchesLow": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 50
+                            },
+                            "sizeNeckInchesHigh": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 50
+                            },
+                            "sizeWaistInchesLow": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100
+                            },
+                            "sizeWaistInchesHigh": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100
+                            },
+                            "sizeSleeveInches": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 50
+                            }
+                        }
+                    }
+                ]
+            },
+            "wrist_type": {
+                "type": "string",
+                "enum": ["WATCH", "BRACELET", "UNKNOWN"]
+            },
+            "Wrist": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ClothingItem"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "$ref": "#/components/schemas/wrist_type"
+                            },
+                            "sizeInches": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 50
+                            }
+                        }
+                    }
+                ]
+            },
+            "ErrorType": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "errorMessage": {
+                        "type": "string"
+                    },
+                    "error": {
+                        "type": "object",
+                        "nullable": true
+                    },
+                    "detail": {
+                        "type": "object",
+                        "nullable": true
+                    }
+                }
             }
-          }
+        },
+        "parameters": {
+            "idParam": {
+                "name": "id",
+                "in": "path",
+                "description": "ID of the Item",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "requestBodies": {
+            "AccessoryBody": {
+                "description": "A JSON object containing accessory info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Accessory"
+                        }
+                    }
+                }
+            },
+            "BottomBody": {
+                "description": "A JSON object containing bottom info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Bottom"
+                        }
+                    }
+                }
+            },
+            "FeetBody": {
+                "description": "A JSON object containing feet info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Feet"
+                        }
+                    }
+                }
+            },
+            "HeadBody": {
+                "description": "A JSON object containing head info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Head"
+                        }
+                    }
+                }
+            },
+            "OutfitBody": {
+                "description": "A JSON object containing outfit info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Outfit"
+                        }
+                    }
+                }
+            },
+            "TopBody": {
+                "description": "A JSON object containing top info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Top"
+                        }
+                    }
+                }
+            },
+            "WristBody": {
+                "description": "A JSON object containing wrist info",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Wrist"
+                        }
+                    }
+                }
+            },
+            "EntitySearchBody": {
+                "description": "A JSON object containing search info for an Entity",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "timestampAddedBeginRFC": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "timestampAddedEndRFC": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "timestampModifiedBeginRFC": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "timestampModifiedEndRFC": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "rating": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "ClothingItemSearchBody": {
+                "description": "A JSON object containing search info for a ClothingItem",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/requestBodies/EntitySearchBody"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "sizeUSLetter": {
+                                            "type": "string"
+                                        },
+                                        "sizeUSNumber": {
+                                            "type": "integer"
+                                        },
+                                        "brand": {
+                                            "type": "string"
+                                        },
+                                        "timestampPurchasedBeginRFC": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "timestampPurchasedEndRFC": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "itemCondition": {
+                                            "type": "string"
+                                        },
+                                        "itemStatus": {
+                                            "type": "string"
+                                        },
+                                        "numberOfWearsMin": {
+                                            "type": "integer"
+                                        },
+                                        "numberOfWearsMax": {
+                                            "type": "integer"
+                                        },
+                                        "wearsBeforeDirtyMin": {
+                                            "type": "integer"
+                                        },
+                                        "wearsBeforeDirtyMax": {
+                                            "type": "integer"
+                                        },
+                                        "wearsLeftBeforeDirtyMin": {
+                                            "type": "integer"
+                                        },
+                                        "wearsLeftBeforeDirtyMax": {
+                                            "type": "integer"
+                                        },
+                                        "primaryColor": {
+                                            "type": "string"
+                                        },
+                                        "secondaryColor": {
+                                            "type": "string"
+                                        },
+                                        "accentColor": {
+                                            "type": "string"
+                                        },
+                                        "pattern": {
+                                            "type": "string"
+                                        },
+                                        "itemType": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
         }
-      }
-    }
-  },
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ]
+    },
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ]
 }
