@@ -7,3 +7,7 @@ https://editor.swagger.io/
 https://dbdiagram.io
 
 -   To generate database sql files
+
+### Generate a TOKEN_SECRET for .env
+
+node -e "console.log(crypto.randomBytes(64).toString('hex'));"

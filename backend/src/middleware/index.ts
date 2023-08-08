@@ -11,6 +11,7 @@ import {
 import { IDatabase } from "../db/types";
 import { TOKEN_SECRET } from "../variables";
 import * as Validators from "./validators";
+import { StatusCode } from "../types";
 
 const addDatabaseToRequestInternal = (
     req: ExpressRequest,
@@ -39,11 +40,11 @@ export const authenticateToken = (
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
 
-    if (!token) return res.sendStatus(401);
+    if (!token) return res.sendStatus(StatusCode.UNAUTHORIZED);
 
     jwt.verify(token, TOKEN_SECRET as string, (err) => {
         if (err) {
-            return res.sendStatus(403);
+            return res.sendStatus(StatusCode.FORBIDDEN);
         }
         next();
     });

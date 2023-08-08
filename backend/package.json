@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start:dev": "tsnd --respawn src/index.ts",
+        "kill": "npx kill-port 4000",
         "build": "rimraf ./build && tsc",
         "docker-build": "docker build . -t overfitter:latest",
         "start": "npm run build && node build/src/index.js",
