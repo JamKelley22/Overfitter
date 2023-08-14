@@ -1,0 +1,640 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =====Enums=====
+// ===============
+enum ItemStatus {
+  CLEAN
+  WORN
+  DIRTY
+}
+
+enum ItemCondition {
+  NEW
+  LIKE_NEW
+  GOOD
+  FAIR
+  POOR
+  TRASH
+}
+
+enum FiberType {
+  COTTON
+  POLYESTER
+  NYLON
+  WOOL
+  SILK
+  RAYON
+  LINEN
+  SPANDEX
+  LYCRA
+  CASHMERE
+  BAMBOO
+  ACETATE
+  ACRYLIC
+  ALPACA
+  ANGORA
+  HEMP
+  MOHAIR
+}
+
+enum FabricType {
+  LEATHER
+  DENIM
+  VELVET
+  LACE
+  FUR
+  FLEECE
+  CHIFFON
+  BROCADE
+  TWEED
+  TULLE
+  JERSEY
+  MUSLIN
+  ORGANZA
+  SATIN
+  TAFFETA
+  TERRY
+  TWILL
+  VOILE
+  WORSTED
+  CHENILLE
+  CREPE
+  DAMASK
+  FAILLE
+  FLANNEL
+  GINGHAM
+  JACQUARD
+  SEERSUCKER
+}
+
+// TODO: ADD TO MODALS
+enum MetalType {
+  GOLD
+  SILVER
+  PLATINUM
+  TITANIUM
+  STAINLESS_STEEL
+  BRASS
+  COPPER
+  BRONZE
+  PEWTER
+  NICKEL
+  TUNGSTEN
+}
+
+enum MaterialType {
+  // New Fields
+  PLASTIC
+  // MetalType (same as above)
+  GOLD
+  SILVER
+  PLATINUM
+  TITANIUM
+  STAINLESS_STEEL
+  BRASS
+  COPPER
+  BRONZE
+  PEWTER
+  NICKEL
+  TUNGSTEN
+}
+
+enum SizeUSLetter {
+  TwoXS
+  XS
+  S
+  M
+  L
+  XL
+  TwoXL
+  ThreeXL
+  FourXL
+  FiveXL
+  SixXL
+}
+
+enum AccessoryType {
+  RING
+  NECKLACE
+  EARRINGS
+  PURSE
+  WALLET
+  WATCH
+  BRACELET
+  SCARF
+  GLASSES
+  HAT
+  BELT
+  ANKLET
+  BODY_CHAIN
+
+  // ALL TYPES OF PURSES
+  // TOTE
+  // CLUTCH
+  // CROSSBODY
+  // BACKPACK
+  // HANDBAG
+  // SHOULDER_BAG
+  // BUCKET_BAG
+  // BELT_BAG
+  // PHANNY_PACK
+}
+
+enum BottomType {
+  LOUNGE
+  DRESS
+  UNDER
+  SLEEP
+  WORKOUT
+  JEAN
+  KAKHI
+  BIKE_SHORT
+  COMPRESSION_SHORT
+  COMPRESSION_LEGGING
+  MINI_SKIRT
+  MAXI_SKIRT
+  MIDI_SKIRT
+  KNEE_LENGTH_SKIRT
+  PENCIL_SKIRT
+  PLEATED_SKIRT
+  A_LINE_SKIRT
+  TULIP_SKIRT
+  TIERED_SKIRT
+  WRAP_SKIRT
+  CIRCLE_SKIRT
+  SKATER_SKIRT
+  TENNIS_SKIRT
+  TUBE_SKIRT
+  SKORT
+  SLACK
+}
+
+enum BottomInseamType {
+  SHORT
+  PANT
+  CAPRI
+  CROP
+  ANKLE
+  REGULAR
+}
+
+enum BottomFit {
+  SKINNY
+  SLIM
+  STRAIGHT
+  BOOTCUT
+  RELAXED
+  WIDE_LEG
+  FLARE
+  BAGGY
+  JOGGER
+  LEGGING
+  CARGO
+  CHINO
+  SWEATPANT
+  BERMUDA
+  CROPPED
+}
+
+enum BottomRise {
+  MID
+  HIGH
+  LOW
+}
+
+enum FootType {
+  DRESS_SHOE
+  TENNIS_SHOE
+  CASUAL_SHOE
+  HEEL_SHOE
+  FLIP_FLOP_SHOE
+  SANDAL_SHOE
+  DRESS_SOCK
+  CASUAL_SOCK
+  WEDGE_SHOE
+  BOOT_SHOE
+}
+
+enum HeadType {
+  BASEBALL_HAT
+  BEANIE
+  BANDANA
+  GLASSES
+}
+
+enum OutfitType {
+  FORMAL
+  CASUAL
+  BUSINESS
+  BUSINESS_CASUAL
+  SPORT
+  SLEEP
+  SWIM
+  LOUNGE
+  COCKTAIL
+  PARTY
+}
+
+enum TopType {
+  TEE
+  LOUNGE
+  DRESS
+  FLANNEL
+  UNDER
+  POLO
+  SLEEP
+  CASUAL
+  WORKOUT
+  BRA
+  BUTTON_UP
+  BLOUSE
+  TANK
+  TUBE
+  TUNIC
+  SWEATER
+  CARDIGAN
+  HOODIE
+  JACKET
+  BLAZER
+  VEST
+  CAPE
+  PONCHO
+  KIMONO
+  WRAP
+}
+
+enum Neckline {
+  CREW
+  SCOOP
+  SQUARE
+  BOAT
+  HALTER
+  OFF_SHOULDER
+  ONE_SHOULDER
+  STRAPLESS
+  SWEETHEART
+  SURPLICE
+  V_NECK
+  COWL
+  KEYHOLE
+  TURTLENECK
+  MOCK
+  HOOD
+  COLLAR
+  PETER_PAN
+  QUEEN_ANNE
+  PLUNGE
+  LOW_CUT
+  SAILOR
+}
+
+enum Sleeve {
+  SLEEVELESS
+  CAP
+  SHORT
+  THREE_QUARTER
+  LONG
+  BELL
+  BISHOP
+  DOLMAN
+  FLUTTER
+  KIMONO
+  PUFF
+  RAGLAN
+  TULIP
+  SPAGHETTI
+  STRAP
+  COLD_SHOULDER
+  PEASANT
+  LEG_OF_MUTTON
+}
+
+enum BodySide {
+  LEFT
+  RIGHT
+}
+
+enum FootPosition {
+  LEFT
+  RIGHT
+}
+
+// =====Models=====
+// ================
+model Accessory {
+  id                   Int               @id @default(autoincrement())
+  code                 String?           @unique
+  uriImage             String?
+  name                 String?
+  description          String?
+  brand                String?
+  fabricType           FabricType?
+  fibreType            FiberType?
+  // Sizes
+  sizeUSLetter         SizeUSLetter?
+  sizeUSNumber         Float?
+  sizeInches           Float?
+  // Timestamps
+  createdAt            DateTime?         @default(now())
+  updatedAt            DateTime?         @default(now())
+  purchasedAt          DateTime?
+  // Item details
+  rating               Float?
+  itemCondition        ItemCondition?
+  itemStatus           ItemStatus?
+  numberOfWears        Int?
+  wearsBeforeDirty     Int?
+  wearsLeftBeforeDirty Int?
+  // Colors & Pattern
+  primaryColor         String?
+  secondaryColor       String?
+  accentColor          String?
+  pattern              String?
+  print                String?
+  // Unique Fields
+  type                 AccessoryType?
+  plating              MetalType?
+  material             MaterialType?
+  // Relationships
+  outfitConnection     OutfitAccessory[]
+}
+
+model OutfitAccessory {
+  outfitId    Int
+  accessoryId Int
+  position    BodySide?
+  outfit      Outfit    @relation(fields: [outfitId], references: [id])
+  accessory   Accessory @relation(fields: [accessoryId], references: [id])
+
+  @@id([outfitId, accessoryId])
+}
+
+model Bottom {
+  id                   Int               @id @default(autoincrement())
+  code                 String?           @unique
+  uriImage             String?
+  name                 String?
+  description          String?
+  brand                String?
+  fabricType           FabricType?
+  fibreType            FiberType?
+  // Sizes
+  sizeUSLetter         SizeUSLetter?
+  sizeUSNumber         Float?
+  sizeInches           Float?
+  // Timestamps
+  createdAt            DateTime?         @default(now())
+  updatedAt            DateTime?         @default(now())
+  purchasedAt          DateTime?
+  // Item details
+  rating               Float?
+  itemCondition        ItemCondition?
+  itemStatus           ItemStatus?
+  numberOfWears        Int?
+  wearsBeforeDirty     Int?
+  wearsLeftBeforeDirty Int?
+  // Colors & Pattern
+  primaryColor         String?
+  secondaryColor       String?
+  accentColor          String?
+  pattern              String?
+  print                String?
+  // Specific to Bottom
+  type                 BottomType?
+  fit                  BottomFit?
+  inseamType           BottomInseamType?
+  inseamInches         Float?
+  waistInches          Float?
+  rise                 BottomRise?
+  // Relationships
+  outfitConnection     OutfitBottom[]
+}
+
+model OutfitBottom {
+  outfitId   Int
+  bottomId   Int
+  layerOrder Int?
+  outfit     Outfit @relation(fields: [outfitId], references: [id])
+  bottom     Bottom @relation(fields: [bottomId], references: [id])
+
+  @@id([outfitId, bottomId])
+}
+
+model Foot {
+  id                   Int            @id @default(autoincrement())
+  code                 String?        @unique
+  uriImage             String?
+  name                 String?
+  description          String?
+  brand                String?
+  fabricType           FabricType?
+  fibreType            FiberType?
+  // Sizes
+  sizeUSLetter         SizeUSLetter?
+  sizeUSNumber         Float?
+  sizeInches           Float?
+  // Timestamps
+  createdAt            DateTime?      @default(now())
+  updatedAt            DateTime?      @default(now())
+  purchasedAt          DateTime?
+  // Item details
+  rating               Float?
+  itemCondition        ItemCondition?
+  itemStatus           ItemStatus?
+  numberOfWears        Int?
+  wearsBeforeDirty     Int?
+  wearsLeftBeforeDirty Int?
+  // Colors & Pattern
+  primaryColor         String?
+  secondaryColor       String?
+  accentColor          String?
+  pattern              String?
+  print                String?
+  // Specific to Feet
+  type                 FootType?
+  // Relationships
+  outfitConnection     OutfitFoot[]
+}
+
+model OutfitFoot {
+  outfitId   Int
+  footId     Int
+  position   BodySide?
+  layerOrder Int?
+  outfit     Outfit    @relation(fields: [outfitId], references: [id])
+  foot       Foot      @relation(fields: [footId], references: [id])
+
+  @@id([outfitId, footId])
+}
+
+model Head {
+  id                   Int            @id @default(autoincrement())
+  code                 String?        @unique
+  uriImage             String?
+  name                 String?
+  description          String?
+  brand                String?
+  fabricType           FabricType?
+  fibreType            FiberType?
+  // Sizes
+  sizeUSLetter         SizeUSLetter?
+  sizeUSNumber         Float?
+  sizeInches           Float?
+  // Timestamps
+  createdAt            DateTime?      @default(now())
+  updatedAt            DateTime?      @default(now())
+  purchasedAt          DateTime?
+  // Item details
+  rating               Float?
+  itemCondition        ItemCondition?
+  itemStatus           ItemStatus?
+  numberOfWears        Int?
+  wearsBeforeDirty     Int?
+  wearsLeftBeforeDirty Int?
+  // Colors & Pattern
+  primaryColor         String?
+  secondaryColor       String?
+  accentColor          String?
+  pattern              String?
+  print                String?
+  // Specific to Head
+  type                 HeadType?
+  // Relationships
+  outfitConnection     OutfitHead[]
+}
+
+model OutfitHead {
+  outfitId   Int
+  headId     Int
+  layerOrder Int?
+  outfit     Outfit @relation(fields: [outfitId], references: [id])
+  head       Head   @relation(fields: [headId], references: [id])
+
+  @@id([outfitId, headId])
+}
+
+model Top {
+  id                   Int            @id @default(autoincrement())
+  code                 String?        @unique
+  uriImage             String?
+  name                 String?
+  description          String?
+  brand                String?
+  fabricType           FabricType?
+  fibreType            FiberType?
+  // Sizes
+  sizeUSLetter         SizeUSLetter?
+  sizeUSNumber         Float?
+  sizeInches           Float?
+  // Timestamps
+  createdAt            DateTime?      @default(now())
+  updatedAt            DateTime?      @default(now())
+  purchasedAt          DateTime?
+  // Item details
+  rating               Float?
+  itemCondition        ItemCondition?
+  itemStatus           ItemStatus?
+  numberOfWears        Int?
+  wearsBeforeDirty     Int?
+  wearsLeftBeforeDirty Int?
+  // Colors & Pattern
+  primaryColor         String?
+  secondaryColor       String?
+  accentColor          String?
+  pattern              String?
+  print                String?
+  // Specific to Top
+  type                 TopType?
+  sizeNeckInches       Float?
+  sizeChestInches      Float?
+  sizeWaistInches      Float?
+  sizeSleeveInches     Float?
+  neckline             Neckline?
+  sleeve               Sleeve?
+  cuff                 Boolean?
+  // Relationships
+  outfitConnection     OutfitTop[]
+}
+
+model OutfitTop {
+  outfitId   Int
+  topId      Int
+  layerOrder Int?
+  outfit     Outfit @relation(fields: [outfitId], references: [id])
+  top        Top    @relation(fields: [topId], references: [id])
+
+  @@id([outfitId, topId])
+}
+
+model FullBody {
+  id                   Int              @id @default(autoincrement())
+  code                 String?          @unique
+  uriImage             String?
+  name                 String?
+  description          String?
+  brand                String?
+  fabricType           FabricType?
+  fibreType            FiberType?
+  // Sizes
+  sizeUSLetter         SizeUSLetter?
+  sizeUSNumber         Float?
+  sizeInches           Float?
+  // Timestamps
+  createdAt            DateTime?        @default(now())
+  updatedAt            DateTime?        @default(now())
+  purchasedAt          DateTime?
+  // Item details
+  rating               Float?
+  itemCondition        ItemCondition?
+  itemStatus           ItemStatus?
+  numberOfWears        Int?
+  wearsBeforeDirty     Int?
+  wearsLeftBeforeDirty Int?
+  // Colors & Pattern
+  primaryColor         String?
+  secondaryColor       String?
+  accentColor          String?
+  pattern              String?
+  print                String?
+  // Relationships
+  outfitConnection     OutfitFullBody[]
+}
+
+model OutfitFullBody {
+  outfitId   Int
+  fullBodyId Int
+  layerOrder Int?
+  outfit     Outfit   @relation(fields: [outfitId], references: [id])
+  fullBody   FullBody @relation(fields: [fullBodyId], references: [id])
+
+  @@id([outfitId, fullBodyId])
+}
+
+model Outfit {
+  id                  Int               @id @default(autoincrement())
+  uriImage            String?
+  name                String?
+  description         String?
+  createdAt           DateTime?         @default(now())
+  updatedAt           DateTime?         @default(now())
+  rating              Float?
+  numberOfWears       Int?
+  type                OutfitType?
+  topConnection       OutfitTop[]
+  bottomConnection    OutfitBottom[]
+  accessoryConnection OutfitAccessory[]
+  footConnection      OutfitFoot[]
+  headConnection      OutfitHead[]
+  fullBodyConnection  OutfitFullBody[]
+  style               String?
+}
