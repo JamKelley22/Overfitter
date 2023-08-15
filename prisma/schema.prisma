@@ -13,9 +13,9 @@ generator docs {
   provider = "node node_modules/prisma-docs-generator"
 }
 
-generator typegraphql {
-  provider = "typegraphql-prisma"
-}
+// generator typegraphql {
+//   provider = "typegraphql-prisma"
+// }
 
 datasource db {
   provider = "postgresql"
@@ -341,17 +341,25 @@ enum FootPosition {
   RIGHT
 }
 
+enum Currency {
+  USD
+  EUR
+  GBP
+  JPY
+}
+
 // =====Models=====
 // ================
 model Accessory {
   id                   Int               @id @default(autoincrement())
   code                 String?           @unique
   uriImage             String?
-  name                 String?
+  name                 String
   description          String?
   brand                String?
+  isFavorite           Boolean?
   fabricType           FabricType?
-  fibreType            FiberType?
+  fiberType            FiberType?
   // Sizes
   sizeUSLetter         SizeUSLetter?
   sizeUSNumber         Float?
@@ -360,6 +368,10 @@ model Accessory {
   createdAt            DateTime?         @default(now())
   updatedAt            DateTime?         @default(now())
   purchasedAt          DateTime?
+  // Purchase details
+  purchaseLink         String?
+  purchaseAmount       Float?
+  purchaseCurrency     Currency?
   // Item details
   rating               Float?
   itemCondition        ItemCondition?
@@ -395,11 +407,12 @@ model Bottom {
   id                   Int               @id @default(autoincrement())
   code                 String?           @unique
   uriImage             String?
-  name                 String?
+  name                 String
   description          String?
   brand                String?
+  isFavorite           Boolean?
   fabricType           FabricType?
-  fibreType            FiberType?
+  fiberType            FiberType?
   // Sizes
   sizeUSLetter         SizeUSLetter?
   sizeUSNumber         Float?
@@ -408,6 +421,10 @@ model Bottom {
   createdAt            DateTime?         @default(now())
   updatedAt            DateTime?         @default(now())
   purchasedAt          DateTime?
+  // Purchase details
+  purchaseLink         String?
+  purchaseAmount       Float?
+  purchaseCurrency     Currency?
   // Item details
   rating               Float?
   itemCondition        ItemCondition?
@@ -446,11 +463,12 @@ model Foot {
   id                   Int            @id @default(autoincrement())
   code                 String?        @unique
   uriImage             String?
-  name                 String?
+  name                 String
   description          String?
   brand                String?
+  isFavorite           Boolean?
   fabricType           FabricType?
-  fibreType            FiberType?
+  fiberType            FiberType?
   // Sizes
   sizeUSLetter         SizeUSLetter?
   sizeUSNumber         Float?
@@ -459,6 +477,10 @@ model Foot {
   createdAt            DateTime?      @default(now())
   updatedAt            DateTime?      @default(now())
   purchasedAt          DateTime?
+  // Purchase details
+  purchaseLink         String?
+  purchaseAmount       Float?
+  purchaseCurrency     Currency?
   // Item details
   rating               Float?
   itemCondition        ItemCondition?
@@ -489,61 +511,16 @@ model OutfitFoot {
   @@id([outfitId, footId])
 }
 
-model Head {
-  id                   Int            @id @default(autoincrement())
-  code                 String?        @unique
-  uriImage             String?
-  name                 String?
-  description          String?
-  brand                String?
-  fabricType           FabricType?
-  fibreType            FiberType?
-  // Sizes
-  sizeUSLetter         SizeUSLetter?
-  sizeUSNumber         Float?
-  sizeInches           Float?
-  // Timestamps
-  createdAt            DateTime?      @default(now())
-  updatedAt            DateTime?      @default(now())
-  purchasedAt          DateTime?
-  // Item details
-  rating               Float?
-  itemCondition        ItemCondition?
-  itemStatus           ItemStatus?
-  numberOfWears        Int?
-  wearsBeforeDirty     Int?
-  wearsLeftBeforeDirty Int?
-  // Colors & Pattern
-  primaryColor         String?
-  secondaryColor       String?
-  accentColor          String?
-  pattern              String?
-  print                String?
-  // Specific to Head
-  type                 HeadType?
-  // Relationships
-  outfitConnection     OutfitHead[]
-}
-
-model OutfitHead {
-  outfitId   Int
-  headId     Int
-  layerOrder Int?
-  outfit     Outfit @relation(fields: [outfitId], references: [id])
-  head       Head   @relation(fields: [headId], references: [id])
-
-  @@id([outfitId, headId])
-}
-
 model Top {
   id                   Int            @id @default(autoincrement())
   code                 String?        @unique
   uriImage             String?
-  name                 String?
+  name                 String
   description          String?
   brand                String?
+  isFavorite           Boolean?
   fabricType           FabricType?
-  fibreType            FiberType?
+  fiberType            FiberType?
   // Sizes
   sizeUSLetter         SizeUSLetter?
   sizeUSNumber         Float?
@@ -552,6 +529,10 @@ model Top {
   createdAt            DateTime?      @default(now())
   updatedAt            DateTime?      @default(now())
   purchasedAt          DateTime?
+  // Purchase details
+  purchaseLink         String?
+  purchaseAmount       Float?
+  purchaseCurrency     Currency?
   // Item details
   rating               Float?
   itemCondition        ItemCondition?
@@ -573,7 +554,7 @@ model Top {
   sizeSleeveInches     Float?
   neckline             Neckline?
   sleeve               Sleeve?
-  cuff                 Boolean?
+  hasCuff              Boolean?
   // Relationships
   outfitConnection     OutfitTop[]
 }
@@ -592,11 +573,12 @@ model FullBody {
   id                   Int              @id @default(autoincrement())
   code                 String?          @unique
   uriImage             String?
-  name                 String?
+  name                 String
   description          String?
   brand                String?
+  isFavorite           Boolean?
   fabricType           FabricType?
-  fibreType            FiberType?
+  fiberType            FiberType?
   // Sizes
   sizeUSLetter         SizeUSLetter?
   sizeUSNumber         Float?
@@ -605,6 +587,10 @@ model FullBody {
   createdAt            DateTime?        @default(now())
   updatedAt            DateTime?        @default(now())
   purchasedAt          DateTime?
+  // Purchase details
+  purchaseLink         String?
+  purchaseAmount       Float?
+  purchaseCurrency     Currency?
   // Item details
   rating               Float?
   itemCondition        ItemCondition?
@@ -646,7 +632,9 @@ model Outfit {
   bottomConnection    OutfitBottom[]
   accessoryConnection OutfitAccessory[]
   footConnection      OutfitFoot[]
-  headConnection      OutfitHead[]
   fullBodyConnection  OutfitFullBody[]
   style               String?
 }
+
+// Todo: Collection Model
+// Todo: Throwing away an Item (Archiving?)

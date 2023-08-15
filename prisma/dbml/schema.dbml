@@ -1,0 +1,595 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Accessory {
+  id Int [pk, increment]
+  code String [unique]
+  uriImage String
+  name String [not null]
+  description String
+  brand String
+  isFavorite Boolean
+  fabricType FabricType
+  fiberType FiberType
+  sizeUSLetter SizeUSLetter
+  sizeUSNumber Float
+  sizeInches Float
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime [default: `now()`]
+  purchasedAt DateTime
+  purchaseLink String
+  purchaseAmount Float
+  purchaseCurrency Currency
+  rating Float
+  itemCondition ItemCondition
+  itemStatus ItemStatus
+  numberOfWears Int
+  wearsBeforeDirty Int
+  wearsLeftBeforeDirty Int
+  primaryColor String
+  secondaryColor String
+  accentColor String
+  pattern String
+  print String
+  type AccessoryType
+  plating MetalType
+  material MaterialType
+  outfitConnection OutfitAccessory [not null]
+}
+
+Table OutfitAccessory {
+  outfitId Int [not null]
+  accessoryId Int [not null]
+  position BodySide
+  outfit Outfit [not null]
+  accessory Accessory [not null]
+
+  indexes {
+    (outfitId, accessoryId) [pk]
+  }
+}
+
+Table Bottom {
+  id Int [pk, increment]
+  code String [unique]
+  uriImage String
+  name String [not null]
+  description String
+  brand String
+  isFavorite Boolean
+  fabricType FabricType
+  fiberType FiberType
+  sizeUSLetter SizeUSLetter
+  sizeUSNumber Float
+  sizeInches Float
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime [default: `now()`]
+  purchasedAt DateTime
+  purchaseLink String
+  purchaseAmount Float
+  purchaseCurrency Currency
+  rating Float
+  itemCondition ItemCondition
+  itemStatus ItemStatus
+  numberOfWears Int
+  wearsBeforeDirty Int
+  wearsLeftBeforeDirty Int
+  primaryColor String
+  secondaryColor String
+  accentColor String
+  pattern String
+  print String
+  type BottomType
+  fit BottomFit
+  inseamType BottomInseamType
+  inseamInches Float
+  waistInches Float
+  rise BottomRise
+  outfitConnection OutfitBottom [not null]
+}
+
+Table OutfitBottom {
+  outfitId Int [not null]
+  bottomId Int [not null]
+  layerOrder Int
+  outfit Outfit [not null]
+  bottom Bottom [not null]
+
+  indexes {
+    (outfitId, bottomId) [pk]
+  }
+}
+
+Table Foot {
+  id Int [pk, increment]
+  code String [unique]
+  uriImage String
+  name String [not null]
+  description String
+  brand String
+  isFavorite Boolean
+  fabricType FabricType
+  fiberType FiberType
+  sizeUSLetter SizeUSLetter
+  sizeUSNumber Float
+  sizeInches Float
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime [default: `now()`]
+  purchasedAt DateTime
+  purchaseLink String
+  purchaseAmount Float
+  purchaseCurrency Currency
+  rating Float
+  itemCondition ItemCondition
+  itemStatus ItemStatus
+  numberOfWears Int
+  wearsBeforeDirty Int
+  wearsLeftBeforeDirty Int
+  primaryColor String
+  secondaryColor String
+  accentColor String
+  pattern String
+  print String
+  type FootType
+  outfitConnection OutfitFoot [not null]
+}
+
+Table OutfitFoot {
+  outfitId Int [not null]
+  footId Int [not null]
+  position BodySide
+  layerOrder Int
+  outfit Outfit [not null]
+  foot Foot [not null]
+
+  indexes {
+    (outfitId, footId) [pk]
+  }
+}
+
+Table Top {
+  id Int [pk, increment]
+  code String [unique]
+  uriImage String
+  name String [not null]
+  description String
+  brand String
+  isFavorite Boolean
+  fabricType FabricType
+  fiberType FiberType
+  sizeUSLetter SizeUSLetter
+  sizeUSNumber Float
+  sizeInches Float
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime [default: `now()`]
+  purchasedAt DateTime
+  purchaseLink String
+  purchaseAmount Float
+  purchaseCurrency Currency
+  rating Float
+  itemCondition ItemCondition
+  itemStatus ItemStatus
+  numberOfWears Int
+  wearsBeforeDirty Int
+  wearsLeftBeforeDirty Int
+  primaryColor String
+  secondaryColor String
+  accentColor String
+  pattern String
+  print String
+  type TopType
+  sizeNeckInches Float
+  sizeChestInches Float
+  sizeWaistInches Float
+  sizeSleeveInches Float
+  neckline Neckline
+  sleeve Sleeve
+  hasCuff Boolean
+  outfitConnection OutfitTop [not null]
+}
+
+Table OutfitTop {
+  outfitId Int [not null]
+  topId Int [not null]
+  layerOrder Int
+  outfit Outfit [not null]
+  top Top [not null]
+
+  indexes {
+    (outfitId, topId) [pk]
+  }
+}
+
+Table FullBody {
+  id Int [pk, increment]
+  code String [unique]
+  uriImage String
+  name String [not null]
+  description String
+  brand String
+  isFavorite Boolean
+  fabricType FabricType
+  fiberType FiberType
+  sizeUSLetter SizeUSLetter
+  sizeUSNumber Float
+  sizeInches Float
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime [default: `now()`]
+  purchasedAt DateTime
+  purchaseLink String
+  purchaseAmount Float
+  purchaseCurrency Currency
+  rating Float
+  itemCondition ItemCondition
+  itemStatus ItemStatus
+  numberOfWears Int
+  wearsBeforeDirty Int
+  wearsLeftBeforeDirty Int
+  primaryColor String
+  secondaryColor String
+  accentColor String
+  pattern String
+  print String
+  outfitConnection OutfitFullBody [not null]
+}
+
+Table OutfitFullBody {
+  outfitId Int [not null]
+  fullBodyId Int [not null]
+  layerOrder Int
+  outfit Outfit [not null]
+  fullBody FullBody [not null]
+
+  indexes {
+    (outfitId, fullBodyId) [pk]
+  }
+}
+
+Table Outfit {
+  id Int [pk, increment]
+  uriImage String
+  name String
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime [default: `now()`]
+  rating Float
+  numberOfWears Int
+  type OutfitType
+  topConnection OutfitTop [not null]
+  bottomConnection OutfitBottom [not null]
+  accessoryConnection OutfitAccessory [not null]
+  footConnection OutfitFoot [not null]
+  fullBodyConnection OutfitFullBody [not null]
+  style String
+}
+
+Enum ItemStatus {
+  CLEAN
+  WORN
+  DIRTY
+}
+
+Enum ItemCondition {
+  NEW
+  LIKE_NEW
+  GOOD
+  FAIR
+  POOR
+  TRASH
+}
+
+Enum FiberType {
+  COTTON
+  POLYESTER
+  NYLON
+  WOOL
+  SILK
+  RAYON
+  LINEN
+  SPANDEX
+  LYCRA
+  CASHMERE
+  BAMBOO
+  ACETATE
+  ACRYLIC
+  ALPACA
+  ANGORA
+  HEMP
+  MOHAIR
+}
+
+Enum FabricType {
+  LEATHER
+  DENIM
+  VELVET
+  LACE
+  FUR
+  FLEECE
+  CHIFFON
+  BROCADE
+  TWEED
+  TULLE
+  JERSEY
+  MUSLIN
+  ORGANZA
+  SATIN
+  TAFFETA
+  TERRY
+  TWILL
+  VOILE
+  WORSTED
+  CHENILLE
+  CREPE
+  DAMASK
+  FAILLE
+  FLANNEL
+  GINGHAM
+  JACQUARD
+  SEERSUCKER
+}
+
+Enum MetalType {
+  GOLD
+  SILVER
+  PLATINUM
+  TITANIUM
+  STAINLESS_STEEL
+  BRASS
+  COPPER
+  BRONZE
+  PEWTER
+  NICKEL
+  TUNGSTEN
+}
+
+Enum MaterialType {
+  PLASTIC
+  GOLD
+  SILVER
+  PLATINUM
+  TITANIUM
+  STAINLESS_STEEL
+  BRASS
+  COPPER
+  BRONZE
+  PEWTER
+  NICKEL
+  TUNGSTEN
+}
+
+Enum SizeUSLetter {
+  TwoXS
+  XS
+  S
+  M
+  L
+  XL
+  TwoXL
+  ThreeXL
+  FourXL
+  FiveXL
+  SixXL
+}
+
+Enum AccessoryType {
+  RING
+  NECKLACE
+  EARRINGS
+  PURSE
+  WALLET
+  WATCH
+  BRACELET
+  SCARF
+  GLASSES
+  HAT
+  BELT
+  ANKLET
+  BODY_CHAIN
+}
+
+Enum BottomType {
+  LOUNGE
+  DRESS
+  UNDER
+  SLEEP
+  WORKOUT
+  JEAN
+  KAKHI
+  BIKE_SHORT
+  COMPRESSION_SHORT
+  COMPRESSION_LEGGING
+  MINI_SKIRT
+  MAXI_SKIRT
+  MIDI_SKIRT
+  KNEE_LENGTH_SKIRT
+  PENCIL_SKIRT
+  PLEATED_SKIRT
+  A_LINE_SKIRT
+  TULIP_SKIRT
+  TIERED_SKIRT
+  WRAP_SKIRT
+  CIRCLE_SKIRT
+  SKATER_SKIRT
+  TENNIS_SKIRT
+  TUBE_SKIRT
+  SKORT
+  SLACK
+}
+
+Enum BottomInseamType {
+  SHORT
+  PANT
+  CAPRI
+  CROP
+  ANKLE
+  REGULAR
+}
+
+Enum BottomFit {
+  SKINNY
+  SLIM
+  STRAIGHT
+  BOOTCUT
+  RELAXED
+  WIDE_LEG
+  FLARE
+  BAGGY
+  JOGGER
+  LEGGING
+  CARGO
+  CHINO
+  SWEATPANT
+  BERMUDA
+  CROPPED
+}
+
+Enum BottomRise {
+  MID
+  HIGH
+  LOW
+}
+
+Enum FootType {
+  DRESS_SHOE
+  TENNIS_SHOE
+  CASUAL_SHOE
+  HEEL_SHOE
+  FLIP_FLOP_SHOE
+  SANDAL_SHOE
+  DRESS_SOCK
+  CASUAL_SOCK
+  WEDGE_SHOE
+  BOOT_SHOE
+}
+
+Enum HeadType {
+  BASEBALL_HAT
+  BEANIE
+  BANDANA
+  GLASSES
+}
+
+Enum OutfitType {
+  FORMAL
+  CASUAL
+  BUSINESS
+  BUSINESS_CASUAL
+  SPORT
+  SLEEP
+  SWIM
+  LOUNGE
+  COCKTAIL
+  PARTY
+}
+
+Enum TopType {
+  TEE
+  LOUNGE
+  DRESS
+  FLANNEL
+  UNDER
+  POLO
+  SLEEP
+  CASUAL
+  WORKOUT
+  BRA
+  BUTTON_UP
+  BLOUSE
+  TANK
+  TUBE
+  TUNIC
+  SWEATER
+  CARDIGAN
+  HOODIE
+  JACKET
+  BLAZER
+  VEST
+  CAPE
+  PONCHO
+  KIMONO
+  WRAP
+}
+
+Enum Neckline {
+  CREW
+  SCOOP
+  SQUARE
+  BOAT
+  HALTER
+  OFF_SHOULDER
+  ONE_SHOULDER
+  STRAPLESS
+  SWEETHEART
+  SURPLICE
+  V_NECK
+  COWL
+  KEYHOLE
+  TURTLENECK
+  MOCK
+  HOOD
+  COLLAR
+  PETER_PAN
+  QUEEN_ANNE
+  PLUNGE
+  LOW_CUT
+  SAILOR
+}
+
+Enum Sleeve {
+  SLEEVELESS
+  CAP
+  SHORT
+  THREE_QUARTER
+  LONG
+  BELL
+  BISHOP
+  DOLMAN
+  FLUTTER
+  KIMONO
+  PUFF
+  RAGLAN
+  TULIP
+  SPAGHETTI
+  STRAP
+  COLD_SHOULDER
+  PEASANT
+  LEG_OF_MUTTON
+}
+
+Enum BodySide {
+  LEFT
+  RIGHT
+}
+
+Enum FootPosition {
+  LEFT
+  RIGHT
+}
+
+Enum Currency {
+  USD
+  EUR
+  GBP
+  JPY
+}
+
+Ref: OutfitAccessory.outfitId > Outfit.id
+
+Ref: OutfitAccessory.accessoryId > Accessory.id
+
+Ref: OutfitBottom.outfitId > Outfit.id
+
+Ref: OutfitBottom.bottomId > Bottom.id
+
+Ref: OutfitFoot.outfitId > Outfit.id
+
+Ref: OutfitFoot.footId > Foot.id
+
+Ref: OutfitTop.outfitId > Outfit.id
+
+Ref: OutfitTop.topId > Top.id
+
+Ref: OutfitFullBody.outfitId > Outfit.id
+
+Ref: OutfitFullBody.fullBodyId > FullBody.id

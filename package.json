@@ -11,15 +11,19 @@
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest",
+		"generate": "prisma generate",
+		"db-reset": "prisma migrate reset --force"
 	},
 	"devDependencies": {
+		"@faker-js/faker": "^8.0.2",
 		"@fontsource/fira-mono": "^4.5.10",
 		"@neoconfetti/svelte": "^1.0.0",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
 		"@types/cookie": "^0.5.1",
+		"@types/node": "^20.5.0",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"autoprefixer": "^10.4.15",
@@ -35,13 +39,18 @@
 		"svelte": "^4.0.5",
 		"svelte-check": "^3.4.3",
 		"tailwindcss": "^3.3.3",
+		"ts-node": "^10.9.1",
 		"tslib": "^2.4.1",
-		"typescript": "^5.0.0",
+		"tsx": "^3.12.7",
+		"typescript": "^5.1.6",
 		"vite": "^4.4.2",
 		"vitest": "^0.32.2"
 	},
 	"type": "module",
 	"dependencies": {
 		"@prisma/client": "^5.1.1"
+	},
+	"prisma": {
+		"seed": "tsx prisma/seed.ts"
 	}
 }
