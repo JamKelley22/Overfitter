@@ -1,16 +1,16 @@
-<script>
+<script lang="ts">
 	import Counter from './Counter.svelte';
+
+	export let data;
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>Overfitter</title>
+	<meta name="A closet management system for the home" content="Overfitter demo app" />
 </svelte:head>
 
 <section>
-	<Counter />
+	{#each data.feed as { id, name, description }}
+		<li><a href="#">{name}</a></li>
+	{/each}
 </section>
-
-<style>
-
-</style>

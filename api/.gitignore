@@ -131,3 +131,4 @@ dist
 .pnp.*
 
 data/
+src/routers/generated/*
