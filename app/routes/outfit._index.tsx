@@ -26,7 +26,7 @@ function Presentational(props: { outfits?: Loader["outfits"] }) {
   const { outfits } = props;
   return (
     <div>
-      <h1>Outfits</h1>
+      <h1>All Outfits</h1>
       <ul>
         {outfits?.map((outfit, i) => (
           <Link to={OUTFIT(outfit.id.toString()).path}>
