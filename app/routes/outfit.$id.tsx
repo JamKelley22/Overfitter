@@ -1,17 +1,10 @@
 import { useState } from "react";
 
-import { Outfit } from "@prisma/client";
-
 import { useForm } from "@mantine/form";
 import { TextInput } from "@mantine/core";
 
 import { useLoaderData } from "@remix-run/react";
-import {
-  ActionFunctionArgs,
-  LoaderFunctionArgs,
-  SerializeFrom,
-  json,
-} from "@remix-run/node";
+import { LoaderFunctionArgs, SerializeFrom, json } from "@remix-run/node";
 
 import { getClient } from "~/db.server";
 
@@ -48,18 +41,9 @@ type Loader = SerializeFrom<typeof loader>;
 //   };
 // }
 
-export default function Index() {
+export default function OutfitId() {
   const { outfit } = useLoaderData<typeof loader>();
   const [isEditing, setIsEditing] = useState(false);
-  return <Presentational isEditing={isEditing} outfit={outfit ?? undefined} />;
-}
-
-function Presentational(props: {
-  isEditing: boolean;
-  outfit?: Loader["outfit"];
-}) {
-  const { isEditing, outfit } = props;
-
   const form = useForm<FormValues>({
     initialValues: {
       name: outfit?.name ?? undefined,

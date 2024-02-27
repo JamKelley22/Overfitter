@@ -33,15 +33,11 @@ export default function Index() {
   const [img, setImg] = React.useState("");
   return (
     <div>
-      <h1>Welcome to Remix</h1>
-      <Button variant="filled" color="gray">
-        Button
-      </Button>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
 
-          const file = (e.target as HTMLFormElement).file.files?.[0]!;
+          const file = (e.target as HTMLFormElement).file.files?.[0];
 
           const image = await fetch(data.url, {
             body: file,

@@ -19,15 +19,15 @@ export default {
       const site = new RemixSite(stack, "site", {
         bind: [bucket],
       });
-      new Cron(stack, "cron", {
-        schedule: "rate(1 minute)",
-        job: {
-          function: {
-            bind: [bucket],
-            handler: "functions/delete.handler",
-          },
-        },
-      });
+      // new Cron(stack, "cron", {
+      //   schedule: "rate(1 minute)",
+      //   job: {
+      //     function: {
+      //       bind: [bucket],
+      //       handler: "functions/delete.handler",
+      //     },
+      //   },
+      // });
 
       stack.addOutputs({
         url: site.url,

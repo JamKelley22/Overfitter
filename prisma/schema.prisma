@@ -20,312 +20,298 @@ datasource db {
 
 // =====Enums=====
 // ===============
-enum ItemStatus {
-  CLEAN
-  WORN
-  DIRTY
-}
+// enum ItemStatus {
+//   CLEAN
+//   WORN
+//   DIRTY
+// }
 
-enum ItemCondition {
-  NEW
-  LIKE_NEW
-  GOOD
-  FAIR
-  POOR
-  TRASH
-}
+// enum ItemCondition {
+//   NEW
+//   LIKE_NEW
+//   GOOD
+//   FAIR
+//   POOR
+//   TRASH
+// }
 
-enum FiberType {
-  COTTON
-  POLYESTER
-  NYLON
-  WOOL
-  SILK
-  RAYON
-  LINEN
-  SPANDEX
-  LYCRA
-  CASHMERE
-  BAMBOO
-  ACETATE
-  ACRYLIC
-  ALPACA
-  ANGORA
-  HEMP
-  MOHAIR
-}
+// enum FiberType {
+//   COTTON
+//   POLYESTER
+//   NYLON
+//   WOOL
+//   SILK
+//   RAYON
+//   LINEN
+//   SPANDEX
+//   LYCRA
+//   CASHMERE
+//   BAMBOO
+//   ACETATE
+//   ACRYLIC
+//   ALPACA
+//   ANGORA
+//   HEMP
+//   MOHAIR
+// }
 
-enum FabricType {
-  LEATHER
-  DENIM
-  VELVET
-  LACE
-  FUR
-  FLEECE
-  CHIFFON
-  BROCADE
-  TWEED
-  TULLE
-  JERSEY
-  MUSLIN
-  ORGANZA
-  SATIN
-  TAFFETA
-  TERRY
-  TWILL
-  VOILE
-  WORSTED
-  CHENILLE
-  CREPE
-  DAMASK
-  FAILLE
-  FLANNEL
-  GINGHAM
-  JACQUARD
-  SEERSUCKER
-}
+// enum FabricType {
+//   LEATHER
+//   DENIM
+//   VELVET
+//   LACE
+//   FUR
+//   FLEECE
+//   CHIFFON
+//   BROCADE
+//   TWEED
+//   TULLE
+//   JERSEY
+//   MUSLIN
+//   ORGANZA
+//   SATIN
+//   TAFFETA
+//   TERRY
+//   TWILL
+//   VOILE
+//   WORSTED
+//   CHENILLE
+//   CREPE
+//   DAMASK
+//   FAILLE
+//   FLANNEL
+//   GINGHAM
+//   JACQUARD
+//   SEERSUCKER
+// }
 
-// TODO: ADD TO MODALS
-enum MetalType {
-  GOLD
-  SILVER
-  PLATINUM
-  TITANIUM
-  STAINLESS_STEEL
-  BRASS
-  COPPER
-  BRONZE
-  PEWTER
-  NICKEL
-  TUNGSTEN
-}
+// // TODO: ADD TO MODALS
+// enum MetalType {
+//   GOLD
+//   SILVER
+//   PLATINUM
+//   TITANIUM
+//   STAINLESS_STEEL
+//   BRASS
+//   COPPER
+//   BRONZE
+//   PEWTER
+//   NICKEL
+//   TUNGSTEN
+// }
 
-enum MaterialType {
-  // New Fields
-  PLASTIC
-  // MetalType (same as above)
-  GOLD
-  SILVER
-  PLATINUM
-  TITANIUM
-  STAINLESS_STEEL
-  BRASS
-  COPPER
-  BRONZE
-  PEWTER
-  NICKEL
-  TUNGSTEN
-}
+// enum MaterialType {
+//   // New Fields
+//   PLASTIC
+//   // MetalType (same as above)
+//   GOLD
+//   SILVER
+//   PLATINUM
+//   TITANIUM
+//   STAINLESS_STEEL
+//   BRASS
+//   COPPER
+//   BRONZE
+//   PEWTER
+//   NICKEL
+//   TUNGSTEN
+// }
 
-enum SizeUSLetter {
-  TwoXS
-  XS
-  S
-  M
-  L
-  XL
-  TwoXL
-  ThreeXL
-  FourXL
-  FiveXL
-  SixXL
-}
+// enum AccessoryType {
+//   RING
+//   NECKLACE
+//   EARRINGS
+//   PURSE
+//   WALLET
+//   WATCH
+//   BRACELET
+//   SCARF
+//   GLASSES
+//   HAT
+//   BELT
+//   ANKLET
+//   BODY_CHAIN
 
-enum AccessoryType {
-  RING
-  NECKLACE
-  EARRINGS
-  PURSE
-  WALLET
-  WATCH
-  BRACELET
-  SCARF
-  GLASSES
-  HAT
-  BELT
-  ANKLET
-  BODY_CHAIN
+//   // ALL TYPES OF PURSES
+//   // TOTE
+//   // CLUTCH
+//   // CROSSBODY
+//   // BACKPACK
+//   // HANDBAG
+//   // SHOULDER_BAG
+//   // BUCKET_BAG
+//   // BELT_BAG
+//   // PHANNY_PACK
+// }
 
-  // ALL TYPES OF PURSES
-  // TOTE
-  // CLUTCH
-  // CROSSBODY
-  // BACKPACK
-  // HANDBAG
-  // SHOULDER_BAG
-  // BUCKET_BAG
-  // BELT_BAG
-  // PHANNY_PACK
-}
+// enum BottomType {
+//   LOUNGE
+//   DRESS
+//   UNDER
+//   SLEEP
+//   WORKOUT
+//   JEAN
+//   KAKHI
+//   BIKE_SHORT
+//   COMPRESSION_SHORT
+//   COMPRESSION_LEGGING
+//   MINI_SKIRT
+//   MAXI_SKIRT
+//   MIDI_SKIRT
+//   KNEE_LENGTH_SKIRT
+//   PENCIL_SKIRT
+//   PLEATED_SKIRT
+//   A_LINE_SKIRT
+//   TULIP_SKIRT
+//   TIERED_SKIRT
+//   WRAP_SKIRT
+//   CIRCLE_SKIRT
+//   SKATER_SKIRT
+//   TENNIS_SKIRT
+//   TUBE_SKIRT
+//   SKORT
+//   SLACK
+// }
 
-enum BottomType {
-  LOUNGE
-  DRESS
-  UNDER
-  SLEEP
-  WORKOUT
-  JEAN
-  KAKHI
-  BIKE_SHORT
-  COMPRESSION_SHORT
-  COMPRESSION_LEGGING
-  MINI_SKIRT
-  MAXI_SKIRT
-  MIDI_SKIRT
-  KNEE_LENGTH_SKIRT
-  PENCIL_SKIRT
-  PLEATED_SKIRT
-  A_LINE_SKIRT
-  TULIP_SKIRT
-  TIERED_SKIRT
-  WRAP_SKIRT
-  CIRCLE_SKIRT
-  SKATER_SKIRT
-  TENNIS_SKIRT
-  TUBE_SKIRT
-  SKORT
-  SLACK
-}
+// enum BottomInseamType {
+//   SHORT
+//   PANT
+//   CAPRI
+//   CROP
+//   ANKLE
+//   REGULAR
+// }
 
-enum BottomInseamType {
-  SHORT
-  PANT
-  CAPRI
-  CROP
-  ANKLE
-  REGULAR
-}
+// enum BottomFit {
+//   SKINNY
+//   SLIM
+//   STRAIGHT
+//   BOOTCUT
+//   RELAXED
+//   WIDE_LEG
+//   FLARE
+//   BAGGY
+//   JOGGER
+//   LEGGING
+//   CARGO
+//   CHINO
+//   SWEATPANT
+//   BERMUDA
+//   CROPPED
+// }
 
-enum BottomFit {
-  SKINNY
-  SLIM
-  STRAIGHT
-  BOOTCUT
-  RELAXED
-  WIDE_LEG
-  FLARE
-  BAGGY
-  JOGGER
-  LEGGING
-  CARGO
-  CHINO
-  SWEATPANT
-  BERMUDA
-  CROPPED
-}
+// enum BottomRise {
+//   MID
+//   HIGH
+//   LOW
+// }
 
-enum BottomRise {
-  MID
-  HIGH
-  LOW
-}
+// enum FootType {
+//   DRESS_SHOE
+//   TENNIS_SHOE
+//   CASUAL_SHOE
+//   HEEL_SHOE
+//   FLIP_FLOP_SHOE
+//   SANDAL_SHOE
+//   DRESS_SOCK
+//   CASUAL_SOCK
+//   WEDGE_SHOE
+//   BOOT_SHOE
+// }
 
-enum FootType {
-  DRESS_SHOE
-  TENNIS_SHOE
-  CASUAL_SHOE
-  HEEL_SHOE
-  FLIP_FLOP_SHOE
-  SANDAL_SHOE
-  DRESS_SOCK
-  CASUAL_SOCK
-  WEDGE_SHOE
-  BOOT_SHOE
-}
+// enum HeadType {
+//   BASEBALL_HAT
+//   BEANIE
+//   BANDANA
+//   GLASSES
+// }
 
-enum HeadType {
-  BASEBALL_HAT
-  BEANIE
-  BANDANA
-  GLASSES
-}
+// enum OutfitType {
+//   FORMAL
+//   CASUAL
+//   BUSINESS
+//   BUSINESS_CASUAL
+//   SPORT
+//   SLEEP
+//   SWIM
+//   LOUNGE
+//   COCKTAIL
+//   PARTY
+// }
 
-enum OutfitType {
-  FORMAL
-  CASUAL
-  BUSINESS
-  BUSINESS_CASUAL
-  SPORT
-  SLEEP
-  SWIM
-  LOUNGE
-  COCKTAIL
-  PARTY
-}
+// enum TopType {
+//   TEE
+//   LOUNGE
+//   DRESS
+//   FLANNEL
+//   UNDER
+//   POLO
+//   SLEEP
+//   CASUAL
+//   WORKOUT
+//   BRA
+//   BUTTON_UP
+//   BLOUSE
+//   TANK
+//   TUBE
+//   TUNIC
+//   SWEATER
+//   CARDIGAN
+//   HOODIE
+//   JACKET
+//   BLAZER
+//   VEST
+//   CAPE
+//   PONCHO
+//   KIMONO
+//   WRAP
+// }
 
-enum TopType {
-  TEE
-  LOUNGE
-  DRESS
-  FLANNEL
-  UNDER
-  POLO
-  SLEEP
-  CASUAL
-  WORKOUT
-  BRA
-  BUTTON_UP
-  BLOUSE
-  TANK
-  TUBE
-  TUNIC
-  SWEATER
-  CARDIGAN
-  HOODIE
-  JACKET
-  BLAZER
-  VEST
-  CAPE
-  PONCHO
-  KIMONO
-  WRAP
-}
+// enum Neckline {
+//   CREW
+//   SCOOP
+//   SQUARE
+//   BOAT
+//   HALTER
+//   OFF_SHOULDER
+//   ONE_SHOULDER
+//   STRAPLESS
+//   SWEETHEART
+//   SURPLICE
+//   V_NECK
+//   COWL
+//   KEYHOLE
+//   TURTLENECK
+//   MOCK
+//   HOOD
+//   COLLAR
+//   PETER_PAN
+//   QUEEN_ANNE
+//   PLUNGE
+//   LOW_CUT
+//   SAILOR
+// }
 
-enum Neckline {
-  CREW
-  SCOOP
-  SQUARE
-  BOAT
-  HALTER
-  OFF_SHOULDER
-  ONE_SHOULDER
-  STRAPLESS
-  SWEETHEART
-  SURPLICE
-  V_NECK
-  COWL
-  KEYHOLE
-  TURTLENECK
-  MOCK
-  HOOD
-  COLLAR
-  PETER_PAN
-  QUEEN_ANNE
-  PLUNGE
-  LOW_CUT
-  SAILOR
-}
-
-enum Sleeve {
-  SLEEVELESS
-  CAP
-  SHORT
-  THREE_QUARTER
-  LONG
-  BELL
-  BISHOP
-  DOLMAN
-  FLUTTER
-  KIMONO
-  PUFF
-  RAGLAN
-  TULIP
-  SPAGHETTI
-  STRAP
-  COLD_SHOULDER
-  PEASANT
-  LEG_OF_MUTTON
-}
+// enum Sleeve {
+//   SLEEVELESS
+//   CAP
+//   SHORT
+//   THREE_QUARTER
+//   LONG
+//   BELL
+//   BISHOP
+//   DOLMAN
+//   FLUTTER
+//   KIMONO
+//   PUFF
+//   RAGLAN
+//   TULIP
+//   SPAGHETTI
+//   STRAP
+//   COLD_SHOULDER
+//   PEASANT
+//   LEG_OF_MUTTON
+// }
 
 enum BodySide {
   LEFT
@@ -344,8 +330,177 @@ enum Currency {
   JPY
 }
 
+enum SizeConvention {
+  Letter_US // XS <=> XXL
+  Numeric_US // 5 <=> 15
+  Inch
+  Centimeter
+}
+
+// enum SizeLetter {
+//   TwoXS
+//   XS
+//   S
+//   M
+//   L
+//   XL
+//   TwoXL
+//   ThreeXL
+//   FourXL
+//   FiveXL
+//   SixXL
+// }
+
 // =====Models=====
 // ================
+
+model FabricType {
+  id          Int         @unique @default(autoincrement())
+  name        String      @unique
+  description String?
+  createdAt   DateTime?   @default(now())
+  updatedAt   DateTime?   @updatedAt
+  Accessory   Accessory[]
+  Bottom      Bottom[]
+  Foot        Foot[]
+  Top         Top[]
+  FullBody    FullBody[]
+}
+
+model FiberType {
+  id          Int         @unique @default(autoincrement())
+  name        String      @unique
+  description String?
+  createdAt   DateTime?   @default(now())
+  updatedAt   DateTime?   @updatedAt
+  Accessory   Accessory[]
+  Bottom      Bottom[]
+  Foot        Foot[]
+  Top         Top[]
+  FullBody    FullBody[]
+}
+
+model ItemStatus {
+  id          Int         @unique @default(autoincrement())
+  name        String      @unique
+  description String?
+  createdAt   DateTime?   @default(now())
+  updatedAt   DateTime?   @updatedAt
+  Accessory   Accessory[]
+  Bottom      Bottom[]
+  Foot        Foot[]
+  Top         Top[]
+  FullBody    FullBody[]
+}
+
+model AccessoryType {
+  id          Int         @unique @default(autoincrement())
+  name        String      @unique
+  description String?
+  createdAt   DateTime?   @default(now())
+  updatedAt   DateTime?   @updatedAt
+  Accessory   Accessory[]
+}
+
+model MetalType {
+  id          Int         @unique @default(autoincrement())
+  name        String      @unique
+  description String?
+  createdAt   DateTime?   @default(now())
+  updatedAt   DateTime?   @updatedAt
+  Accessory   Accessory[]
+}
+
+model MaterialType {
+  id          Int         @unique @default(autoincrement())
+  name        String      @unique
+  description String?
+  createdAt   DateTime?   @default(now())
+  updatedAt   DateTime?   @updatedAt
+  Accessory   Accessory[]
+}
+
+model BottomType {
+  id          Int       @unique @default(autoincrement())
+  name        String    @unique
+  description String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  Bottom      Bottom[]
+}
+
+model BottomFit {
+  id          Int       @unique @default(autoincrement())
+  name        String    @unique
+  description String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  Bottom      Bottom[]
+}
+
+model BottomInseamType {
+  id          Int       @unique @default(autoincrement())
+  name        String    @unique
+  description String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  Bottom      Bottom[]
+}
+
+model BottomRiseType {
+  id          Int       @unique @default(autoincrement())
+  name        String    @unique
+  description String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  Bottom      Bottom[]
+}
+
+model FootType {
+  id          Int       @unique @default(autoincrement())
+  name        String    @unique
+  description String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  Foot        Foot[]
+}
+
+model TopType {
+  id          Int       @unique @default(autoincrement())
+  name        String    @unique
+  description String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  Top         Top[]
+}
+
+model NecklineType {
+  id          Int       @unique @default(autoincrement())
+  name        String    @unique
+  description String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  Top         Top[]
+}
+
+model SleeveType {
+  id          Int       @unique @default(autoincrement())
+  name        String    @unique
+  description String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  Top         Top[]
+}
+
+model OutfitType {
+  id          Int       @unique @default(autoincrement())
+  name        String    @unique
+  description String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  Outfit      Outfit[]
+}
+
 model Accessory {
   id                   Int               @id @default(autoincrement())
   code                 String?           @unique
@@ -354,24 +509,26 @@ model Accessory {
   description          String?
   brand                String?
   isFavorite           Boolean?
-  fabricType           FabricType?
-  fiberType            FiberType?
+  fabricType           FabricType?       @relation(fields: [fabricTypeId], references: [id])
+  fabricTypeId         Int?
+  fiberType            FiberType?        @relation(fields: [fiberTypeId], references: [id])
+  fiberTypeId          Int?
   // Sizes
-  sizeUSLetter         SizeUSLetter?
-  sizeUSNumber         Float?
-  sizeInches           Float?
+  sizeConvention       SizeConvention?
+  size                 String?
   // Timestamps
   createdAt            DateTime?         @default(now())
-  updatedAt            DateTime?         @default(now())
+  updatedAt            DateTime?         @updatedAt
   purchasedAt          DateTime?
   // Purchase details
   purchaseLink         String?
-  purchaseAmount       Float?
+  purchaseAmount       Decimal?          @db.Money
   purchaseCurrency     Currency?
   // Item details
   rating               Float?
-  itemCondition        ItemCondition?
-  itemStatus           ItemStatus?
+  itemCondition        Int?
+  itemStatus           ItemStatus?       @relation(fields: [itemStatusId], references: [id])
+  itemStatusId         Int?
   numberOfWears        Int?
   wearsBeforeDirty     Int?
   wearsLeftBeforeDirty Int?
@@ -382,9 +539,12 @@ model Accessory {
   pattern              String?
   print                String?
   // Unique Fields
-  type                 AccessoryType?
-  plating              MetalType?
-  material             MaterialType?
+  type                 AccessoryType?    @relation(fields: [typeId], references: [id])
+  typeId               Int?
+  plating              MetalType?        @relation(fields: [platingId], references: [id])
+  platingId            Int?
+  materialType         MaterialType?     @relation(fields: [materialTypeId], references: [id])
+  materialTypeId       Int?
   // Relationships
   outfitConnection     OutfitAccessory[]
 }
@@ -407,24 +567,26 @@ model Bottom {
   description          String?
   brand                String?
   isFavorite           Boolean?
-  fabricType           FabricType?
-  fiberType            FiberType?
+  fabricType           FabricType?       @relation(fields: [fabricTypeId], references: [id])
+  fabricTypeId         Int?
+  fiberType            FiberType?        @relation(fields: [fiberTypeId], references: [id])
+  fiberTypeId          Int?
   // Sizes
-  sizeUSLetter         SizeUSLetter?
-  sizeUSNumber         Float?
-  sizeInches           Float?
+  sizeConvention       SizeConvention?
+  size                 String?
   // Timestamps
   createdAt            DateTime?         @default(now())
-  updatedAt            DateTime?         @default(now())
+  updatedAt            DateTime?         @updatedAt
   purchasedAt          DateTime?
   // Purchase details
   purchaseLink         String?
-  purchaseAmount       Float?
+  purchaseAmount       Decimal?          @db.Money
   purchaseCurrency     Currency?
   // Item details
   rating               Float?
-  itemCondition        ItemCondition?
-  itemStatus           ItemStatus?
+  itemCondition        Int?
+  itemStatus           ItemStatus?       @relation(fields: [itemStatusId], references: [id])
+  itemStatusId         Int?
   numberOfWears        Int?
   wearsBeforeDirty     Int?
   wearsLeftBeforeDirty Int?
@@ -435,12 +597,18 @@ model Bottom {
   pattern              String?
   print                String?
   // Specific to Bottom
-  type                 BottomType?
-  fit                  BottomFit?
-  inseamType           BottomInseamType?
-  inseamInches         Float?
-  waistInches          Float?
-  rise                 BottomRise?
+  type                 BottomType?       @relation(fields: [typeId], references: [id])
+  typeId               Int?
+  fit                  BottomFit?        @relation(fields: [fitId], references: [id])
+  fitId                Int?
+  inseamType           BottomInseamType? @relation(fields: [inseamTypeId], references: [id])
+  inseamTypeId         Int?
+  inseamSizeConvention SizeConvention?
+  inseam               String?
+  waistSizeConvention  SizeConvention?
+  waist                Float?
+  rise                 BottomRiseType?   @relation(fields: [riseId], references: [id])
+  riseId               Int?
   // Relationships
   outfitConnection     OutfitBottom[]
 }
@@ -456,31 +624,33 @@ model OutfitBottom {
 }
 
 model Foot {
-  id                   Int            @id @default(autoincrement())
-  code                 String?        @unique
+  id                   Int             @id @default(autoincrement())
+  code                 String?         @unique
   uriImage             String?
   name                 String
   description          String?
   brand                String?
   isFavorite           Boolean?
-  fabricType           FabricType?
-  fiberType            FiberType?
+  fabricType           FabricType?     @relation(fields: [fabricTypeId], references: [id])
+  fabricTypeId         Int?
+  fiberType            FiberType?      @relation(fields: [fiberTypeId], references: [id])
+  fiberTypeId          Int?
   // Sizes
-  sizeUSLetter         SizeUSLetter?
-  sizeUSNumber         Float?
-  sizeInches           Float?
+  sizeConvention       SizeConvention?
+  size                 String?
   // Timestamps
-  createdAt            DateTime?      @default(now())
-  updatedAt            DateTime?      @default(now())
+  createdAt            DateTime?       @default(now())
+  updatedAt            DateTime?       @updatedAt
   purchasedAt          DateTime?
   // Purchase details
   purchaseLink         String?
-  purchaseAmount       Float?
+  purchaseAmount       Decimal?        @db.Money
   purchaseCurrency     Currency?
   // Item details
   rating               Float?
-  itemCondition        ItemCondition?
-  itemStatus           ItemStatus?
+  itemCondition        Int?
+  itemStatus           ItemStatus?     @relation(fields: [itemStatusId], references: [id])
+  itemStatusId         Int?
   numberOfWears        Int?
   wearsBeforeDirty     Int?
   wearsLeftBeforeDirty Int?
@@ -491,7 +661,8 @@ model Foot {
   pattern              String?
   print                String?
   // Specific to Feet
-  type                 FootType?
+  type                 FootType?       @relation(fields: [typeId], references: [id])
+  typeId               Int?
   // Relationships
   outfitConnection     OutfitFoot[]
 }
@@ -508,31 +679,33 @@ model OutfitFoot {
 }
 
 model Top {
-  id                   Int            @id @default(autoincrement())
-  code                 String?        @unique
+  id                   Int             @id @default(autoincrement())
+  code                 String?         @unique
   uriImage             String?
   name                 String
   description          String?
   brand                String?
   isFavorite           Boolean?
-  fabricType           FabricType?
-  fiberType            FiberType?
+  fabricType           FabricType?     @relation(fields: [fabricTypeId], references: [id])
+  fabricTypeId         Int?
+  fiberType            FiberType?      @relation(fields: [fiberTypeId], references: [id])
+  fiberTypeId          Int?
   // Sizes
-  sizeUSLetter         SizeUSLetter?
-  sizeUSNumber         Float?
-  sizeInches           Float?
+  sizeConvention       SizeConvention?
+  size                 String?
   // Timestamps
-  createdAt            DateTime?      @default(now())
-  updatedAt            DateTime?      @default(now())
+  createdAt            DateTime?       @default(now())
+  updatedAt            DateTime?       @updatedAt
   purchasedAt          DateTime?
   // Purchase details
   purchaseLink         String?
-  purchaseAmount       Float?
+  purchaseAmount       Decimal?        @db.Money
   purchaseCurrency     Currency?
   // Item details
   rating               Float?
-  itemCondition        ItemCondition?
-  itemStatus           ItemStatus?
+  itemCondition        Int?
+  itemStatus           ItemStatus?     @relation(fields: [itemStatusId], references: [id])
+  itemStatusId         Int?
   numberOfWears        Int?
   wearsBeforeDirty     Int?
   wearsLeftBeforeDirty Int?
@@ -543,13 +716,20 @@ model Top {
   pattern              String?
   print                String?
   // Specific to Top
-  type                 TopType?
-  sizeNeckInches       Float?
-  sizeChestInches      Float?
-  sizeWaistInches      Float?
-  sizeSleeveInches     Float?
-  neckline             Neckline?
-  sleeve               Sleeve?
+  type                 TopType?        @relation(fields: [typeId], references: [id])
+  typeId               Int?
+  sizeNeckConvention   SizeConvention?
+  sizeNeck             String?
+  sizeChestConvention  SizeConvention?
+  sizeChest            String?
+  sizeWaistConvention  SizeConvention?
+  sizeWaist            String?
+  sizeSleeveConvention SizeConvention?
+  sizeSleeve           String?
+  necklineType         NecklineType?   @relation(fields: [necklineTypeId], references: [id])
+  necklineTypeId       Int?
+  sleeveType           SleeveType?     @relation(fields: [sleeveTypeId], references: [id])
+  sleeveTypeId         Int?
   hasCuff              Boolean?
   // Relationships
   outfitConnection     OutfitTop[]
@@ -573,24 +753,26 @@ model FullBody {
   description          String?
   brand                String?
   isFavorite           Boolean?
-  fabricType           FabricType?
-  fiberType            FiberType?
+  fabricType           FabricType?      @relation(fields: [fabricTypeId], references: [id])
+  fabricTypeId         Int?
+  fiberType            FiberType?       @relation(fields: [fiberTypeId], references: [id])
+  fiberTypeId          Int?
   // Sizes
-  sizeUSLetter         SizeUSLetter?
-  sizeUSNumber         Float?
-  sizeInches           Float?
+  sizeConvention       SizeConvention?
+  size                 String?
   // Timestamps
   createdAt            DateTime?        @default(now())
-  updatedAt            DateTime?        @default(now())
+  updatedAt            DateTime?        @updatedAt
   purchasedAt          DateTime?
   // Purchase details
   purchaseLink         String?
-  purchaseAmount       Float?
+  purchaseAmount       Decimal?         @db.Money
   purchaseCurrency     Currency?
   // Item details
   rating               Float?
-  itemCondition        ItemCondition?
-  itemStatus           ItemStatus?
+  itemCondition        Int?
+  itemStatus           ItemStatus?      @relation(fields: [itemStatusId], references: [id])
+  itemStatusId         Int?
   numberOfWears        Int?
   wearsBeforeDirty     Int?
   wearsLeftBeforeDirty Int?
@@ -620,10 +802,11 @@ model Outfit {
   name                String?
   description         String?
   createdAt           DateTime?         @default(now())
-  updatedAt           DateTime?         @default(now())
+  updatedAt           DateTime?         @updatedAt
   rating              Float?
   numberOfWears       Int?
-  type                OutfitType?
+  type                OutfitType?       @relation(fields: [typeId], references: [id])
+  typeId              Int?
   topConnection       OutfitTop[]
   bottomConnection    OutfitBottom[]
   accessoryConnection OutfitAccessory[]

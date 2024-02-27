@@ -2,6 +2,153 @@
 //// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 //// ------------------------------------------------------
 
+Table FabricType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+  Bottom Bottom [not null]
+  Foot Foot [not null]
+  Top Top [not null]
+  FullBody FullBody [not null]
+}
+
+Table FiberType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+  Bottom Bottom [not null]
+  Foot Foot [not null]
+  Top Top [not null]
+  FullBody FullBody [not null]
+}
+
+Table ItemStatus {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+  Bottom Bottom [not null]
+  Foot Foot [not null]
+  Top Top [not null]
+  FullBody FullBody [not null]
+}
+
+Table AccessoryType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+}
+
+Table MetalType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+}
+
+Table MaterialType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+}
+
+Table BottomType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Bottom Bottom [not null]
+}
+
+Table BottomFit {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Bottom Bottom [not null]
+}
+
+Table BottomInseamType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Bottom Bottom [not null]
+}
+
+Table BottomRiseType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Bottom Bottom [not null]
+}
+
+Table FootType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Foot Foot [not null]
+}
+
+Table TopType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Top Top [not null]
+}
+
+Table NecklineType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Top Top [not null]
+}
+
+Table SleeveType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Top Top [not null]
+}
+
+Table OutfitType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Outfit Outfit [not null]
+}
+
 Table Accessory {
   id Int [pk, increment]
   code String [unique]
@@ -11,19 +158,21 @@ Table Accessory {
   brand String
   isFavorite Boolean
   fabricType FabricType
+  fabricTypeId Int
   fiberType FiberType
-  sizeUSLetter SizeUSLetter
-  sizeUSNumber Float
-  sizeInches Float
+  fiberTypeId Int
+  sizeConvention SizeConvention
+  size String
   createdAt DateTime [default: `now()`]
-  updatedAt DateTime [default: `now()`]
+  updatedAt DateTime
   purchasedAt DateTime
   purchaseLink String
-  purchaseAmount Float
+  purchaseAmount Decimal
   purchaseCurrency Currency
   rating Float
-  itemCondition ItemCondition
+  itemCondition Int
   itemStatus ItemStatus
+  itemStatusId Int
   numberOfWears Int
   wearsBeforeDirty Int
   wearsLeftBeforeDirty Int
@@ -33,8 +182,11 @@ Table Accessory {
   pattern String
   print String
   type AccessoryType
+  typeId Int
   plating MetalType
-  material MaterialType
+  platingId Int
+  materialType MaterialType
+  materialTypeId Int
   outfitConnection OutfitAccessory [not null]
 }
 
@@ -59,19 +211,21 @@ Table Bottom {
   brand String
   isFavorite Boolean
   fabricType FabricType
+  fabricTypeId Int
   fiberType FiberType
-  sizeUSLetter SizeUSLetter
-  sizeUSNumber Float
-  sizeInches Float
+  fiberTypeId Int
+  sizeConvention SizeConvention
+  size String
   createdAt DateTime [default: `now()`]
-  updatedAt DateTime [default: `now()`]
+  updatedAt DateTime
   purchasedAt DateTime
   purchaseLink String
-  purchaseAmount Float
+  purchaseAmount Decimal
   purchaseCurrency Currency
   rating Float
-  itemCondition ItemCondition
+  itemCondition Int
   itemStatus ItemStatus
+  itemStatusId Int
   numberOfWears Int
   wearsBeforeDirty Int
   wearsLeftBeforeDirty Int
@@ -81,11 +235,17 @@ Table Bottom {
   pattern String
   print String
   type BottomType
+  typeId Int
   fit BottomFit
+  fitId Int
   inseamType BottomInseamType
-  inseamInches Float
-  waistInches Float
-  rise BottomRise
+  inseamTypeId Int
+  inseamSizeConvention SizeConvention
+  inseam String
+  waistSizeConvention SizeConvention
+  waist Float
+  rise BottomRiseType
+  riseId Int
   outfitConnection OutfitBottom [not null]
 }
 
@@ -110,19 +270,21 @@ Table Foot {
   brand String
   isFavorite Boolean
   fabricType FabricType
+  fabricTypeId Int
   fiberType FiberType
-  sizeUSLetter SizeUSLetter
-  sizeUSNumber Float
-  sizeInches Float
+  fiberTypeId Int
+  sizeConvention SizeConvention
+  size String
   createdAt DateTime [default: `now()`]
-  updatedAt DateTime [default: `now()`]
+  updatedAt DateTime
   purchasedAt DateTime
   purchaseLink String
-  purchaseAmount Float
+  purchaseAmount Decimal
   purchaseCurrency Currency
   rating Float
-  itemCondition ItemCondition
+  itemCondition Int
   itemStatus ItemStatus
+  itemStatusId Int
   numberOfWears Int
   wearsBeforeDirty Int
   wearsLeftBeforeDirty Int
@@ -132,6 +294,7 @@ Table Foot {
   pattern String
   print String
   type FootType
+  typeId Int
   outfitConnection OutfitFoot [not null]
 }
 
@@ -157,19 +320,21 @@ Table Top {
   brand String
   isFavorite Boolean
   fabricType FabricType
+  fabricTypeId Int
   fiberType FiberType
-  sizeUSLetter SizeUSLetter
-  sizeUSNumber Float
-  sizeInches Float
+  fiberTypeId Int
+  sizeConvention SizeConvention
+  size String
   createdAt DateTime [default: `now()`]
-  updatedAt DateTime [default: `now()`]
+  updatedAt DateTime
   purchasedAt DateTime
   purchaseLink String
-  purchaseAmount Float
+  purchaseAmount Decimal
   purchaseCurrency Currency
   rating Float
-  itemCondition ItemCondition
+  itemCondition Int
   itemStatus ItemStatus
+  itemStatusId Int
   numberOfWears Int
   wearsBeforeDirty Int
   wearsLeftBeforeDirty Int
@@ -179,12 +344,19 @@ Table Top {
   pattern String
   print String
   type TopType
-  sizeNeckInches Float
-  sizeChestInches Float
-  sizeWaistInches Float
-  sizeSleeveInches Float
-  neckline Neckline
-  sleeve Sleeve
+  typeId Int
+  sizeNeckConvention SizeConvention
+  sizeNeck String
+  sizeChestConvention SizeConvention
+  sizeChest String
+  sizeWaistConvention SizeConvention
+  sizeWaist String
+  sizeSleeveConvention SizeConvention
+  sizeSleeve String
+  necklineType NecklineType
+  necklineTypeId Int
+  sleeveType SleeveType
+  sleeveTypeId Int
   hasCuff Boolean
   outfitConnection OutfitTop [not null]
 }
@@ -210,19 +382,21 @@ Table FullBody {
   brand String
   isFavorite Boolean
   fabricType FabricType
+  fabricTypeId Int
   fiberType FiberType
-  sizeUSLetter SizeUSLetter
-  sizeUSNumber Float
-  sizeInches Float
+  fiberTypeId Int
+  sizeConvention SizeConvention
+  size String
   createdAt DateTime [default: `now()`]
-  updatedAt DateTime [default: `now()`]
+  updatedAt DateTime
   purchasedAt DateTime
   purchaseLink String
-  purchaseAmount Float
+  purchaseAmount Decimal
   purchaseCurrency Currency
   rating Float
-  itemCondition ItemCondition
+  itemCondition Int
   itemStatus ItemStatus
+  itemStatusId Int
   numberOfWears Int
   wearsBeforeDirty Int
   wearsLeftBeforeDirty Int
@@ -252,309 +426,17 @@ Table Outfit {
   name String
   description String
   createdAt DateTime [default: `now()`]
-  updatedAt DateTime [default: `now()`]
+  updatedAt DateTime
   rating Float
   numberOfWears Int
   type OutfitType
+  typeId Int
   topConnection OutfitTop [not null]
   bottomConnection OutfitBottom [not null]
   accessoryConnection OutfitAccessory [not null]
   footConnection OutfitFoot [not null]
   fullBodyConnection OutfitFullBody [not null]
   style String
-}
-
-Enum ItemStatus {
-  CLEAN
-  WORN
-  DIRTY
-}
-
-Enum ItemCondition {
-  NEW
-  LIKE_NEW
-  GOOD
-  FAIR
-  POOR
-  TRASH
-}
-
-Enum FiberType {
-  COTTON
-  POLYESTER
-  NYLON
-  WOOL
-  SILK
-  RAYON
-  LINEN
-  SPANDEX
-  LYCRA
-  CASHMERE
-  BAMBOO
-  ACETATE
-  ACRYLIC
-  ALPACA
-  ANGORA
-  HEMP
-  MOHAIR
-}
-
-Enum FabricType {
-  LEATHER
-  DENIM
-  VELVET
-  LACE
-  FUR
-  FLEECE
-  CHIFFON
-  BROCADE
-  TWEED
-  TULLE
-  JERSEY
-  MUSLIN
-  ORGANZA
-  SATIN
-  TAFFETA
-  TERRY
-  TWILL
-  VOILE
-  WORSTED
-  CHENILLE
-  CREPE
-  DAMASK
-  FAILLE
-  FLANNEL
-  GINGHAM
-  JACQUARD
-  SEERSUCKER
-}
-
-Enum MetalType {
-  GOLD
-  SILVER
-  PLATINUM
-  TITANIUM
-  STAINLESS_STEEL
-  BRASS
-  COPPER
-  BRONZE
-  PEWTER
-  NICKEL
-  TUNGSTEN
-}
-
-Enum MaterialType {
-  PLASTIC
-  GOLD
-  SILVER
-  PLATINUM
-  TITANIUM
-  STAINLESS_STEEL
-  BRASS
-  COPPER
-  BRONZE
-  PEWTER
-  NICKEL
-  TUNGSTEN
-}
-
-Enum SizeUSLetter {
-  TwoXS
-  XS
-  S
-  M
-  L
-  XL
-  TwoXL
-  ThreeXL
-  FourXL
-  FiveXL
-  SixXL
-}
-
-Enum AccessoryType {
-  RING
-  NECKLACE
-  EARRINGS
-  PURSE
-  WALLET
-  WATCH
-  BRACELET
-  SCARF
-  GLASSES
-  HAT
-  BELT
-  ANKLET
-  BODY_CHAIN
-}
-
-Enum BottomType {
-  LOUNGE
-  DRESS
-  UNDER
-  SLEEP
-  WORKOUT
-  JEAN
-  KAKHI
-  BIKE_SHORT
-  COMPRESSION_SHORT
-  COMPRESSION_LEGGING
-  MINI_SKIRT
-  MAXI_SKIRT
-  MIDI_SKIRT
-  KNEE_LENGTH_SKIRT
-  PENCIL_SKIRT
-  PLEATED_SKIRT
-  A_LINE_SKIRT
-  TULIP_SKIRT
-  TIERED_SKIRT
-  WRAP_SKIRT
-  CIRCLE_SKIRT
-  SKATER_SKIRT
-  TENNIS_SKIRT
-  TUBE_SKIRT
-  SKORT
-  SLACK
-}
-
-Enum BottomInseamType {
-  SHORT
-  PANT
-  CAPRI
-  CROP
-  ANKLE
-  REGULAR
-}
-
-Enum BottomFit {
-  SKINNY
-  SLIM
-  STRAIGHT
-  BOOTCUT
-  RELAXED
-  WIDE_LEG
-  FLARE
-  BAGGY
-  JOGGER
-  LEGGING
-  CARGO
-  CHINO
-  SWEATPANT
-  BERMUDA
-  CROPPED
-}
-
-Enum BottomRise {
-  MID
-  HIGH
-  LOW
-}
-
-Enum FootType {
-  DRESS_SHOE
-  TENNIS_SHOE
-  CASUAL_SHOE
-  HEEL_SHOE
-  FLIP_FLOP_SHOE
-  SANDAL_SHOE
-  DRESS_SOCK
-  CASUAL_SOCK
-  WEDGE_SHOE
-  BOOT_SHOE
-}
-
-Enum HeadType {
-  BASEBALL_HAT
-  BEANIE
-  BANDANA
-  GLASSES
-}
-
-Enum OutfitType {
-  FORMAL
-  CASUAL
-  BUSINESS
-  BUSINESS_CASUAL
-  SPORT
-  SLEEP
-  SWIM
-  LOUNGE
-  COCKTAIL
-  PARTY
-}
-
-Enum TopType {
-  TEE
-  LOUNGE
-  DRESS
-  FLANNEL
-  UNDER
-  POLO
-  SLEEP
-  CASUAL
-  WORKOUT
-  BRA
-  BUTTON_UP
-  BLOUSE
-  TANK
-  TUBE
-  TUNIC
-  SWEATER
-  CARDIGAN
-  HOODIE
-  JACKET
-  BLAZER
-  VEST
-  CAPE
-  PONCHO
-  KIMONO
-  WRAP
-}
-
-Enum Neckline {
-  CREW
-  SCOOP
-  SQUARE
-  BOAT
-  HALTER
-  OFF_SHOULDER
-  ONE_SHOULDER
-  STRAPLESS
-  SWEETHEART
-  SURPLICE
-  V_NECK
-  COWL
-  KEYHOLE
-  TURTLENECK
-  MOCK
-  HOOD
-  COLLAR
-  PETER_PAN
-  QUEEN_ANNE
-  PLUNGE
-  LOW_CUT
-  SAILOR
-}
-
-Enum Sleeve {
-  SLEEVELESS
-  CAP
-  SHORT
-  THREE_QUARTER
-  LONG
-  BELL
-  BISHOP
-  DOLMAN
-  FLUTTER
-  KIMONO
-  PUFF
-  RAGLAN
-  TULIP
-  SPAGHETTI
-  STRAP
-  COLD_SHOULDER
-  PEASANT
-  LEG_OF_MUTTON
 }
 
 Enum BodySide {
@@ -574,22 +456,83 @@ Enum Currency {
   JPY
 }
 
+Enum SizeConvention {
+  Letter_US
+  Numeric_US
+  Inch
+  Centimeter
+}
+
+Ref: Accessory.fabricTypeId > FabricType.id
+
+Ref: Accessory.fiberTypeId > FiberType.id
+
+Ref: Accessory.itemStatusId > ItemStatus.id
+
+Ref: Accessory.typeId > AccessoryType.id
+
+Ref: Accessory.platingId > MetalType.id
+
+Ref: Accessory.materialTypeId > MaterialType.id
+
 Ref: OutfitAccessory.outfitId > Outfit.id
 
 Ref: OutfitAccessory.accessoryId > Accessory.id
+
+Ref: Bottom.fabricTypeId > FabricType.id
+
+Ref: Bottom.fiberTypeId > FiberType.id
+
+Ref: Bottom.itemStatusId > ItemStatus.id
+
+Ref: Bottom.typeId > BottomType.id
+
+Ref: Bottom.fitId > BottomFit.id
+
+Ref: Bottom.inseamTypeId > BottomInseamType.id
+
+Ref: Bottom.riseId > BottomRiseType.id
 
 Ref: OutfitBottom.outfitId > Outfit.id
 
 Ref: OutfitBottom.bottomId > Bottom.id
 
+Ref: Foot.fabricTypeId > FabricType.id
+
+Ref: Foot.fiberTypeId > FiberType.id
+
+Ref: Foot.itemStatusId > ItemStatus.id
+
+Ref: Foot.typeId > FootType.id
+
 Ref: OutfitFoot.outfitId > Outfit.id
 
 Ref: OutfitFoot.footId > Foot.id
+
+Ref: Top.fabricTypeId > FabricType.id
+
+Ref: Top.fiberTypeId > FiberType.id
+
+Ref: Top.itemStatusId > ItemStatus.id
+
+Ref: Top.typeId > TopType.id
+
+Ref: Top.necklineTypeId > NecklineType.id
+
+Ref: Top.sleeveTypeId > SleeveType.id
 
 Ref: OutfitTop.outfitId > Outfit.id
 
 Ref: OutfitTop.topId > Top.id
 
+Ref: FullBody.fabricTypeId > FabricType.id
+
+Ref: FullBody.fiberTypeId > FiberType.id
+
+Ref: FullBody.itemStatusId > ItemStatus.id
+
 Ref: OutfitFullBody.outfitId > Outfit.id
 
 Ref: OutfitFullBody.fullBodyId > FullBody.id
+
+Ref: Outfit.typeId > OutfitType.id

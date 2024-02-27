@@ -27,11 +27,7 @@ export async function action({ request }: ActionFunctionArgs) {
   return redirect(OUTFIT(outfit.id.toString()).path);
 }
 
-export default function Index() {
-  return <Presentational />;
-}
-
-function Presentational(props: {}) {
+export default function OutfitNew() {
   const form = useForm<FormValues>({
     name: "create-outfit",
   });
