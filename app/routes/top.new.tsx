@@ -29,10 +29,6 @@ import {
   unstable_createMemoryUploadHandler,
   unstable_parseMultipartFormData,
 } from "@remix-run/node";
-import { writeAsyncIterableToWritable } from "@remix-run/node";
-import { Bucket } from "sst/node/bucket";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 import { getClient } from "~/db.server";
 
@@ -84,12 +80,12 @@ type TopSchema = z.infer<typeof TopSchema>;
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const client = await getClient(request);
-  const command = new PutObjectCommand({
-    ACL: "public-read",
-    Key: crypto.randomUUID(),
-    Bucket: (Bucket as unknown as any).public.bucketName,
-  });
-  const url = await getSignedUrl(new S3Client({}), command);
+  // const command = new PutObjectCommand({
+  //   ACL: "public-read",
+  //   Key: crypto.randomUUID(),
+  //   Bucket: (Bucket as unknown as any).public.bucketName,
+  // });
+  // const url = await getSignedUrl(new S3Client({}), command);
 
   const tops = await client.top.findMany({
     select: {
@@ -133,7 +129,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       ),
     ],
     outfits,
-    url,
+    // url,
   });
 }
 

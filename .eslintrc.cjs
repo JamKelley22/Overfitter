@@ -19,9 +19,10 @@ module.exports = {
     commonjs: true,
     es6: true,
   },
+  ignorePatterns: ["!**/.server", "!**/.client"],
 
   // Base config
-  extends: ["eslint:recommended", "plugin:import/recommended"],
+  extends: ["eslint:recommended"],
 
   overrides: [
     // React
@@ -74,7 +75,7 @@ module.exports = {
 
     // Node
     {
-      files: [".eslintrc.js"],
+      files: [".eslintrc.cjs"],
       env: {
         node: true,
       },
