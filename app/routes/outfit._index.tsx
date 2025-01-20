@@ -35,17 +35,17 @@ type Loader = SerializeFrom<typeof loader>;
 
 export default function OutfitIndex() {
   const { outfits } = useLoaderData<typeof loader>();
-  return <Presentational outfits={outfits} />;
+  return <OutfitIndexPresentational outfits={outfits} />;
 }
 
-function Presentational(props: { outfits?: Loader["outfits"] }) {
+function OutfitIndexPresentational(props: { outfits?: Loader["outfits"] }) {
   const { outfits } = props;
   return (
     <div>
       <h1>All Outfits</h1>
       <SimpleGrid cols={3}>
-        {outfits?.map((outfit, i) => (
-          <Card shadow="sm" padding="lg" radius="md" withBorder>
+        {outfits?.map((outfit) => (
+          <Card shadow="sm" padding="lg" radius="md" withBorder key={outfit.id}>
             <Card.Section>
               <Image src={outfit.uriImage} height={160} alt="Outfit Picture" />
             </Card.Section>

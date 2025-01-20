@@ -1,0 +1,538 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table FabricType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+  Bottom Bottom [not null]
+  Foot Foot [not null]
+  Top Top [not null]
+  FullBody FullBody [not null]
+}
+
+Table FiberType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+  Bottom Bottom [not null]
+  Foot Foot [not null]
+  Top Top [not null]
+  FullBody FullBody [not null]
+}
+
+Table ItemStatus {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+  Bottom Bottom [not null]
+  Foot Foot [not null]
+  Top Top [not null]
+  FullBody FullBody [not null]
+}
+
+Table AccessoryType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+}
+
+Table MetalType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+}
+
+Table MaterialType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Accessory Accessory [not null]
+}
+
+Table BottomType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Bottom Bottom [not null]
+}
+
+Table BottomFit {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Bottom Bottom [not null]
+}
+
+Table BottomInseamType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Bottom Bottom [not null]
+}
+
+Table BottomRiseType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Bottom Bottom [not null]
+}
+
+Table FootType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Foot Foot [not null]
+}
+
+Table TopType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Top Top [not null]
+}
+
+Table NecklineType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Top Top [not null]
+}
+
+Table SleeveType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Top Top [not null]
+}
+
+Table OutfitType {
+  id Int [increment, unique, not null]
+  name String [unique, not null]
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  Outfit Outfit [not null]
+}
+
+Table Accessory {
+  id Int [pk, increment]
+  code String [unique]
+  uriImage String
+  name String [not null]
+  description String
+  brand String
+  isFavorite Boolean
+  fabricType FabricType
+  fabricTypeId Int
+  fiberType FiberType
+  fiberTypeId Int
+  sizeConvention SizeConvention
+  size String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  purchasedAt DateTime
+  purchaseLink String
+  purchaseAmount Decimal
+  purchaseCurrency Currency
+  rating Float
+  itemCondition Int
+  itemStatus ItemStatus
+  itemStatusId Int
+  numberOfWears Int
+  wearsBeforeDirty Int
+  wearsLeftBeforeDirty Int
+  primaryColor String
+  secondaryColor String
+  accentColor String
+  pattern String
+  print String
+  type AccessoryType
+  typeId Int
+  plating MetalType
+  platingId Int
+  materialType MaterialType
+  materialTypeId Int
+  outfitConnection OutfitAccessory [not null]
+}
+
+Table OutfitAccessory {
+  outfitId Int [not null]
+  accessoryId Int [not null]
+  position BodySide
+  outfit Outfit [not null]
+  accessory Accessory [not null]
+
+  indexes {
+    (outfitId, accessoryId) [pk]
+  }
+}
+
+Table Bottom {
+  id Int [pk, increment]
+  code String [unique]
+  uriImage String
+  name String [not null]
+  description String
+  brand String
+  isFavorite Boolean
+  fabricType FabricType
+  fabricTypeId Int
+  fiberType FiberType
+  fiberTypeId Int
+  sizeConvention SizeConvention
+  size String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  purchasedAt DateTime
+  purchaseLink String
+  purchaseAmount Decimal
+  purchaseCurrency Currency
+  rating Float
+  itemCondition Int
+  itemStatus ItemStatus
+  itemStatusId Int
+  numberOfWears Int
+  wearsBeforeDirty Int
+  wearsLeftBeforeDirty Int
+  primaryColor String
+  secondaryColor String
+  accentColor String
+  pattern String
+  print String
+  type BottomType
+  typeId Int
+  fit BottomFit
+  fitId Int
+  inseamType BottomInseamType
+  inseamTypeId Int
+  inseamSizeConvention SizeConvention
+  inseam String
+  waistSizeConvention SizeConvention
+  waist Float
+  rise BottomRiseType
+  riseId Int
+  outfitConnection OutfitBottom [not null]
+}
+
+Table OutfitBottom {
+  outfitId Int [not null]
+  bottomId Int [not null]
+  layerOrder Int
+  outfit Outfit [not null]
+  bottom Bottom [not null]
+
+  indexes {
+    (outfitId, bottomId) [pk]
+  }
+}
+
+Table Foot {
+  id Int [pk, increment]
+  code String [unique]
+  uriImage String
+  name String [not null]
+  description String
+  brand String
+  isFavorite Boolean
+  fabricType FabricType
+  fabricTypeId Int
+  fiberType FiberType
+  fiberTypeId Int
+  sizeConvention SizeConvention
+  size String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  purchasedAt DateTime
+  purchaseLink String
+  purchaseAmount Decimal
+  purchaseCurrency Currency
+  rating Float
+  itemCondition Int
+  itemStatus ItemStatus
+  itemStatusId Int
+  numberOfWears Int
+  wearsBeforeDirty Int
+  wearsLeftBeforeDirty Int
+  primaryColor String
+  secondaryColor String
+  accentColor String
+  pattern String
+  print String
+  type FootType
+  typeId Int
+  outfitConnection OutfitFoot [not null]
+}
+
+Table OutfitFoot {
+  outfitId Int [not null]
+  footId Int [not null]
+  position BodySide
+  layerOrder Int
+  outfit Outfit [not null]
+  foot Foot [not null]
+
+  indexes {
+    (outfitId, footId) [pk]
+  }
+}
+
+Table Top {
+  id Int [pk, increment]
+  code String [unique]
+  uriImage String
+  name String [not null]
+  description String
+  brand String
+  isFavorite Boolean
+  fabricType FabricType
+  fabricTypeId Int
+  fiberType FiberType
+  fiberTypeId Int
+  sizeConvention SizeConvention
+  size String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  purchasedAt DateTime
+  purchaseLink String
+  purchaseAmount Decimal
+  purchaseCurrency Currency
+  rating Float
+  itemCondition Int
+  itemStatus ItemStatus
+  itemStatusId Int
+  numberOfWears Int
+  wearsBeforeDirty Int
+  wearsLeftBeforeDirty Int
+  primaryColor String
+  secondaryColor String
+  accentColor String
+  pattern String
+  print String
+  type TopType
+  typeId Int
+  sizeNeckConvention SizeConvention
+  sizeNeck String
+  sizeChestConvention SizeConvention
+  sizeChest String
+  sizeWaistConvention SizeConvention
+  sizeWaist String
+  sizeSleeveConvention SizeConvention
+  sizeSleeve String
+  necklineType NecklineType
+  necklineTypeId Int
+  sleeveType SleeveType
+  sleeveTypeId Int
+  hasCuff Boolean
+  outfitConnection OutfitTop [not null]
+}
+
+Table OutfitTop {
+  outfitId Int [not null]
+  topId Int [not null]
+  layerOrder Int
+  outfit Outfit [not null]
+  top Top [not null]
+
+  indexes {
+    (outfitId, topId) [pk]
+  }
+}
+
+Table FullBody {
+  id Int [pk, increment]
+  code String [unique]
+  uriImage String
+  name String [not null]
+  description String
+  brand String
+  isFavorite Boolean
+  fabricType FabricType
+  fabricTypeId Int
+  fiberType FiberType
+  fiberTypeId Int
+  sizeConvention SizeConvention
+  size String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  purchasedAt DateTime
+  purchaseLink String
+  purchaseAmount Decimal
+  purchaseCurrency Currency
+  rating Float
+  itemCondition Int
+  itemStatus ItemStatus
+  itemStatusId Int
+  numberOfWears Int
+  wearsBeforeDirty Int
+  wearsLeftBeforeDirty Int
+  primaryColor String
+  secondaryColor String
+  accentColor String
+  pattern String
+  print String
+  outfitConnection OutfitFullBody [not null]
+}
+
+Table OutfitFullBody {
+  outfitId Int [not null]
+  fullBodyId Int [not null]
+  layerOrder Int
+  outfit Outfit [not null]
+  fullBody FullBody [not null]
+
+  indexes {
+    (outfitId, fullBodyId) [pk]
+  }
+}
+
+Table Outfit {
+  id Int [pk, increment]
+  uriImage String
+  name String
+  description String
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  rating Float
+  numberOfWears Int
+  type OutfitType
+  typeId Int
+  topConnection OutfitTop [not null]
+  bottomConnection OutfitBottom [not null]
+  accessoryConnection OutfitAccessory [not null]
+  footConnection OutfitFoot [not null]
+  fullBodyConnection OutfitFullBody [not null]
+  style String
+}
+
+Enum BodySide {
+  LEFT
+  RIGHT
+}
+
+Enum FootPosition {
+  LEFT
+  RIGHT
+}
+
+Enum Currency {
+  USD
+  EUR
+  GBP
+  JPY
+}
+
+Enum SizeConvention {
+  Letter_US
+  Numeric_US
+  Inch
+  Centimeter
+}
+
+Ref: Accessory.fabricTypeId > FabricType.id
+
+Ref: Accessory.fiberTypeId > FiberType.id
+
+Ref: Accessory.itemStatusId > ItemStatus.id
+
+Ref: Accessory.typeId > AccessoryType.id
+
+Ref: Accessory.platingId > MetalType.id
+
+Ref: Accessory.materialTypeId > MaterialType.id
+
+Ref: OutfitAccessory.outfitId > Outfit.id
+
+Ref: OutfitAccessory.accessoryId > Accessory.id
+
+Ref: Bottom.fabricTypeId > FabricType.id
+
+Ref: Bottom.fiberTypeId > FiberType.id
+
+Ref: Bottom.itemStatusId > ItemStatus.id
+
+Ref: Bottom.typeId > BottomType.id
+
+Ref: Bottom.fitId > BottomFit.id
+
+Ref: Bottom.inseamTypeId > BottomInseamType.id
+
+Ref: Bottom.riseId > BottomRiseType.id
+
+Ref: OutfitBottom.outfitId > Outfit.id
+
+Ref: OutfitBottom.bottomId > Bottom.id
+
+Ref: Foot.fabricTypeId > FabricType.id
+
+Ref: Foot.fiberTypeId > FiberType.id
+
+Ref: Foot.itemStatusId > ItemStatus.id
+
+Ref: Foot.typeId > FootType.id
+
+Ref: OutfitFoot.outfitId > Outfit.id
+
+Ref: OutfitFoot.footId > Foot.id
+
+Ref: Top.fabricTypeId > FabricType.id
+
+Ref: Top.fiberTypeId > FiberType.id
+
+Ref: Top.itemStatusId > ItemStatus.id
+
+Ref: Top.typeId > TopType.id
+
+Ref: Top.necklineTypeId > NecklineType.id
+
+Ref: Top.sleeveTypeId > SleeveType.id
+
+Ref: OutfitTop.outfitId > Outfit.id
+
+Ref: OutfitTop.topId > Top.id
+
+Ref: FullBody.fabricTypeId > FabricType.id
+
+Ref: FullBody.fiberTypeId > FiberType.id
+
+Ref: FullBody.itemStatusId > ItemStatus.id
+
+Ref: OutfitFullBody.outfitId > Outfit.id
+
+Ref: OutfitFullBody.fullBodyId > FullBody.id
+
+Ref: Outfit.typeId > OutfitType.id
