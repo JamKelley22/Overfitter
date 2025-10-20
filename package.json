@@ -11,12 +11,18 @@
     "generate-database-init": "dbml2sql ./db/schema.dbml -o ./db/init.sql"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.6.1",
+    "@tailwindcss/vite": "^4.1.14",
+    "antd": "^5.27.5",
+    "luxon": "^3.7.2",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.14"
   },
   "devDependencies": {
     "@dbml/cli": "^3.15.0-alpha.0",
     "@eslint/js": "^9.36.0",
+    "@types/luxon": "^3.7.1",
     "@types/node": "^24.6.0",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
